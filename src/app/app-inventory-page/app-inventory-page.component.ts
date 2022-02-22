@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IProductData } from '../models/product-data.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { ApiService } from '../api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,6 +9,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AppArchiveDialogComponent } from '../app-archive-dialog/app-archive-dialog.component';
 import { IInventoryPage } from '../models/inventory-page.model';
+import { ViewEncapsulation } from '@angular/core';
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
 
 const PAGE_SIZE_DEFAULT = 50;
 const INDEX_DEFAULT = 0;
@@ -16,15 +21,18 @@ const PRODUCT_COUNT_DEFAULT = 0;
 @Component({
   selector: 'app-inventory-page',
   templateUrl: './app-inventory-page.component.html',
-  styleUrls: ['./app-inventory-page.component.scss']
+  styleUrls: ['./app-inventory-page.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppInventoryPageComponent implements OnInit {
+
 
   // shows loading spinner if true
   isLoading = true;
 
   // determined whch columns that are displayed in the inventory table and in which order.
   displayedColumns: string[] = ['name', 'location', 'requiresApproval', 'status', 'options'];
+
 
   // MatPaginator Inputs
   totalProductCount = PRODUCT_COUNT_DEFAULT;
@@ -34,6 +42,8 @@ export class AppInventoryPageComponent implements OnInit {
 
   // MatPaginator Output
   pageEvent: PageEvent | undefined;
+
+  filterValue: string;
 
   dataSource: MatTableDataSource<IProductData>;
 
@@ -50,6 +60,12 @@ export class AppInventoryPageComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveLocalStorage();
     this.getProductData();
+    this.dataSource.sort = this.sort;
+  }
+
+  @ViewChild(MatSort) sort: MatSort;
+  ngAfterViewInit(){
+    this.dataSource.sort = this.sort;
   }
 
   /**
@@ -133,15 +149,29 @@ export class AppInventoryPageComponent implements OnInit {
     }
   }
 
+  //Filter function
+  searchfilter:string = '-';
+  searchbar(selectedFilter:string){
+    this.searchfilter = selectedFilter;
+    
+    if (!this.searchfilter){
+      this.searchfilter = "-";
+    }
+
+    this.getProductData();
+  }
+
   /**
    * Get product data that gets displayed in the inventory
    */
   getProductData(): void {
     this.isLoading = true;
-    this.apiService.getInventoryProducts(this.pageIndex, this.pageSize)
+    this.apiService.getInventoryProducts(this.pageIndex, this.pageSize, this.searchfilter)
       .subscribe({
         next: (response) => {
+          
           this.readInventoryPage(response.body);
+          
           this.isLoading = false;
         },
         error: (err: any) => {

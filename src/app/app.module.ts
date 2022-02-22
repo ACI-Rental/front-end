@@ -23,6 +23,10 @@ import { HttpLoaderFactory } from './factories/http-loader.factory';
 import { AppInventoryPageComponent } from './app-inventory-page/app-inventory-page.component';
 import { AppReservationsOverviewPageComponent } from './app-reservations-overview-page/app-reservations-overview-page.component';
 import { AppReservationActionPageComponent } from './app-reservation-action-page/app-reservation-action-page.component';
+import { AppShoppingCartDatepickerComponent } from './app-shopping-cart-datepicker/app-shopping-cart-datepicker.component';
+import { MyFilterPipe } from './pipes/MyFilterPipe';
+import { AppUsersPageComponent } from './app-users-page/app-users-page.component';
+import { RoleNameKeyPipe } from './pipes/role-name-key.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { AppReservationActionPageComponent } from './app-reservation-action-page
     AppArchiveDialogComponent,
     AppCatalogusPageComponent,
     AppReservationsOverviewPageComponent,
-    AppReservationActionPageComponent
+    AppReservationActionPageComponent,
+    MyFilterPipe,
+    AppShoppingCartDatepickerComponent,
+    AppUsersPageComponent,
+    RoleNameKeyPipe
   ],
   imports: [
     BrowserModule,
@@ -54,7 +62,7 @@ import { AppReservationActionPageComponent } from './app-reservation-action-page
         deps: [HttpClient]
       }
     }),
-    LayoutModule
+    LayoutModule,
   ],
   providers: [
     {
