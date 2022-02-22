@@ -6,9 +6,19 @@
       "CART": "Shopping cart",
       "CATALOG": "Catalog",
       "RESERVATIONS": "Reservations",
-      "RESERVATION": "Reservation"
+      "RESERVATION": "Reservation",
+      "USERS": "Users",
+      "LOGIN": "Login"
     }
   },
+
+  "LOGIN": {
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "SIGNIN": "Login",
+    "SIGNOUT": "Sign out"
+  },
+
   "CATALOG": {
     "TITLE": "Catalog",
     "APPROVAL_TEXT_YES": "Approval necessary",
@@ -17,7 +27,9 @@
     "EMPTY_DATE": "Add a date to the product",
     "CART_ADD_SUCCESSFUL": "has been added to the shopping cart",
     "NO_PRODUCTS": "Currently there are no products in the catalog",
-    "LOADING": "Loading catalog"
+    "LOADING": "Loading catalog",
+    "ALREADY_IN_CART": "Product is already in cart!"
+
   },
   "INVENTORY": {
     "TITLE": "Inventory",
@@ -38,6 +50,7 @@
     "ADD_PRODUCT": "Add product",
     "SHOPPING_CART": "Shopping cart",
     "RESERVATIONS": "Reservations",
+    "USERS": "Users",
     "LANGUAGE": "Language",
     "LANGUAGES": {
       "NL": "Dutch",
@@ -69,7 +82,8 @@
       "NO_CATEGORIES_RESPONSE": "Something went wrong with receiving the category data. Please try again later or contact an administrator",
       "NO_CATALOG_NUMBER_RESPONSE": "Something went wrong with receiving the catalog data. Please try again later or contact an administrator",
       "NO_DATA": "Something went wrong with saving your data. Please try again later or contact an administrator",
-      "ADD_SUCCESSFUL": "Product has been added!"
+      "ADD_SUCCESSFUL": "Product has been added!",
+      "DIALOG_ADD_BUTTON": "Add PDF"
     },
     "ARCHIVE": {
       "DIALOG_TITLE": "Confirm",
@@ -80,6 +94,11 @@
       "NO_PRODUCT_FOUND": "The product to archive was not found",
       "PRODUCT_ALREADY_ARCHIVED": "This product is already archived",
       "ARCHIVE_SUCCESFULL": "The product has been archived!"
+    },
+    "DELETE":{
+      "DIALOG_DELETE_BUTTON": "Delete PDF",
+      "DIALOG_DELETE_MESSAGE": "You are about to delete the PDF of the following product:"
+
     }
   },
   "CART": {
@@ -97,6 +116,7 @@
   },
   "PRODUCT_DATEPICKER": {
     "LABEL": "Choose a date period",
+    "LABEL_DISABLED": "Chosen period",
     "ERROR": {
       "START_DATE_WEEKEND": "Start date cannot be in the weekend",
       "END_DATE_WEEKEND": "End date cannot be in the weekend",
@@ -130,8 +150,47 @@
     "NAME": "Name",
     "STATUS": "Status",
     "LOCATION": "Location",
+    "CATEGORY": "Category",
     "REQUIRES_APPROVAL": "Requires approval",
     "OPTIONS": "Options"
+  },
+  "USERS": {
+    "TITLE": "Users",
+    "USERS_EMPTY": "No users found",
+    "LOADING": "Loading users",
+    "NO_USERS": "No users found",
+    "NO_USERS_RESPONSE": "Something went wrong, please try again later",
+    "INCORRECT_INDEX": "Something went wrong with the index, please try again later",
+    "ROLETYPE": {
+      "USER": "User",
+      "EMPLOYEE": "Employee",
+      "ADMIN": "Admin"
+    },
+    "ACTION": {
+      "ERROR": "Unable to complete action",
+      "EMPTY_DATE": "Add a valid end date for the block",
+      "BLOCK_SUCCESS": "Blocking successful",
+      "PERMABLOCK_SUCCESS": "Indefinite blocking successful",
+      "UNBLOCK_SUCCESS": "Unblocking successful",
+      "UNSUCCESSFUL": "Action was unsuccessful",
+      "INVALID": {
+        "CALL": "Invalid call",
+        "ID": "Invalid ID given",
+        "BLOCK_ADMIN": "Admins cannot be blocked",
+        "ACTION":"Invalid action on user"
+      }
+    }
+  },
+  "USERINFO": {
+    "NUMBER": "Student number",
+    "NAME": "Name",
+    "BANNED": "Blocked until",
+    "INDEFINITE": "No end date",
+    "ROLE": "Role",
+    "OPTIONS": "Options",
+    "UNBLOCK_BUTTON": "Unblock user",
+    "BLOCK_BUTTON": "Block user",
+    "BLOCK_DATEPICKER": "Choose enddate"
   },
   "GENERIC": {
     "YES": "Yes",
@@ -147,6 +206,7 @@
     "RANGE_PAGE_LABEL_2": "{{startIndex}} - {{endIndex}} of {{length}}"
   },
   "RESERVATION": {
+    "INCORRECT_INDEX": "Something went wrong with the index, please try again later",
     "ACTION": {
       "TITLE": "Reservation actions",
       "OUT": "Out",
@@ -164,13 +224,16 @@
       }
     },
     "DATE": {
-      "TERM": "Date",
-      "PICKUP": "Pickup",
-      "RETURN": "Return"
+      "TERM": "Date: ",
+      "PICKUP": "Picked up",
+      "RETURN": "Returned"
     },
-    "LOCATION": "Location",
+    "LOCATION": "Location:",
     "NO_RESERVATIONS": "No reservations were found to be displayed",
     "NO_RESPONSE_DATA": "Could not retrieve reservation data",
     "NO_PRODUCT_DATA": "Could not retrieve product data"
+  },
+  "FILTER": {
+    "SEARCHBAR": "Search"
   }
 }

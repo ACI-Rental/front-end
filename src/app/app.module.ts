@@ -23,6 +23,15 @@ import { HttpLoaderFactory } from './factories/http-loader.factory';
 import { AppInventoryPageComponent } from './app-inventory-page/app-inventory-page.component';
 import { AppReservationsOverviewPageComponent } from './app-reservations-overview-page/app-reservations-overview-page.component';
 import { AppReservationActionPageComponent } from './app-reservation-action-page/app-reservation-action-page.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { LoginComponent } from './app-login-page/login.component';
+import { AppShoppingCartDatepickerComponent } from './app-shopping-cart-datepicker/app-shopping-cart-datepicker.component';
+import { MyFilterPipe } from './pipes/MyFilterPipe';
+import { AppUsersPageComponent } from './app-users-page/app-users-page.component';
+import { AppAddPdfComponent } from './app-add-pdf/app-add-pdf.component';
+import { AppDeletePdfComponent } from './app-delete-pdf/app-delete-pdf.component';
+import { RoleNameKeyPipe } from './pipes/role-name-key.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +46,15 @@ import { AppReservationActionPageComponent } from './app-reservation-action-page
     AppArchiveDialogComponent,
     AppCatalogusPageComponent,
     AppReservationsOverviewPageComponent,
-    AppReservationActionPageComponent
+    AppReservationActionPageComponent,
+    LoginComponent,
+    MyFilterPipe,
+    AppShoppingCartDatepickerComponent,
+    AppUsersPageComponent,
+    AppAddPdfComponent,
+    AppDeletePdfComponent,
+    AppUsersPageComponent,
+    RoleNameKeyPipe,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +71,7 @@ import { AppReservationActionPageComponent } from './app-reservation-action-page
         deps: [HttpClient]
       }
     }),
-    LayoutModule
+    LayoutModule,
   ],
   providers: [
     {
