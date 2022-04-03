@@ -93,7 +93,7 @@ export class AppCatalogusPageComponent implements OnInit, AfterViewInit {
   */
   public onClickPreviousImage(item: ICatalogFlat): void {
     if (item.imageIndex <= 0) {
-      item.imageIndex = item.images.length - 1;
+      item.imageIndex = item.images?.length - 1;
     }
     else {
       item.imageIndex--;
@@ -105,7 +105,7 @@ export class AppCatalogusPageComponent implements OnInit, AfterViewInit {
     Go to the next image in the index.
   */
   public onClickNextImage(item: ICatalogFlat): void {
-    if (item.imageIndex >= item.images.length - 1) {
+    if (item.imageIndex >= item.images?.length - 1) {
       item.imageIndex = 0;
     }
     else {
@@ -163,29 +163,43 @@ export class AppCatalogusPageComponent implements OnInit, AfterViewInit {
    * Handles the adding of a item to the cart
    * @param item item object that should be handled to be added to the cart
    */
-  addItemToCart(item: ICatalogFlat): void {
-    if (this.checkAmountofProductsInCart(this.cartItems, item) === true) {
-      if (new Date(item.startDate) <= new Date() || new Date(item.endDate as Date) <= new Date()) {
-        this.showErrorNotification('CATALOG.EMPTY_DATE');
-      }
-      else {
-        const modal = {} as ICartProduct;
-        modal.endDate = item.endDate;
-        modal.startDate = item.startDate;
-        modal.id = item.id;
-        this.cartItems.push(modal);
-
-        localStorage.setItem('cart', JSON.stringify(this.cartItems));
-
-        this.notificationService.open(item.name + ' ' + this.translateService.instant('CATALOG.CART_ADD_SUCCESSFUL'), undefined, {
-          panelClass: 'success-snack',
-          duration: 2500
-        });
-      }
+  addItemToCart(item: any): void {
+    //if (this.checkAmountofProductsInCart(this.cartItems, item) === true) {
+    if (new Date(item.startDate) <= new Date() || new Date(item.endDate as Date) <= new Date()) {
+      this.showErrorNotification('CATALOG.EMPTY_DATE');
     }
     else {
-      this.showErrorNotification('CATALOG.ALREADY_IN_CART')
+      const model = { productId: item.id, renterId: '9529e2a4-66d2-4a1e-a1da-54e37a11aeda', startDate: item.startDate, endDate: item.endDate };
+
+      this.apiService.reserveProduct(model).subscribe({
+        next: (resp) => {
+          this.notificationService.open(this.translateService.instant('CART.RESERVE_SUCCESSFUL'), undefined, {
+            panelClass: 'success-snack',
+            duration: 2500
+          });
+        },
+        error: (err) => {
+          this.showErrorNotification('CART.NO_FLAT_PRODUCT_RESPONSE');
+          this.hasLoadingError = true;
+        }
+      });
+      /*
+      modal.endDate = item.endDate;
+      modal.startDate = item.startDate;
+      modal.id = item.id;
+      this.cartItems.push(modal);
+
+      localStorage.setItem('cart', JSON.stringify(this.cartItems));
+
+      this.notificationService.open(item.name + ' ' + this.translateService.instant('CATALOG.CART_ADD_SUCCESSFUL'), undefined, {
+        panelClass: 'success-snack',
+        duration: 2500
+      });
+      */
     }
+    //else {
+    //  this.showErrorNotification('CATALOG.ALREADY_IN_CART')
+    //}
 
   }
 
@@ -206,7 +220,7 @@ export class AppCatalogusPageComponent implements OnInit, AfterViewInit {
    * @param images images object that should be handled
    */
   checkAmountOfImages(images: Array<string>): boolean {
-    if (images.length <= 1) {
+    if (images?.length <= 1) {
       return false;
     }
     else {
@@ -244,14 +258,25 @@ export class AppCatalogusPageComponent implements OnInit, AfterViewInit {
    * @param pageData page data containing relevant data for inventory page
    * @returns void
    */
-  private readCatalogPage(pageData: CatalogPage | null): void {
-    if (pageData == null) {
+  private readCatalogPage(products: any | null): void {
+    if (products == null) {
       this.catalogItemsWithCategory = new Array<CatalogItemsWithCategory>();
       return;
     }
-    this.catalogItemsWithCategory = pageData.catalogItems;
-    this.totalProductCount = pageData.totalProductCount;
-    this.pageIndex = pageData.currentPage;
+    const result: any[] = [];
+
+    products.forEach((productResponse: any) => {
+      const { categoryName, ...productProps } = productResponse;
+
+      if (result.length === 0 || !result.some((cat: any) => cat.categoryName === categoryName)) {
+        result.push({ categoryName: categoryName, catalogItems: [{ ...productProps }] });
+      }
+      else {
+        result.find((cat) => cat.categoryName === categoryName).catalogItems.push({ ...productProps })
+      }
+    })
+
+    this.catalogItemsWithCategory = result;
   }
 
   /**
@@ -266,7 +291,7 @@ export class AppCatalogusPageComponent implements OnInit, AfterViewInit {
    */
   private getCatalogItems(): void {
     this.isLoading = true;
-    this.apiService.getCatalogEntries(this.pageIndex, this.pageSize, this.searchfilter, this.categoryfilter).subscribe({
+    this.apiService.getAllProducts().subscribe({
       next: (resp) => {
         this.readCatalogPage(resp.body);
         this.isLoading = false;

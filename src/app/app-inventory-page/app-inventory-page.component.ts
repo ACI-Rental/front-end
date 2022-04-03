@@ -33,7 +33,7 @@ export class AppInventoryPageComponent implements OnInit {
   isLoading = true;
 
   // determined whch columns that are displayed in the inventory table and in which order.
-  displayedColumns: string[] = ['name', 'location','category', 'requiresApproval', 'status', 'options'];
+  displayedColumns: string[] = ['name', 'location', 'categoryId', 'requiresApproval', 'options'];
 
 
   // MatPaginator Inputs
@@ -47,7 +47,7 @@ export class AppInventoryPageComponent implements OnInit {
 
   filterValue: string;
 
-  dataSource: MatTableDataSource<IProductData>;
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -66,7 +66,7 @@ export class AppInventoryPageComponent implements OnInit {
   }
 
   @ViewChild(MatSort) sort: MatSort;
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
@@ -111,7 +111,7 @@ export class AppInventoryPageComponent implements OnInit {
     });
   }
 
-  openAddPDF(element: any): void{
+  openAddPDF(element: any): void {
     const dialogRef = this.dialog.open(AppAddPdfComponent, {
       data: {
         id: element.id,
@@ -121,7 +121,7 @@ export class AppInventoryPageComponent implements OnInit {
     });
   }
 
-  openDeletePDF(element: any): void{
+  openDeletePDF(element: any): void {
     const dialogRef = this.dialog.open(AppDeletePdfComponent, {
       data: {
         id: element.id,
@@ -137,27 +137,26 @@ export class AppInventoryPageComponent implements OnInit {
     String that has to be presented in the error notification (gets translated)
   */
 
-    showErrorNotification(translateableMessage: string): void {
-      this.notificationService.open(this.translateService.instant(translateableMessage), undefined, {
-        panelClass: 'error-snack',
-        duration: 2500
-      });
-    }
+  showErrorNotification(translateableMessage: string): void {
+    this.notificationService.open(this.translateService.instant(translateableMessage), undefined, {
+      panelClass: 'error-snack',
+      duration: 2500
+    });
+  }
 
   /**
    * Gets the data from the inventoryPage object
    * @param pageData page data containing relevant data for inventory page
    * @returns void
    */
-  readInventoryPage(pageData: IInventoryPage | null): void {
+  readInventoryPage(pageData: any | null): void {
     if (pageData == null) {
       this.dataSource.data = new Array<IProductData>();
       return;
     }
 
-    this.dataSource.data = pageData.products ?? new Array<IProductData>();
-    this.totalProductCount = pageData.totalProductCount;
-    this.pageIndex = pageData.currentPage;
+    this.dataSource.data = pageData;
+    this.totalProductCount = pageData.length;
   }
 
   /**
@@ -172,11 +171,11 @@ export class AppInventoryPageComponent implements OnInit {
   }
 
   //Filter function
-  searchfilter:string = '-';
-  searchbar(selectedFilter:string){
+  searchfilter: string = '-';
+  searchbar(selectedFilter: string) {
     this.searchfilter = selectedFilter;
 
-    if (!this.searchfilter){
+    if (!this.searchfilter) {
       this.searchfilter = "-";
     }
 
@@ -188,7 +187,7 @@ export class AppInventoryPageComponent implements OnInit {
    */
   getProductData(): void {
     this.isLoading = true;
-    this.apiService.getInventoryProducts(this.pageIndex, this.pageSize, this.searchfilter)
+    this.apiService.getAllProducts()
       .subscribe({
         next: (response) => {
 

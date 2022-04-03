@@ -88,7 +88,7 @@ export class AppAddProductPageComponent implements OnInit {
       }
     });
 
-    this.apiService.getLastCatalogNumber().subscribe({
+    /*this.apiService.getLastCatalogNumber().subscribe({
       next: (resp) => {
         this.maxCatalogNumber = (resp.body as number) + 1;
         this.product.catalogNumber = (resp.body as number) + 1;
@@ -96,7 +96,7 @@ export class AppAddProductPageComponent implements OnInit {
       error: (err) => {
         this.showErrorNotification('PRODUCT.ADD.NO_CATALOG_NUMBER_RESPONSE');
       }
-    });
+    });*/
 
     this.onChangeSelectedImageIndex();
   }

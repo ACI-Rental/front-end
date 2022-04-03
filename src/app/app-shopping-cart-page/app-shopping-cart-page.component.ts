@@ -171,7 +171,7 @@ export class AppShoppingCartPageComponent implements OnInit {
       productModels: this.cartProducts
     };
 
-    this.apiService.reserveProducts(reservationObject).subscribe({
+    /*this.apiService.reserveProducts(reservationObject).subscribe({
       next: (resp) => {
         this.notificationService.open(this.translateService.instant('CART.RESERVE_SUCCESSFUL'), undefined, {
           panelClass: 'success-snack',
@@ -186,7 +186,7 @@ export class AppShoppingCartPageComponent implements OnInit {
         this.showErrorNotification('CART.FIX_ERRORS');
         this.isReserving = false;
       }
-    });
+    });*/
   }
 
   /**

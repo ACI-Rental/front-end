@@ -78,9 +78,9 @@
 
                         <div class="catalogItemBox">
                             <div class="catalogItemBox-imgbox">
-                                <img *ngIf="item.images?.length; else elseImageBlock"
+                                <img *ngIf="item?.images?.length; else elseImageBlock"
                                      class="image-div"
-                                     src="data:image/png;base64,{{item.images[0]}}"
+                                     src="data:image/png;base64,{{item?.images[0]}}"
                                      #previewimage
                                      id="image-{{item.id}}">
                                 <ng-template #elseImageBlock>
@@ -88,7 +88,7 @@
                                          src="/assets/images/image-not-found.jpg">
                                 </ng-template>
                                 <div class="image-div"
-                                     *ngIf="checkAmountOfImages(item.images)">
+                                     *ngIf="checkAmountOfImages(item?.images)">
                                     <button style="font-size: 28px;"
                                             mat-icon-button
                                             disableRipple
@@ -167,15 +167,5 @@
                 </mat-card-content>
             </mat-card>
         </div>
-    </div>
-    <div class="footer">
-        <mat-paginator *ngIf="catalogItemsWithCategory !== null && !isLoading && catalogItemsWithCategory.length > 0"
-                       style="margin-top: 30px;"
-                       [length]="totalProductCount"
-                       [pageSize]="pageSize"
-                       [pageSizeOptions]="pageSizeOptions"
-                       [pageIndex]="pageIndex"
-                       (page)="pageEvent = handlePageEvent($event)"
-                       showFirstLastButtons></mat-paginator>
     </div>
 </div>

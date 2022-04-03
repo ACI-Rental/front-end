@@ -27,31 +27,40 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   /* GET calls */
+  // CANT BE DONE
   getAllCategories(): Observable<HttpResponse<Array<ICategory>>> {
-    return this.http.get<Array<ICategory>>(`${this.API_GATEWAY}category`, { observe: 'response' });
+    return this.http.get<Array<ICategory>>(`https://localhost:5019/category`, { observe: 'response' });
   }
 
   getLastCatalogNumber(): Observable<HttpResponse<number>> {
     return this.http.get<number>(`${this.API_GATEWAY}product/lastcatalog`, { observe: 'response' });
   }
 
+  // CAN BE DONE
   getReservationsByProductId(productId: number): Observable<HttpResponse<Array<IReservation>>> {
     return this.http.get<Array<IReservation>>(`${this.API_GATEWAY}reservation/${productId}`, { observe: 'response' });
   }
 
+  // CANT BE DONE
   getReservationsSimilar(productId: number): Observable<HttpResponse<Array<IReservation>>> {
     return this.http.get<Array<IReservation>>(`${this.API_GATEWAY}reservation/similar/${productId}`, { observe: 'response' });
   }
 
+  // CAN BE DONE
   getProductFlatById(productId: number): Observable<HttpResponse<IProductFlat>> {
-    return this.http.get<IProductFlat>(`${this.API_GATEWAY}product/flat/${productId}`, { observe: 'response' });
+    return this.http.get<IProductFlat>(`${this.API_GATEWAY}products/${productId}`, { observe: 'response' });
   }
 
+  getAllProducts(): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`https://localhost:5019/products`, { observe: 'response' });
+  }
+
+  // CANT BE DONE
   getInventoryProducts(pageNumber: number, pageSize: number, searchfilter: string): Observable<HttpResponse<IInventoryPage>> {
     return this.http.get<IInventoryPage>(`${this.API_GATEWAY}product/page/${pageNumber}/${pageSize}/${searchfilter}`, { observe: 'response' });
   }
 
-  getCatalogEntries(pageNumber: number, pageSize: number, searchfilter:string, categoryfilter:string): Observable<HttpResponse<CatalogPage>> {
+  getCatalogEntries(pageNumber: number, pageSize: number, searchfilter: string, categoryfilter: string): Observable<HttpResponse<CatalogPage>> {
     return this.http.get<CatalogPage>(`${this.API_GATEWAY}product/catalogentries/${pageNumber}/${pageSize}/${searchfilter}/${categoryfilter}`, { observe: 'response' });
   }
 
@@ -60,32 +69,32 @@ export class ApiService {
   }
 
   getUsersForPage(pageNumber: number, pageSize: number): Observable<HttpResponse<IUsersPage>> {
-    return this.http.get<IUsersPage>(`${this.API_GATEWAY}user/page/${pageNumber}/${pageSize}`, { observe: 'response'});
+    return this.http.get<IUsersPage>(`${this.API_GATEWAY}user/page/${pageNumber}/${pageSize}`, { observe: 'response' });
   }
 
   /* POST calls */
   addProduct(product: IAddProductObject): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.API_GATEWAY}product`, product, { observe: 'response' });
+    return this.http.post<any>(`https://localhost:5019/products`, product, { observe: 'response' });
   }
 
-  reserveProducts(cartProducts: IAddReservation): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.API_GATEWAY}products/reserve`, cartProducts, { observe: 'response' });
+  reserveProduct(data: any): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`https://localhost:7052/reservation/reserveproduct`, data, { observe: 'response' });
   }
 
   addCategory(category: IAddCategoryObject): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.API_GATEWAY}category`, category, { observe: 'response' });
+    return this.http.post<any>(`https://localhost:5019/category`, category, { observe: 'response' });
   }
 
   reservationAction(reservationAction: IReservationAction): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.API_GATEWAY}reservation`, reservationAction, { observe: 'response' });
+    return this.http.post<any>(`${this.API_GATEWAY}reservation/action`, reservationAction, { observe: 'response' });
   }
 
-  Login(loginAction: IUserLogin): Observable<HttpResponse<IUserReturn>>{
-    return this.http.post<IUserReturn>(`${this.API_GATEWAY}account/login`, loginAction, {observe: 'response'} );
+  Login(loginAction: IUserLogin): Observable<HttpResponse<IUserReturn>> {
+    return this.http.post<IUserReturn>(`${this.API_GATEWAY}account/login`, loginAction, { observe: 'response' });
   }
 
   userBlockAction(userBlockAction: IUserBlockAction): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.API_GATEWAY}user/block`, userBlockAction, {observe: 'response' });
+    return this.http.post<any>(`${this.API_GATEWAY}user/block`, userBlockAction, { observe: 'response' });
   }
 
   /* DELETE calls */
