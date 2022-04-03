@@ -27,21 +27,21 @@
         <div *ngFor="let reservation of reservations; let i = index">
           <div class="reservation-list" name="reservation-list">
             <div class="reservation-list-info-item reservation-date">
-              {{ reservation[0].startDate | date }}
+              {{ reservation.startDate | date }}
             </div>
             <div class="reservation-list-info-item reservation-renter">
               Siebren Kraak <br>
               i408742
             </div>
             <div class="reservation-list-info-item products">
-              <p style="line-height: 10px;" *ngFor="let reservationProduct of reservation">
-                {{ hasLoadedProduct(reservationProduct.productId) ? getProductName(reservationProduct.productId) :
+              <p style="line-height: 10px;">
+                {{ hasLoadedProduct(reservation.productId) ? getProductName(reservation.productId) :
                 'RESERVATIONS.LOADING' | translate }}
               </p>
             </div>
             <div class="reservation-list-info-item reservation-actions">
               <button mat-stroked-button color="accent" class="delete-entry-button"
-                [routerLink]="'/reservation/' + reservation[0].id">
+                [routerLink]="'/reservation/' + reservation.id">
                 {{ 'RESERVATIONS.OPEN_RESERVATION' | translate }}
               </button>
             </div>
@@ -61,12 +61,6 @@
         <br>
         {{ 'RESERVATIONS.NO_RESERVATIONS' | translate }}
       </div>
-
-      <mat-divider></mat-divider>
-      <mat-paginator *ngIf="reservations.length > 0" [length]="totalReservationCount" [pageSize]="pageSize" 
-        [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" (page)="pageEvent = handlePageEvent($event)" 
-        showFirstLastButtons>
-      </mat-paginator>
     </mat-card-content>
   </mat-card>
 </div>

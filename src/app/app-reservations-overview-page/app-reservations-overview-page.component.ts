@@ -18,9 +18,9 @@ export class AppReservationsOverviewPageComponent implements OnInit {
 
   // Contains all the flat products
   productsFlat: Array<IProductFlat> = [];
-  
+
   // Contains all the reservation
-  reservations: Array<Array<IReservation>> = [];
+  reservations: Array<any> = [];
 
   // Holds if reservations are loading
   isLoading = true;
@@ -52,7 +52,7 @@ export class AppReservationsOverviewPageComponent implements OnInit {
    * @param event event object that should be handled
    * @returns same event object that got sent as parameter
    */
-   handlePageEvent(event?: PageEvent): PageEvent | undefined {
+  handlePageEvent(event?: PageEvent): PageEvent | undefined {
     this.pageIndex = event?.pageIndex ?? INDEX_DEFAULT;
     if (this.pageSize !== event?.pageSize) {
       this.pageSize = event?.pageSize ?? PAGE_SIZE_DEFAULT;
@@ -65,14 +65,14 @@ export class AppReservationsOverviewPageComponent implements OnInit {
   /**
    * Sets page to first page
    */
-   resetPaging(): void {
+  resetPaging(): void {
     this.paginator.pageIndex = INDEX_DEFAULT;
   }
 
   /**
    * Gets items from local storage
    */
-   retrieveLocalStorage(): void {
+  retrieveLocalStorage(): void {
     const reservationPageOptions = localStorage.getItem('reservationPageOptions');
 
     if (reservationPageOptions !== null) {
@@ -101,21 +101,21 @@ export class AppReservationsOverviewPageComponent implements OnInit {
     return this.productsFlat[this.productsFlat.findIndex(x => x.id === productId)].name;
   }
 
-/**
- * Recieve all Reservations
- */
+  /**
+   * Recieve all Reservations
+   */
   getReservations(): void {
     this.isLoading = true;
-    this.apiService.getSimilarReservations(this.pageIndex, this.pageSize)
-    .subscribe({
-      next: (resp) => {
-        this.readReservationsPage(resp.body);
-        this.isLoading = false;
-      },
-      error: (err: any) => {
-        this.isLoading = false;
-      }
-    });
+    this.apiService.getReservations()
+      .subscribe({
+        next: (resp) => {
+          this.readReservationsPage(resp.body);
+          this.isLoading = false;
+        },
+        error: (err: any) => {
+          this.isLoading = false;
+        }
+      });
   }
 
   /**
@@ -123,44 +123,26 @@ export class AppReservationsOverviewPageComponent implements OnInit {
    * @param pageData page data containing relevant data for reservation page
    * @returns void
    */
-  readReservationsPage(pageData: IReservationOverviewPage | null): void {
+  readReservationsPage(pageData: any | null): void {
     if (pageData == null) {
-      this.reservations =  new Array<Array<IReservation>>();
+      this.reservations = new Array<Array<IReservation>>();
       return;
     }
 
-    this.reservations = pageData.reservations;
-    this.totalReservationCount = pageData.totalReservationCount;
-    this.pageIndex = pageData.currentPage;
-    this.getProducts();    
+    this.reservations = pageData;
+    this.totalReservationCount = pageData.length;
+    this.getProducts();
   }
 
   /**
    * Receive all the products
    */
   getProducts(): void {
-    this.productsFlat = [];
-    const seen = new Set();
-    let filteredProducts: IReservation[] = [];
-
-    this.reservations.forEach(reservation => {
-      filteredProducts = filteredProducts.concat(reservation.filter(el => {
-        const duplicate = seen.has(el.productId);
-        seen.add(el.productId);
-        return !duplicate;
-      }));
-    });
-
-    filteredProducts.forEach(async product => {
-      this.apiService.getProductFlatById(product.productId).subscribe({
+    this.apiService.getAllProducts()
+      .subscribe({
         next: (resp) => {
-          if (resp.body === null) {
-            return;
-          }
-
-          this.productsFlat.push(resp.body);
-        }
+          this.productsFlat = resp.body;
+        },
       });
-    });
   }
 }

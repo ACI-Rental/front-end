@@ -47,8 +47,8 @@ export class ApiService {
   }
 
   // CAN BE DONE
-  getProductFlatById(productId: number): Observable<HttpResponse<IProductFlat>> {
-    return this.http.get<IProductFlat>(`${this.API_GATEWAY}products/${productId}`, { observe: 'response' });
+  getProductFlatById(productId: any): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`https://localhost:5019/products/${productId}`, { observe: 'response' });
   }
 
   getAllProducts(): Observable<HttpResponse<any>> {
@@ -62,6 +62,10 @@ export class ApiService {
 
   getCatalogEntries(pageNumber: number, pageSize: number, searchfilter: string, categoryfilter: string): Observable<HttpResponse<CatalogPage>> {
     return this.http.get<CatalogPage>(`${this.API_GATEWAY}product/catalogentries/${pageNumber}/${pageSize}/${searchfilter}/${categoryfilter}`, { observe: 'response' });
+  }
+
+  getReservations(): Observable<HttpResponse<IReservationOverviewPage>> {
+    return this.http.get<any>(`https://localhost:7052/reservation/`, { observe: 'response' });
   }
 
   getSimilarReservations(pageNumber: number, pageSize: number): Observable<HttpResponse<IReservationOverviewPage>> {
