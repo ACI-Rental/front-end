@@ -23,6 +23,7 @@
       <button
         #profileButton
         class="navbar_icon_button"
+        (click)="onProfileClick($event)"
       >
         <i class="fa-regular fa-user"></i>
       </button>
@@ -36,3 +37,11 @@
   </div>
   <div class="navbar_bottom_border"></div>
 </nav>
+
+<app-dropdown [(open)]="open" [anchor]="profileButton" [offset]="{ y: 40 }">
+  <ul class="profile_dropdown_list">
+    <li class="profile_dropdown_action_wrapper">
+      <button class="profile_dropdown_action">Logout</button>
+    </li>
+  </ul>
+</app-dropdown>

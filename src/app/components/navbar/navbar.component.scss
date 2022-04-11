@@ -146,6 +146,28 @@ label,
     }
 }
 
+.profile_dropdown_list {
+    list-style: none;
+}
+
+.profile_dropdown_action_wrapper {
+}
+
+.profile_dropdown_action {
+    transition: background .225s ease;
+    background-color: transparent;
+    border-style: none;
+    border-radius: 8px;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    font-size: 1em;
+
+    &:hover {
+        background-color: rgba(181, 52, 113, .3);
+    }
+}
+
 @media (max-width: 768px) {
     .navbar_buttons_mobile {
         display: block;
