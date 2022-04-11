@@ -1,4 +1,13 @@
 <header class="homepage_header">
-  <h1 class="homepage_title">Home</h1>
+  <div class="homepage_header_text">We got the cameras</div>
+  <img
+    src="../../../assets/images/camera-man.png"
+    alt=""
+    [style.width]="'calc(100% + 192px)'"
+    [style.transform]="'translateX(-52px)'"
+  />
 </header>
-<div class="container"></div>
+<div class="container">
+  <app-page-filter></app-page-filter>
+  <app-product-list></app-product-list>
+</div>
