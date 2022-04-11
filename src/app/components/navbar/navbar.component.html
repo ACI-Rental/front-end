@@ -1,1 +1,38 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <div class="navbar_main">
+    <div class="navbar_search_bar">
+      <i class="fa-regular fa-magnifying-glass search_icon"></i>
+      <div class="form__group">
+        <input
+          type="email"
+          id="email"
+          class="form__field"
+          placeholder="Your Email"
+        />
+        <label for="email" class="form__label">Search</label>
+      </div>
+    </div>
+    <a class="app_name" href="/"><b>ACI</b> Rental</a>
+    <div class="navbar_buttons">
+      <button class="navbar_icon_button">
+        <i class="fa-regular fa-grid-2"></i>
+      </button>
+      <button class="navbar_icon_button">
+        <i class="fa-regular fa-clock"></i>
+      </button>
+      <button
+        #profileButton
+        class="navbar_icon_button"
+      >
+        <i class="fa-regular fa-user"></i>
+      </button>
+    </div>
+    <div class="navbar_buttons_mobile">
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn">
+        <i class="fa-regular fa-bars fa-lg"></i>
+      </label>
+    </div>
+  </div>
+  <div class="navbar_bottom_border"></div>
+</nav>
