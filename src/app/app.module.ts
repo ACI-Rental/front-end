@@ -9,6 +9,7 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
     HistoryPageComponent,
     DropdownComponent,
     ProductListComponent,
-    ProductFiltersComponent
+    ProductFiltersComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
