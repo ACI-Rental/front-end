@@ -1,13 +1,22 @@
-<header class="homepage_header">
-  <div class="homepage_header_text">We got the cameras</div>
-  <img
-    src="../../../assets/images/camera-man.png"
-    alt=""
-    [style.width]="'calc(100% + 192px)'"
-    [style.transform]="'translateX(-52px)'"
-  />
-</header>
-<div class="container">
-  <app-page-filter></app-page-filter>
-  <app-product-list></app-product-list>
+<div class="page_content_header">
+  <img class="page_header_svg" src="../../../assets/images/photography.svg" />
+  <img class="page_header_svg" src="../../../assets/images/videographer.svg" />
+  <div class="page_header_content_container">
+    <img class="fontys_logo" src="../../../assets/images/logo.jpeg" />
+    <div class="search_bar_info">Rent your school equipment here</div>
+    <div class="search_bar_wrapper">
+      <div class="search_icon">
+        <i class="fa-regular fa-magnifying-glass"></i>
+      </div>
+      <input class="search_bar" placeholder="Enter a product name" />
+      <button class="search_bar_btn">
+        <i class="fa-regular fa-magnifying-glass"></i>
+        <div>Search</div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="homepage_wrapper">
+  <app-product-filters class="product_filters_wrapper"></app-product-filters>
+  <app-product-list class="product_list_wrapper"></app-product-list>
 </div>

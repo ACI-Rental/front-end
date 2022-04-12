@@ -12,4 +12,5 @@ export class HistoryPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
 }
