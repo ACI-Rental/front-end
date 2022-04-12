@@ -10,7 +10,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    return this.http.get(`${environment.BASE_URL}/product`)
+    return this.http.get(`${environment.BASE_URL}/products`)
       .pipe(map((response: any) => {
         return response;
       }));

@@ -9,6 +9,7 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
