@@ -1,47 +1,18 @@
-<nav class="navbar">
-  <div class="navbar_main">
-    <div class="navbar_search_bar">
-      <i class="fa-regular fa-magnifying-glass search_icon"></i>
-      <div class="form_group">
-        <input
-          type="email"
-          id="email"
-          class="form_field"
-          placeholder="Your Email"
-        />
-        <label for="email" class="form_label">Search</label>
-      </div>
-    </div>
-    <a class="app_name" href="/"><b>ACI</b> Rental</a>
-    <div class="navbar_buttons">
-      <button class="navbar_icon_button">
-        <i class="fa-regular fa-grid-2"></i>
-      </button>
-      <button class="navbar_icon_button">
-        <i class="fa-regular fa-clock"></i>
-      </button>
-      <button
-        #profileButton
-        class="navbar_icon_button"
-        (click)="onProfileClick($event)"
-      >
-        <i class="fa-regular fa-user"></i>
-      </button>
-    </div>
-    <div class="navbar_buttons_mobile">
-      <input class="menu-btn" type="checkbox" id="menu-btn" />
-      <label class="menu-icon" for="menu-btn">
-        <i class="fa-regular fa-bars fa-lg"></i>
-      </label>
-    </div>
+<div class="navbar">
+  <div class="navbar_left">
+    <a class="app_title" href="/#">
+      <div class="app_name">ACI Rental</div>
+    </a>
   </div>
-  <div class="navbar_bottom_border"></div>
-</nav>
-
-<app-dropdown [(open)]="open" [anchor]="profileButton" [offset]="{ y: 40 }">
-  <ul class="profile_dropdown_list">
-    <li class="profile_dropdown_action_wrapper">
-      <button class="profile_dropdown_action">Logout</button>
-    </li>
-  </ul>
-</app-dropdown>
+  <div class="navbar_right">
+    <button class="navbar_profile_btn">
+      <div class="navbar_profile_picture">
+        <i class="fa-solid fa-j"></i>
+      </div>
+      <div class="navbar_profile_name">Joris Kamminga</div>
+      <span class="navbar_profile_icon">
+        <i class="fa-regular fa-angle-down"></i>
+      </span>
+    </button>
+  </div>
+</div>

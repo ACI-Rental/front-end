@@ -1,17 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+:root {
+    --background-color-hs: 0, 0%;   
+    --primary-color-hs: 332, 55%;
+    --text-color-hs: 0, 0%;   
+}
 
 * {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+}
+li,
+ul {
+    list-style: none;
 }
 
 button {
-  cursor: pointer;
+    font: inherit;
+    cursor: pointer;
+}
+*:focus {
+    outline: 0;
 }
 
-.page_container {
-    padding: 72px 48px 0;
+.page_content {
+    width: 100%;
+    padding-top: 60px;
+    padding-left: 64px;
+    padding-right: 64px;
 }
