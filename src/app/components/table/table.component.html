@@ -1,0 +1,15 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers">{{ header.name }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{ item.from }}</td>
+      <td>{{ item.to }}</td>
+      <td>{{ item.product }}</td>
+      <td>{{ item.status }}</td>
+    </tr>
+  </tbody>
+</table>
