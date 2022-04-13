@@ -1,0 +1,138 @@
+.range_picker_wrapper {
+    max-width: 350px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.range_picker_top {
+    margin-bottom: 1rem;
+}
+
+.month_selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background-color: #fff;
+    border-radius: 12px;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    transition: background .225s ease, color .225s ease;
+
+    &:hover {
+        color: #fff;
+        background-color: hsl(var(--primary-color-hs), 45%);
+    }
+}
+
+.month_name {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.range_picker {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-row-gap: 0.2rem;
+}
+
+.day,
+.date {
+    justify-self: center;
+}
+
+.day {
+    color: #000;
+    font-size: 0.875em;
+    font-weight: 500;
+    justify-self: center;
+}
+
+.date {
+    font-size: 0.9em;
+    border: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+    border: 2px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:focus {
+        outline: 0;
+        color: hsl(var(--primary-color-hs), 45%);
+        border: 2px solid hsl(var(--primary-color-hs), 75%);
+    }
+}
+
+.faded {
+    color: hsl(210, 5%, 82%);
+}
+
+.start {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-color: hsl(var(--primary-color-hs), 75%);
+    background-color: hsl(var(--primary-color-hs), 75%);
+
+    & .date {
+        color: #fff;
+        border-color: hsl(var(--primary-color-hs), 45%);
+        background-color: hsl(var(--primary-color-hs), 45%);
+
+        &:focus {
+            outline: 0;
+            border: 2px solid hsl(var(--primary-color-hs), 45%);
+        }
+    }
+}
+
+.end {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-color: hsl(var(--primary-color-hs), 75%);
+    background-color: hsl(var(--primary-color-hs), 75%);
+
+    & .date {
+        color: #fff;
+        border-color: hsl(var(--primary-color-hs), 45%);
+        background-color: hsl(var(--primary-color-hs), 45%);
+
+        &:focus {
+            outline: 0;
+            border: 2px solid hsl(var(--primary-color-hs), 45%);
+        }
+    }
+}
+
+.between {
+    background-color: hsl(var(--primary-color-hs), 75%);
+    border-color: hsl(var(--primary-color-hs), 75%);
+
+    & .date {
+        color: #fff;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid hsl(var(--primary-color-hs), 75%);
+        }
+    }
+}
+
+.current_day {
+    border-color: rgba(0, 0, 0, 0.25);
+}

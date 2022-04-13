@@ -11,6 +11,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TableComponent } from './components/table/table.component';
+import { DateRangeComponent } from './components/date-range/date-range.component';
+import { SharedService } from './services/shared/shared.service';
 import { initializeKeycloak } from './init/keycloak.init.factory';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 
@@ -23,7 +25,8 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
     DropdownComponent,
     ProductListComponent,
     ProductFiltersComponent,
-    TableComponent
+    TableComponent,
+    DateRangeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
     HttpClientModule,
     KeycloakAngularModule
   ],
-  providers: [{
+  providers: [SharedService, {
     provide: APP_INITIALIZER,
     useFactory: initializeKeycloak,
     multi: true,
