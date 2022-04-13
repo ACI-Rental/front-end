@@ -12,6 +12,7 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
 import { HttpClientModule } from '@angular/common/http';
 import { TableComponent } from './components/table/table.component';
 import { DateRangeComponent } from './components/date-range/date-range.component';
+import { SharedService } from './services/shared/shared.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { DateRangeComponent } from './components/date-range/date-range.component
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

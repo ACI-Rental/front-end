@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-date-range',
@@ -7,8 +9,6 @@ import * as moment from 'moment';
   styleUrls: ['./date-range.component.scss']
 })
 export class DateRangeComponent implements OnInit {
-
-
   private _date = moment();
 
   set date(value: any) {
@@ -20,15 +20,28 @@ export class DateRangeComponent implements OnInit {
     return this._date;
   }
 
+  startDate: any;
+  endDate: any;
+
+  startDateSub: Subscription = Subscription.EMPTY;
+  endDateSub: Subscription = Subscription.EMPTY;
+
   moment: any = moment;
-  startDate: any = null;
-  endDate: any = null;
   days: any = [];
 
-  constructor() { }
+  constructor(private sharedService: SharedService) {
+  }
 
   ngOnInit(): void {
+    this.startDateSub = this.sharedService.startDate.subscribe(startDate => this.startDate = startDate)
+    this.endDateSub = this.sharedService.endDate.subscribe(endDate => this.endDate = endDate)
+
     this.renderCalendarDays();
+  }
+
+  ngOnDestroy(): void {
+    this.startDateSub.unsubscribe();
+    this.endDateSub.unsubscribe();
   }
 
   renderCalendarDays(date = null) {
@@ -89,9 +102,7 @@ export class DateRangeComponent implements OnInit {
       endDate = moment(date);
     }
 
-    this.startDate = startDate;
-    this.endDate = endDate;
-
-    console.log(startDate, endDate)
+    this.sharedService.updateStartDate(startDate);
+    this.sharedService.updateEndDate(endDate);
   }
 }

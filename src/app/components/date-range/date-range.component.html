@@ -22,11 +22,10 @@
     <span class="day">Su</span>
     <span
       *ngFor="let day of days"
-      class="date_wrapper"
       [ngClass]="{
-        start: day.date.isSame(startDate, 'day') && !day.date.isSame(endDate, 'day'),
+        start: day.date.isSame(startDate, 'day'),
         between: day.date.isBetween(startDate, endDate, 'day'),
-        end: day.date.isSame(endDate, 'day') && !day.date.isSame(startDate, 'day')
+        end: day.date.isSame(endDate, 'day')
       }"
     >
       <button
