@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "keycloak-angular": "^9.1.0",
+    "keycloak-js": "^17.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.2",
     "rxjs": "~7.5.0",

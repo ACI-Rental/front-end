@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 
@@ -8,6 +8,8 @@ import { KeycloakProfile } from 'keycloak-js';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('myRef', {read: ElementRef}) profileButton: any = null;
+
   position: any = null;
   open: boolean = false;
 
