@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableComponent } from './components/table/table.component';
 import { DateRangeComponent } from './components/date-range/date-range.component';
 import { SharedService } from './services/shared/shared.service';
+import { initializeKeycloak } from './init/keycloak.init.factory';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 
 @NgModule({
   declarations: [
@@ -29,9 +31,15 @@ import { SharedService } from './services/shared/shared.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    KeycloakAngularModule
   ],
-  providers: [SharedService],
+  providers: [SharedService, {
+    provide: APP_INITIALIZER,
+    useFactory: initializeKeycloak,
+    multi: true,
+    deps: [KeycloakService]
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
