@@ -21,28 +21,14 @@
     <i class="fa-solid fa-angle-down"></i>
   </button>
   <ul class="product_filter_options">
-    <li class="product_filter_option">
-      <input class="product_filter_checkbox" type="checkbox" id="one" />
-      <label class="product_filter_label" for="one">
-        <span></span> Photo cameras
-      </label>
-    </li>
-    <li class="product_filter_option">
-      <input class="product_filter_checkbox" type="checkbox" id="two" />
-      <label class="product_filter_label" for="two">
-        <span></span> Video cameras
-      </label>
-    </li>
-    <li class="product_filter_option">
-      <input class="product_filter_checkbox" type="checkbox" id="three" />
-      <label class="product_filter_label" for="three">
-        <span></span> Camera lenses
-      </label>
-    </li>
-    <li class="product_filter_option">
-      <input class="product_filter_checkbox" type="checkbox" id="four" />
-      <label class="product_filter_label" for="four">
-        <span></span> Tripods
+    <li *ngFor="let category of categories" class="product_filter_option">
+      <input
+        class="product_filter_checkbox"
+        type="checkbox"
+        id="categories.name"
+      />
+      <label class="product_filter_label" for="categories.name">
+        <span></span> {{ category.name }}
       </label>
     </li>
   </ul>

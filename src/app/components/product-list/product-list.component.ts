@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -10,12 +10,19 @@ export class ProductListComponent implements OnInit {
 
   products: Array<any> = [];
 
+  @Input() viewMode = 'list';
+  @Output() viewModeChange = new EventEmitter<string>();
+
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe((response) => {
-      console.log(response)
+      this.products = response;
     })
   }
 
+  changeViewMode(mode: string) {
+    this.viewMode = mode;
+    this.viewModeChange.emit(mode);
+  }
 }

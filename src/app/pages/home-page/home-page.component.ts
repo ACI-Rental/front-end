@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
+  viewMode: string = 'list';
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

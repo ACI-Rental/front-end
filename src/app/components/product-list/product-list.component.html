@@ -1,10 +1,20 @@
 <header class="product_list_wrapper_head">
-  <div class="product_list_results">Results: 45 products found</div>
+  <div class="product_list_results">
+    Results: {{ products?.length }} products found
+  </div>
   <div class="product_list_actions">
-    <button class="product_list_action selected">
+    <button
+      class="product_list_action"
+      [ngClass]="{ active: viewMode === 'list' }"
+      (click)="changeViewMode('list')"
+    >
       <i class="fa-solid fa-list"></i>
     </button>
-    <button class="product_list_action">
+    <button
+      class="product_list_action"
+      [ngClass]="{ active: viewMode === 'grid' }"
+      (click)="changeViewMode('grid')"
+    >
       <i class="fa-solid fa-grid-2"></i>
     </button>
     <button class="product_list_filters_btn">
@@ -13,8 +23,12 @@
     </button>
   </div>
 </header>
-<div class="product_list">
-  <div class="product_wrapper">
+<div class="product_list" [ngClass]="{ grid: viewMode === 'grid' }">
+  <div
+    *ngFor="let product of products"
+    class="product_wrapper"
+    [ngClass]="{ card: viewMode === 'grid' }"
+  >
     <div class="product_image_wrapper">
       <img
         class="product_image"
@@ -24,7 +38,7 @@
     </div>
     <div class="product_info">
       <div class="product_info_header">
-        <div class="product_name">Random Camera</div>
+        <div class="product_name">{{ product?.name }}</div>
         <div class="product_availability">
           <div class="availability_tag available">Available</div>
           <!-- 
@@ -33,21 +47,7 @@
         </div>
       </div>
       <div class="product_description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac
-        semper tortor. Duis hendrerit nulla et luctus iaculis. Suspendisse
-        placerat libero felis, eleifend tempor est semper non. Vestibulum rutrum
-        gravida arcu, eget tristique diam convallis laoreet. Fusce vel metus
-        sollicitudin, pharetra diam sed, pellentesque urna. Cras sit amet
-        lobortis nisl. Duis sapien ligula, sodales non suscipit nec, condimentum
-        eget odio. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. Suspendisse bibendum diam tincidunt
-        aliquet ultrices. Aenean tristique convallis enim, id mollis mi
-        ullamcorper non. In finibus dignissim massa, nec vestibulum sem
-        elementum in. Proin egestas porta urna, non accumsan lacus vestibulum
-        id. Nulla vulputate massa magna, tempus laoreet ligula pretium vitae.
-        Cras a libero et nunc tempus venenatis. Donec aliquam tincidunt nunc sit
-        amet maximus. Nulla elementum rhoncus nulla, at posuere metus egestas
-        quis. Mauris et viverra enim.
+        {{ product?.description }}
         <div class="product_description_read_more">
           <button class="product_description_read_more_btn">Read more</button>
         </div>

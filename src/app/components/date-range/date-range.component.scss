@@ -26,7 +26,7 @@
     width: 2rem;
     height: 2rem;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0 10px 0 rgba(0, 0, 0, 0.15);
-    transition: background .225s ease, color .225s ease;
+    transition: background 0.225s ease, color 0.225s ease;
 
     &:hover {
         color: #fff;
@@ -71,6 +71,10 @@
     border: 2px solid transparent;
     background-color: transparent;
     cursor: pointer;
+
+    &.taken {
+        color: hsl(var(--error-color-hs), 45%);
+    }
 
     &:focus {
         outline: 0;
@@ -129,6 +133,9 @@
         &:focus {
             outline: 0;
             border: 2px solid hsl(var(--primary-color-hs), 75%);
+        }
+        &.taken {
+            color: hsl(var(--error-color-hs), 45%);
         }
     }
 }
