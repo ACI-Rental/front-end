@@ -1,3 +1,4 @@
+
 <div class="navbar">
   <div class="navbar_left">
     <a class="app_title" href="/#">
@@ -9,7 +10,7 @@
       <div class="navbar_profile_picture">
         <i class="fa-solid fa-j"></i>
       </div>
-      <div class="navbar_profile_name">Joris Kamminga</div>
+      <div class="navbar_profile_name" *ngIf="userProfile">{{ userProfile.username }}</div>
       <span class="navbar_profile_icon">
         <i class="fa-regular fa-angle-down"></i>
       </span>
