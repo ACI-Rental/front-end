@@ -11,6 +11,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TableComponent } from './components/table/table.component';
+import { DateRangeComponent } from './components/date-range/date-range.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TableComponent } from './components/table/table.component';
     DropdownComponent,
     ProductListComponent,
     ProductFiltersComponent,
-    TableComponent
+    TableComponent,
+    DateRangeComponent
   ],
   imports: [
     BrowserModule,
