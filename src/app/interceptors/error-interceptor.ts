@@ -6,14 +6,13 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(private accountService: AccountService) {}
+    constructor() {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         //Logs out user if he isn't authorized
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
                 // Get refresh token
-                this.accountService.Logout();
             }
             
             const error = err.statusText;
