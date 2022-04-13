@@ -30,6 +30,7 @@
 
 .month_name {
     font-weight: 600;
+    cursor: pointer;
 }
 
 .range_picker {
@@ -50,6 +51,9 @@
     justify-self: center;
 }
 
+.date_wrapper {
+}
+
 .date {
     font-size: 0.9em;
     border: 0;
@@ -59,7 +63,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: 50%;
     font-weight: 600;
     border: 2px solid transparent;
     background-color: transparent;
@@ -76,12 +80,56 @@
     color: hsl(210, 5%, 82%);
 }
 
-.current_day {
-    color: #fff;
-    border-color: hsl(var(--primary-color-hs), 45%);
-    background-color: hsl(var(--primary-color-hs), 45%);
+.start {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-color: hsl(var(--primary-color-hs), 75%);
+    background-color: hsl(var(--primary-color-hs), 75%);
 
-    &:focus {
-        background-color: hsl(var(--primary-color-hs), 75%);
+    & .date {
+        color: #fff;
+        border-color: hsl(var(--primary-color-hs), 45%);
+        background-color: hsl(var(--primary-color-hs), 45%);
+
+        &:focus {
+            outline: 0;
+            border: 2px solid hsl(var(--primary-color-hs), 45%);
+        }
     }
+}
+
+.end {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-color: hsl(var(--primary-color-hs), 75%);
+    background-color: hsl(var(--primary-color-hs), 75%);
+
+    & .date {
+        color: #fff;
+        border-color: hsl(var(--primary-color-hs), 45%);
+        background-color: hsl(var(--primary-color-hs), 45%);
+
+        &:focus {
+            outline: 0;
+            border: 2px solid hsl(var(--primary-color-hs), 45%);
+        }
+    }
+}
+
+.between {
+    background-color: hsl(var(--primary-color-hs), 75%);
+    border-color: hsl(var(--primary-color-hs), 75%);
+
+    & .date {
+        color: #fff;
+
+        &:focus {
+            outline: 0;
+            border: 2px solid hsl(var(--primary-color-hs), 75%);
+        }
+    }
+}
+
+.current_day {
+    border-color: rgba(0, 0, 0, 0.25);
 }
