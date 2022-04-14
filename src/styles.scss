@@ -2,9 +2,9 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
 
 :root {
-    --background-color-hs: 0, 0%;   
+    --background-color-hs: 0, 0%;
     --primary-color-hs: 332, 55%;
-    --text-color-hs: 0, 0%;   
+    --text-color-hs: 0, 0%;
     --error-color-hs: 358, 83%;
 }
 
@@ -37,4 +37,38 @@ button {
     padding-top: 60px;
     padding-left: 64px;
     padding-right: 64px;
+}
+
+.dropdown_action_wrapper {
+    margin-bottom: 8px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.dropdown_action {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9em;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: left;
+    background-color: transparent;
+    border-style: none;
+    font-weight: 500;
+    transition: background 0.225s ease;
+    text-decoration: none;
+    color: var(--text1);
+
+    &_icon {
+        margin-right: 12px;
+    }
+
+    &:hover,
+    &:focus-within {
+        outline: none;
+        background-color: hsl(var(--primary-color-hs), 80%);
+    }
 }

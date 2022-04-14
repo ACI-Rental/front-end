@@ -8,15 +8,13 @@ import { KeycloakProfile } from 'keycloak-js';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild('myRef', {read: ElementRef}) profileButton: any = null;
-
   position: any = null;
   open: boolean = false;
 
   public isLoggedIn = false;
   public userProfile: any | null = null;
 
-  constructor(private readonly keycloak: KeycloakService) {}
+  constructor(private readonly keycloak: KeycloakService) { }
 
   public async ngOnInit() {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
@@ -26,7 +24,7 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  onProfileClick(event: any) {
+  onProfileClick() {
     this.open = !this.open;
   }
 

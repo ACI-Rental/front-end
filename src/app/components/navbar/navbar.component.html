@@ -1,4 +1,3 @@
-
 <div class="navbar">
   <div class="navbar_left">
     <a class="app_title" href="/#">
@@ -6,11 +5,13 @@
     </a>
   </div>
   <div class="navbar_right">
-    <button class="navbar_profile_btn">
+    <button #profileBtn class="navbar_profile_btn" (click)="onProfileClick()">
       <div class="navbar_profile_picture">
         <i class="fa-solid fa-j"></i>
       </div>
-      <div #profileButton class="navbar_profile_name" *ngIf="userProfile">{{ userProfile.name }}</div>
+      <div class="navbar_profile_name">
+        {{ userProfile?.name }} Joris Kamminga
+      </div>
       <span class="navbar_profile_icon">
         <i class="fa-regular fa-angle-down"></i>
       </span>
@@ -18,10 +19,27 @@
   </div>
 </div>
 
-<app-dropdown [(open)]="open" [anchor]="profileButton" [offset]="{ y: 40 }">
-  <ul class="profile_dropdown_list">
-    <li class="profile_dropdown_action_wrapper">
-      <button class="profile_dropdown_action">Logout</button>
+<app-dropdown
+  [(open)]="open"
+  [anchor]="profileBtn"
+  [offset]="{ y: 50 }"
+  [alignment]="'right'"
+>
+  <ul class="dropdown_action_list">
+    <li class="dropdown_action_wrapper">
+      <button class="dropdown_action">
+        <i class="dropdown_action_icon fa-regular fa-objects-column"></i>Dashboard
+      </button>
+    </li>
+    <li class="dropdown_action_wrapper">
+      <button class="dropdown_action">
+        <i class="dropdown_action_icon fa-regular fa-clock"></i>History
+      </button>
+    </li>
+    <li class="dropdown_action_wrapper">
+      <button class="dropdown_action">
+        <i class="dropdown_action_icon fa-regular fa-arrow-right-from-bracket"></i>Logout
+      </button>
     </li>
   </ul>
 </app-dropdown>

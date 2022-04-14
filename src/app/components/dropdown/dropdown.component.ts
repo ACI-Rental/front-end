@@ -20,6 +20,7 @@ export class DropdownComponent implements OnInit {
   @Input() offset: any = {};
   @Input() open: boolean = false;
   @Output() openChange = new EventEmitter<boolean>();
+  @Input() alignment: string = 'left'
 
   private dropdownRef: any;
   @ViewChild('dropdown', { static: false }) set dropdown(elRef: ElementRef) {
@@ -42,7 +43,7 @@ export class DropdownComponent implements OnInit {
   justOpened: boolean = false;
   position: any = null;
 
-  constructor() {}
+  constructor() { }
 
   handlePositioning() {
     if (!open) {
@@ -55,49 +56,26 @@ export class DropdownComponent implements OnInit {
     setTimeout(() => (this.justOpened = false), 200);
   }
 
-  IsElementOffscreen(el: any) {
-    const rect = el?.getBoundingClientRect();
-
-    const res = `${rect?.x < 0 ? 'left' : ''} ${rect?.y < 0 ? 'up' : ''} ${
-      rect?.x + rect?.width > window.innerWidth ? 'right' : ''
-    } ${rect?.y + rect?.height > window.innerHeight ? 'down' : ''}`;
-
-    return res;
-  }
-
   AdjustPosition() {
     const anchorRect = this.anchor?.getBoundingClientRect();
 
-    const adjustment = {
-      x: anchorRect?.x + (this.offset?.x || 0),
-      y: anchorRect?.y + (this.offset?.y || 0),
-    };
-    const rect = this.dropdownRef?.nativeElement?.getBoundingClientRect();
-
-    const isOffscreen = this.IsElementOffscreen(
-      this.dropdownRef?.nativeElement
-    );
-
-    if (isOffscreen.includes('left')) {
-      adjustment.x = 48;
+    if (this.alignment === 'right') {
+      this.position = {
+        x: window.innerWidth - (anchorRect?.x + (anchorRect?.width * 1.1)) + (this.offset?.x || 0),
+        y: anchorRect?.y + (this.offset?.y || 0),
+      };
     }
 
-    if (isOffscreen.includes('right')) {
-      adjustment.x = window.innerWidth - (rect.width + 48);
+    if (this.alignment === 'left') {
+      this.position = {
+        x: anchorRect?.x + (this.offset?.x || 0),
+        y: anchorRect?.y + (this.offset?.y || 0),
+      };
     }
-
-    if (isOffscreen.includes('up')) {
-      adjustment.y = 8;
-    }
-
-    if (isOffscreen.includes('down')) {
-      adjustment.y = window.innerHeight - (rect.height + 8);
-    }
-
-    this.position = adjustment;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.handlePositioning();

@@ -1,10 +1,13 @@
 <div
   #dropdown
-  [style.visibility]="open ? 'visible' : 'hidden'"
-  [style.pointerEvents]="open ? 'unset' : 'none'"
   class="dropdown"
-  [style.left]="position.x + 'px'"
-  [style.top]="position.y + 'px'"
+  [ngStyle]="{
+    visibility: open ? 'visible' : 'hidden',
+    pointerEvents: open ? 'unset' : 'none',
+    'top.px': position.y,
+    'left.px': alignment === 'left' ? position.x : '',
+    'right.px': alignment === 'right' ? position.x : ''
+  }"
 >
   <ng-content></ng-content>
 </div>
