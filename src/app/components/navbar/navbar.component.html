@@ -19,16 +19,12 @@
   </div>
 </div>
 
-<app-dropdown
-  [(open)]="open"
-  [anchor]="profileBtn"
-  [offset]="{ y: 50 }"
-  [alignment]="'right'"
->
+<app-dropdown [(open)]="open" [anchor]="profileBtn" [offset]="{ y: 50 }">
   <ul class="dropdown_action_list">
     <li class="dropdown_action_wrapper">
       <button class="dropdown_action">
-        <i class="dropdown_action_icon fa-regular fa-objects-column"></i>Dashboard
+        <i class="dropdown_action_icon fa-regular fa-objects-column"></i
+        >Dashboard
       </button>
     </li>
     <li class="dropdown_action_wrapper">
@@ -38,7 +34,10 @@
     </li>
     <li class="dropdown_action_wrapper">
       <button class="dropdown_action">
-        <i class="dropdown_action_icon fa-regular fa-arrow-right-from-bracket"></i>Logout
+        <i
+          class="dropdown_action_icon fa-regular fa-arrow-right-from-bracket"
+        ></i
+        >Logout
       </button>
     </li>
   </ul>

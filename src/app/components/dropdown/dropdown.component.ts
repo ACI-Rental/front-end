@@ -20,7 +20,6 @@ export class DropdownComponent implements OnInit {
   @Input() offset: any = {};
   @Input() open: boolean = false;
   @Output() openChange = new EventEmitter<boolean>();
-  @Input() alignment: string = 'left'
 
   private dropdownRef: any;
   @ViewChild('dropdown', { static: false }) set dropdown(elRef: ElementRef) {
@@ -59,19 +58,11 @@ export class DropdownComponent implements OnInit {
   AdjustPosition() {
     const anchorRect = this.anchor?.getBoundingClientRect();
 
-    if (this.alignment === 'right') {
-      this.position = {
-        x: window.innerWidth - (anchorRect?.x + (anchorRect?.width * 1.1)) + (this.offset?.x || 0),
-        y: anchorRect?.y + (this.offset?.y || 0),
-      };
-    }
+    this.position = {
+      x: anchorRect?.x + (this.offset?.x || 0),
+      y: anchorRect?.y + (this.offset?.y || 0),
+    };
 
-    if (this.alignment === 'left') {
-      this.position = {
-        x: anchorRect?.x + (this.offset?.x || 0),
-        y: anchorRect?.y + (this.offset?.y || 0),
-      };
-    }
   }
 
   ngOnInit(): void {

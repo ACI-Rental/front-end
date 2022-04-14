@@ -5,8 +5,7 @@
     visibility: open ? 'visible' : 'hidden',
     pointerEvents: open ? 'unset' : 'none',
     'top.px': position.y,
-    'left.px': alignment === 'left' ? position.x : '',
-    'right.px': alignment === 'right' ? position.x : ''
+    'left.px': position.x
   }"
 >
   <ng-content></ng-content>
