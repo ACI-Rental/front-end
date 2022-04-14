@@ -34,12 +34,12 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
     HttpClientModule,
     KeycloakAngularModule
   ],
-  providers: [SharedService, {
+  providers: [SharedService/*, {
     provide: APP_INITIALIZER,
     useFactory: initializeKeycloak,
     multi: true,
     deps: [KeycloakService]
-  }],
+  }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

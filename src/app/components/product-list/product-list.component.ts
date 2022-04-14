@@ -8,10 +8,10 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Array<any> = [];
-
-  @Input() viewMode = 'list';
-  @Output() viewModeChange = new EventEmitter<string>();
+  products: Array<any> = [{
+    name: "Product name",
+    description: 'Insert some random product description'
+  }];
 
   constructor(private productService: ProductService) { }
 
@@ -19,10 +19,5 @@ export class ProductListComponent implements OnInit {
     this.productService.getAllProducts().subscribe((response) => {
       this.products = response;
     })
-  }
-
-  changeViewMode(mode: string) {
-    this.viewMode = mode;
-    this.viewModeChange.emit(mode);
   }
 }

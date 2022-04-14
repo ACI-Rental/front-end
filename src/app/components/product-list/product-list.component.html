@@ -3,32 +3,14 @@
     Results: {{ products?.length }} products found
   </div>
   <div class="product_list_actions">
-    <button
-      class="product_list_action"
-      [ngClass]="{ active: viewMode === 'list' }"
-      (click)="changeViewMode('list')"
-    >
-      <i class="fa-solid fa-list"></i>
-    </button>
-    <button
-      class="product_list_action"
-      [ngClass]="{ active: viewMode === 'grid' }"
-      (click)="changeViewMode('grid')"
-    >
-      <i class="fa-solid fa-grid-2"></i>
-    </button>
     <button class="product_list_filters_btn">
       <i class="fa-solid fa-filter"></i>
       <div>Filters</div>
     </button>
   </div>
 </header>
-<div class="product_list" [ngClass]="{ grid: viewMode === 'grid' }">
-  <div
-    *ngFor="let product of products"
-    class="product_wrapper"
-    [ngClass]="{ card: viewMode === 'grid' }"
-  >
+<div class="product_list">
+  <div *ngFor="let product of products" class="product_wrapper">
     <div class="product_image_wrapper">
       <img
         class="product_image"
