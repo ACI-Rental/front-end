@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   open: boolean = false;
 
   public isLoggedIn = false;
-  public userProfile: KeycloakProfile | null = null;
+  public userProfile: any | null = null;
 
   constructor(private readonly keycloak: KeycloakService) {}
 
@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
 
     if (this.isLoggedIn) {
-      this.userProfile = await this.keycloak.loadUserProfile();
+      this.userProfile = await this.keycloak.getKeycloakInstance().loadUserInfo();
     }
   }
 
