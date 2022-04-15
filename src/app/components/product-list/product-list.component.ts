@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import * as moment from 'moment';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -8,7 +9,21 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class ProductListComponent implements OnInit {
 
+  moment: any = moment
+
   products: Array<any> = [{
+    name: "Product name",
+    description: 'Insert some random product description'
+  }, {
+    name: "Product name",
+    description: 'Insert some random product description'
+  }, {
+    name: "Product name",
+    description: 'Insert some random product description'
+  }, {
+    name: "Product name",
+    description: 'Insert some random product description'
+  }, {
     name: "Product name",
     description: 'Insert some random product description'
   }];

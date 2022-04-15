@@ -10,35 +10,31 @@
   </div>
 </header>
 <div class="product_list">
-  <div *ngFor="let product of products" class="product_wrapper">
-    <div class="product_image_wrapper">
-      <img
-        class="product_image"
-        src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
-        alt=""
-      />
-    </div>
+  <div *ngFor="let product of products" class="product">
+    <img
+      class="product_image"
+      src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
+      alt=""
+    />
     <div class="product_info">
-      <div class="product_info_header">
-        <div class="product_name">{{ product?.name }}</div>
+      <div class="product_name">
+        {{ product.name }}
+
         <div class="product_availability">
-          <div class="availability_tag available">Available</div>
-          <!-- 
-              <div class="availability_tag unavailable">Unavailable</div>
-              -->
+          <div class="availability_tag available">
+            Available starting from
+            {{ moment(moment().add(5, "d")).format("MMM Do YYYY") }}
+          </div>
         </div>
       </div>
       <div class="product_description">
-        {{ product?.description }}
-        <div class="product_description_read_more">
-          <button class="product_description_read_more_btn">Read more</button>
-        </div>
+        {{ product.description }}
       </div>
     </div>
-    <div class="product_buttons">
-      <button class="product_button">
-        <i class="fa-solid fa-calendar-range"></i>
-        <div>Rent</div>
+    <div class="product_action">
+      <button class="product_rent_btn">
+        <i class="fa-regular fa-calendar-range"></i>
+        Rent
       </button>
     </div>
   </div>
