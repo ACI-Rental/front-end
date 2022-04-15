@@ -45,9 +45,13 @@
         <input
           class="product_filter_checkbox"
           type="checkbox"
-          id="categories.name"
+          id="{{ option.name }}"
+          checked="{{
+            filter.selected.includes(option.value) ? 'checked' : ''
+          }}"
+          (change)="updateFilter(filter.name, option.value)"
         />
-        <label class="product_filter_label" for="categories.name">
+        <label class="product_filter_label" for="{{ option.name }}">
           <span></span> {{ option.name }}
         </label>
       </li>
@@ -65,6 +69,8 @@
           type="radio"
           id="{{ 'radio-' + i }}"
           name="{{ filter.name }}"
+          checked="{{ option.value === filter.selected ? 'checked' : '' }}"
+          (change)="updateFilter(filter.name, option.value)"
         />
         <label class="product_filter_radio_label" for="{{ 'radio-' + i }}">
           <span></span> {{ option.name }}

@@ -12,8 +12,8 @@ import { SharedService } from 'src/app/services/shared/shared.service';
 export class ProductFiltersComponent implements OnInit {
 
   filters: Array<any> = [
-    { name: 'Categories', options: [], type: 'checkbox', open: true },
-    { name: 'Availability', options: [{ name: 'All', value: 0 }, { name: 'Available', value: 1 }, { name: 'Unavailable', value: 2 }], default: 'All', type: 'radio', open: true }
+    { name: 'Categories', options: [], selected: [], type: 'checkbox', open: true },
+    { name: 'Availability', options: [{ name: 'All', value: 0 }, { name: 'Available', value: 1 }, { name: 'Unavailable', value: 2 }], selected: 0, type: 'radio', open: true }
   ]
 
   moment: any = moment;
@@ -45,6 +45,30 @@ export class ProductFiltersComponent implements OnInit {
     const filter = updatedFilters.find((filter) => filter.name.toLowerCase() === filterName.toLowerCase());
 
     filter.open = !filter.open;
+
+    this.filters = updatedFilters;
+  }
+
+  updateFilter(filterName: any, value: any) {
+    const updatedFilters = this.filters;
+    const filter = updatedFilters.find((filter) => filter.name.toLowerCase() === filterName.toLowerCase());
+
+    if (filter.type === 'radio') {
+      filter.selected = value;
+    }
+
+    if (filter.type === 'checkbox') {
+      const isSelected = filter.selected.some((option: any) => option === value)
+
+      if (isSelected) {
+        filter.selected.splice(filter.selected.indexOf(value), 1)
+      }
+      else {
+        filter.selected.push(value)
+      }
+    }
+
+    console.log(updatedFilters)
 
     this.filters = updatedFilters;
   }

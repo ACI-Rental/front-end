@@ -54,14 +54,6 @@
     margin-top: 12px;
 }
 
-/*
-Dater picker
-*/
-
-/*
- Date picker
-*/
-
 .product_filter {
     margin-top: 24px;
     overflow: hidden;
@@ -69,7 +61,6 @@ Dater picker
     transition: max-height .225s ease;
 
     &.active {
-        transition: max-height 2s ease;
         max-height: 1000px;
     }
 }
@@ -95,7 +86,7 @@ Dater picker
     z-index: 0;
     padding-left: 4px;
     transition: transform 0.225s ease-in, opacity 0.225s ease;
-    opacity: 1;
+    opacity: 0;
     transform: translate(0px, -75px);
     pointer-events: none;
 
@@ -223,6 +214,7 @@ Dater picker
     position: relative;
     font-weight: 500;
     font-size: 0.9em;
+    width: 100%;
 }
 
 .product_filter_radio_label > span {
@@ -232,11 +224,14 @@ Dater picker
     border-radius: 50%;
     display: block;
     position: relative;
-    padding: 1px;
     margin-right: 8px;
 }
 
 .product_filter_radio_label > span::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     content: "";
     display: block;
     height: 14px;
