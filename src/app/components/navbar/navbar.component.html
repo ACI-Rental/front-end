@@ -1,6 +1,6 @@
 <div class="navbar">
   <div class="navbar_left">
-    <a class="app_title" href="/#">
+    <a class="app_title" href="/">
       <div class="app_name">ACI Rental</div>
     </a>
   </div>
@@ -22,15 +22,15 @@
 <app-dropdown [(open)]="open" [anchor]="profileBtn" [offset]="{ y: 50 }">
   <ul class="dropdown_action_list">
     <li class="dropdown_action_wrapper">
-      <button class="dropdown_action">
-        <i class="dropdown_action_icon fa-regular fa-objects-column"></i
-        >Dashboard
-      </button>
+      <a class="dropdown_action" href="/dashboard">
+        <i class="dropdown_action_icon fa-regular fa-objects-column"></i>
+        Dashboard
+      </a>
     </li>
     <li class="dropdown_action_wrapper">
-      <button class="dropdown_action">
+      <a class="dropdown_action" href="/history">
         <i class="dropdown_action_icon fa-regular fa-clock"></i>History
-      </button>
+      </a>
     </li>
     <li class="dropdown_action_wrapper">
       <button class="dropdown_action">

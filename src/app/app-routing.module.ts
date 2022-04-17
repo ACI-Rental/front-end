@@ -7,10 +7,11 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },//, canActivate: [AuthGuard] },
   { path: 'history', component: HistoryPageComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
