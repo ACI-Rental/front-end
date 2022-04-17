@@ -16,9 +16,6 @@
     scroll-behavior: smooth;
 }
 
-body {
-    width: 100%;
-}
 li,
 ul {
     list-style: none;
@@ -27,9 +24,6 @@ ul {
 button {
     font: inherit;
     cursor: pointer;
-}
-*:focus {
-    outline: 0;
 }
 
 .page_content {
@@ -70,5 +64,20 @@ button {
     &:focus-within {
         outline: none;
         background-color: hsl(var(--primary-color-hs), 80%);
+    }
+}
+
+@media (max-width: 969px) {
+    .page_content {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .page_content {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }

@@ -3,7 +3,7 @@
     Results: {{ products?.length }} products found
   </div>
   <div class="product_list_actions">
-    <button class="product_list_filters_btn">
+    <button class="product_list_filters_btn" (click)="openFilters()">
       <i class="fa-solid fa-filter"></i>
       <div>Filters</div>
     </button>
@@ -30,6 +30,7 @@
       <div class="product_description">
         {{ product.description }}
       </div>
+      <div class="product_description_read_more">Read more...</div>
     </div>
     <div class="product_action">
       <button class="product_rent_btn">

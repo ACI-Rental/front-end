@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category/category.service';
@@ -10,6 +10,9 @@ import { SharedService } from 'src/app/services/shared/shared.service';
   styleUrls: ['./product-filters.component.scss']
 })
 export class ProductFiltersComponent implements OnInit {
+
+  @Input() filterOpen: boolean = false;
+  @Output() filterOpenChange = new EventEmitter<boolean>();
 
   filters: Array<any> = [
     { name: 'Categories', options: [], selected: [], type: 'checkbox', open: true },
@@ -71,5 +74,10 @@ export class ProductFiltersComponent implements OnInit {
     console.log(updatedFilters)
 
     this.filters = updatedFilters;
+  }
+
+  closeFilters() {
+    this.filterOpen = false;
+    this.filterOpenChange.emit(false)
   }
 }
