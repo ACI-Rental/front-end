@@ -1,6 +1,9 @@
 import { Component, OnInit, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/services/product/product.service';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-product-list',
@@ -16,33 +19,22 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   moment: any = moment
 
-  products: Array<any> = [{
-    id: '348d01a3-7c0c-459a-9dcd-a1728a2dde4b',
-    name: "Product name",
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Maecenas mollis rutrum purus et tincidunt.Donec fermentum justo mauris, quis tincidunt sem porta ac.Ut faucibus lacus quis turpis vulputate, placerat commodo erat scelerisque.Donec a eros sodales, pretium magna pharetra, vestibulum tortor.Mauris fermentum elit quis urna elementum facilisis.Pellentesque a odio sed nisi porta convallis sed non lacus.Quisque aliquet ullamcorper rutrum.Etiam id arcu at arcu pretium euismod.',
-  }, {
-    id: 'a7bc38cc-4c00-4082-92f6-2570031c7713',
-    name: "Product name",
-    description: 'Insert some random product description'
-  }, {
-    id: '97d2d075-66a2-4867-84d1-ace72354e81d',
-    name: "Product name",
-    description: 'Insert some random product description'
-  }, {
-    id: '4ce733c9-95ed-4a90-a2ec-f7889c42f372',
-    name: "Product name",
-    description: 'Insert some random product description'
-  }, {
-    id: '7ab5fbaf-4c82-487d-b9ed-920d05ec440f',
-    name: "Product name",
-    description: 'Insert some random product description'
-  }];
+  products: Array<any> = [];
 
   product: any = null;
 
-  constructor(private productService: ProductService) { }
+  startDate: any;
+  endDate: any;
+
+  startDateSub: Subscription = Subscription.EMPTY;
+  endDateSub: Subscription = Subscription.EMPTY;
+
+  constructor(private sharedService: SharedService, private productService: ProductService, private reservationService: ReservationService) { }
 
   ngOnInit(): void {
+    this.startDateSub = this.sharedService.startDate.subscribe(startDate => this.startDate = startDate)
+    this.endDateSub = this.sharedService.endDate.subscribe(endDate => this.endDate = endDate)
+
     this.productService.getAllProducts().subscribe((response) => {
       this.products = response;
     })
@@ -72,5 +64,22 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     this.modalOpen = true;
 
     this.product = product;
+  }
+
+  reserveProduct() {
+    if (this.endDate == null || this.startDate == null) {
+      return;
+    }
+
+    const data = {
+      productId: this.product.id,
+      renterId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      startDate: this.startDate?.toDate(),
+      endDate: this.endDate?.toDate()
+    }
+
+    this.reservationService.ReserveProduct(data).subscribe((response) => {
+      this.products = response;
+    })
   }
 }
