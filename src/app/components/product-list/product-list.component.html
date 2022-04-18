@@ -33,10 +33,34 @@
       <div class="product_description_read_more">Read more...</div>
     </div>
     <div class="product_action">
-      <button class="product_rent_btn">
+      <button class="product_rent_btn" (click)="openModal(product)">
         <i class="fa-regular fa-calendar-range"></i>
         Rent
       </button>
     </div>
   </div>
 </div>
+
+<app-modal [(open)]="modalOpen" [name]="'product'">
+  <header class="modal_header">
+    <div class="modal_header_title">{{ product?.name }}</div>
+  </header>
+  <div class="product_modal_content">
+    <img
+      class="product_modal_image"
+      src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
+      alt=""
+    />
+    <div class="product_modal_options">
+      <app-date-range></app-date-range>
+      <button class="product_rent_btn" (click)="openModal(product)">
+        <i class="fa-regular fa-calendar-range"></i>
+        Rent
+      </button>
+    </div>
+  </div>
+  <div class="product_modal_extra">
+    <div class="product_description_title">Product description</div>
+    <div class="product_modal_description">{{ product?.description }}</div>
+  </div>
+</app-modal>

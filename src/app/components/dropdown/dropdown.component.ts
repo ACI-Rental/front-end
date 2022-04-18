@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -15,7 +16,7 @@ import {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent implements OnInit, OnChanges {
   @Input() anchor: any;
   @Input() offset: any = {};
   @Input() open: boolean = false;

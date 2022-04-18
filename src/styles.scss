@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+@import "~animate.css/animate.min";
 
 :root {
     --background-color-hs: 0, 0%;
@@ -73,7 +74,6 @@ button {
         padding-right: 32px;
     }
 }
-
 
 @media (max-width: 600px) {
     .page_content {

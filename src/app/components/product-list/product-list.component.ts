@@ -12,6 +12,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   @Input() filterOpen: boolean = false;
   @Output() filterOpenChange = new EventEmitter<boolean>();
 
+  modalOpen: boolean = false;
+
   moment: any = moment
 
   products: Array<any> = [{
@@ -35,6 +37,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     name: "Product name",
     description: 'Insert some random product description'
   }];
+
+  product: any = null;
 
   constructor(private productService: ProductService) { }
 
@@ -62,5 +66,11 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   openFilters() {
     this.filterOpen = true;
     this.filterOpenChange.emit(true)
+  }
+
+  openModal(product: any) {
+    this.modalOpen = true;
+
+    this.product = product;
   }
 }
