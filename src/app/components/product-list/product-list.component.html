@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="product_description">
+      <div *ngIf="product?.description" class="product_description">
         {{ product.description }}
       </div>
       <div class="product_description_read_more">Read more...</div>
