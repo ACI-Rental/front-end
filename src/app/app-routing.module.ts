@@ -5,7 +5,7 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },//, canActivate: [AuthGuard] },
+  { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'history', component: HistoryPageComponent },
   { path: '**', redirectTo: '' }
 ];

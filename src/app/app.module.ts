@@ -15,7 +15,7 @@ import { DateRangeComponent } from './components/date-range/date-range.component
 import { SharedService } from './services/shared/shared.service';
 import { initializeKeycloak } from './init/keycloak.init.factory';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-import { ModalComponent } from './components/modal/modal.component'
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -28,20 +28,23 @@ import { ModalComponent } from './components/modal/modal.component'
     ProductFiltersComponent,
     TableComponent,
     DateRangeComponent,
-    ModalComponent
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
   ],
-  providers: [SharedService/*, {
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService]
-  }*/],
-  bootstrap: [AppComponent]
+  providers: [
+    SharedService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
