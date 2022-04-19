@@ -79,7 +79,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     }
 
     this.reservationService.ReserveProduct(data).subscribe((response) => {
-      this.products = response;
+      console.log(response)
     })
   }
 }

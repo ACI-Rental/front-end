@@ -15,6 +15,12 @@ export class ReservationService {
       .pipe(map((response: any) => {
         return response;
       }));
-
+  }
+  
+  GetAllReservations() {
+    return this.http.get(`${environment.BASE_URL}/reservations`)
+      .pipe(map((response: any) => {
+        return response;
+      }));
   }
 }

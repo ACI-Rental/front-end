@@ -71,8 +71,6 @@ export class ProductFiltersComponent implements OnInit {
       }
     }
 
-    console.log(updatedFilters)
-
     this.filters = updatedFilters;
   }
 

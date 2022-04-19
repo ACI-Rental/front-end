@@ -20,7 +20,10 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
 
     if (this.isLoggedIn) {
-      this.userProfile = await this.keycloak.getKeycloakInstance().loadUserInfo();
+      const userProfile = await this.keycloak.getKeycloakInstance().loadUserInfo();
+
+      this.userProfile = userProfile;
+      console.log(userProfile)
     }
   }
 
@@ -28,4 +31,7 @@ export class NavbarComponent implements OnInit {
     this.open = !this.open;
   }
 
+  async Logout() {
+    await this.keycloak.logout();
+  }
 }

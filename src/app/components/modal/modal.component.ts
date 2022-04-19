@@ -32,7 +32,6 @@ export class ModalComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.name)
   }
 
 

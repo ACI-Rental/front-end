@@ -33,6 +33,7 @@
         [ngClass]="{
           current_day: moment().isSame(day.date, 'day'),
           faded: !day.date.isSame(day.currentDate, 'month')
+          
         }"
         (click)="changeDate(day.date)"
       >
