@@ -11,7 +11,7 @@ export class ReservationService {
   constructor(private http: HttpClient) { }
 
   ReserveProduct(data: any) {
-    return this.http.post(`${environment.BASE_URL}/reservation/reserveproduct`, data)
+    return this.http.post(`${environment.BASE_URL}/reservations/reserveproduct`, data)
       .pipe(map((response: any) => {
         return response;
       }));

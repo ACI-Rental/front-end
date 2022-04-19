@@ -74,8 +74,6 @@ export class DropdownComponent implements OnInit, OnChanges {
 
     const isOffscreen = this.IsElementOffscreen(dimensions, adjustment);
 
-    console.log(isOffscreen);
-
     if (isOffscreen.includes('left')) {
       adjustment.x = 24;
     }
@@ -106,7 +104,6 @@ export class DropdownComponent implements OnInit, OnChanges {
   }
 
   private IsElementOffscreen(size: any = null, pos: any = null) {
-    console.log(pos, size);
     const res = `${pos?.x < 16 ? 'left' : ''} ${pos?.y < 16 ? 'up' : ''} ${
       pos?.x + size?.width > window.innerWidth - 16 ? 'right' : ''
     } ${pos?.y + size?.height > window.innerHeight - 16 ? 'down' : ''}`;
