@@ -1,12 +1,17 @@
 <div
   #dropdown
-  class="dropdown"
+  class="dropdown_wrapper"
   [ngStyle]="{
-    visibility: open ? 'visible' : 'hidden',
+    visibility: openedBefore ? 'visible' : 'hidden',
     pointerEvents: open ? 'unset' : 'none',
     'top.px': position.y,
     'left.px': position.x
   }"
 >
-  <ng-content></ng-content>
+  <div
+    class="dropdown animate__animated"
+    [ngClass]="{ animate__zoomOut: !open, animate__zoomIn: open }"
+  >
+    <ng-content></ng-content>
+  </div>
 </div>

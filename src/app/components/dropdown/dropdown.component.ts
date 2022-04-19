@@ -41,9 +41,10 @@ export class DropdownComponent implements OnInit, OnChanges {
   }
 
   justOpened: boolean = false;
+  openedBefore: boolean = false;
   position: any = null;
 
-  constructor() { }
+  constructor() {}
 
   handlePositioning() {
     if (!open) {
@@ -58,18 +59,58 @@ export class DropdownComponent implements OnInit, OnChanges {
 
   AdjustPosition() {
     const anchorRect = this.anchor?.getBoundingClientRect();
+    const dropdownRect =
+      this.dropdownRef?.nativeElement?.getBoundingClientRect();
 
-    this.position = {
+    const dimensions = {
+      height: dropdownRect?.height,
+      width: dropdownRect?.width,
+    };
+
+    const adjustment = {
       x: anchorRect?.x + (this.offset?.x || 0),
       y: anchorRect?.y + (this.offset?.y || 0),
     };
 
+    const isOffscreen = this.IsElementOffscreen(dimensions, adjustment);
+
+    console.log(isOffscreen);
+
+    if (isOffscreen.includes('left')) {
+      adjustment.x = 24;
+    }
+
+    if (isOffscreen.includes('right')) {
+      adjustment.x = window.innerWidth - (dimensions?.width + 24);
+    }
+
+    if (isOffscreen.includes('up')) {
+      adjustment.y = 24;
+    }
+
+    if (isOffscreen.includes('down')) {
+      adjustment.y = window.innerHeight - (dimensions?.height + 24);
+    }
+
+    this.position = adjustment;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
+    if (changes?.['open']?.currentValue) {
+      this.openedBefore = true;
+    }
+
     this.handlePositioning();
+  }
+
+  private IsElementOffscreen(size: any = null, pos: any = null) {
+    console.log(pos, size);
+    const res = `${pos?.x < 16 ? 'left' : ''} ${pos?.y < 16 ? 'up' : ''} ${
+      pos?.x + size?.width > window.innerWidth - 16 ? 'right' : ''
+    } ${pos?.y + size?.height > window.innerHeight - 16 ? 'down' : ''}`;
+
+    return res;
   }
 }
