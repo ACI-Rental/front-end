@@ -1,0 +1,44 @@
+<div class="navbar">
+  <div class="navbar_left">
+    <a class="app_title" href="/">
+      <div class="app_name">ACI Rental</div>
+    </a>
+  </div>
+  <div class="navbar_right">
+    <button #profileBtn class="navbar_profile_btn" (click)="onProfileClick()">
+      <div class="navbar_profile_picture">
+        <i class="fa-solid fa-j"></i>
+      </div>
+      <div class="navbar_profile_name">
+        {{ userProfile?.name }}
+      </div>
+      <span class="navbar_profile_icon">
+        <i class="fa-regular fa-angle-down"></i>
+      </span>
+    </button>
+  </div>
+</div>
+
+<app-dropdown [(open)]="open" [anchor]="profileBtn" [offset]="{ y: 50 }">
+  <ul class="dropdown_action_list">
+    <li class="dropdown_action_wrapper">
+      <a class="dropdown_action" href="/dashboard">
+        <i class="dropdown_action_icon fa-regular fa-objects-column"></i>
+        Dashboard
+      </a>
+    </li>
+    <li class="dropdown_action_wrapper">
+      <a class="dropdown_action" href="/history">
+        <i class="dropdown_action_icon fa-regular fa-clock"></i>History
+      </a>
+    </li>
+    <li class="dropdown_action_wrapper">
+      <button class="dropdown_action" (click)="Logout()">
+        <i
+          class="dropdown_action_icon fa-regular fa-arrow-right-from-bracket"
+        ></i
+        >Logout
+      </button>
+    </li>
+  </ul>
+</app-dropdown>

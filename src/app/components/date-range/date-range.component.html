@@ -1,0 +1,44 @@
+<div class="range_picker_wrapper">
+  <div class="range_picker_top">
+    <div class="month_selector">
+      <button class="arrow" (click)="changeMonth(date.month() - 1)">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+      <span class="month_name" (click)="resetDate()"
+        >{{ date.format("MMMM") }} {{ date.format("YYYY") }}</span
+      >
+      <button class="arrow" (click)="changeMonth(date.month() + 1)">
+        <i class="fa-solid fa-angle-right"></i>
+      </button>
+    </div>
+  </div>
+  <div class="range_picker">
+    <span class="day">Mo</span>
+    <span class="day">Tu</span>
+    <span class="day">We</span>
+    <span class="day">Th</span>
+    <span class="day">Fr</span>
+    <span class="day">Sa</span>
+    <span class="day">Su</span>
+    <span
+      *ngFor="let day of days"
+      [ngClass]="{
+        start: day.date.isSame(startDate, 'day'),
+        between: day.date.isBetween(startDate, endDate, 'day'),
+        end: day.date.isSame(endDate, 'day')
+      }"
+    >
+      <button
+        class="date"
+        [ngClass]="{
+          current_day: moment().isSame(day.date, 'day'),
+          faded: !day.date.isSame(day.currentDate, 'month')
+          
+        }"
+        (click)="changeDate(day.date)"
+      >
+        {{ day.date.date() }}
+      </button>
+    </span>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="page_content_header">
+  <img class="page_header_svg" src="../../../assets/images/photography.svg" />
+  <img class="page_header_svg" src="../../../assets/images/videographer.svg" />
+  <div class="page_header_content_container">
+    <img class="fontys_logo" src="../../../assets/images/logo.jpeg" />
+    <div class="search_bar_info">Rent your school equipment here</div>
+    <div class="search_wrapper">
+      <div class="search_bar_wrapper">
+        <div class="search_icon">
+          <i class="fa-regular fa-magnifying-glass"></i>
+        </div>
+        <input class="search_bar" placeholder="Enter a product name" />
+      </div>
+      <button class="search_bar_btn">
+        <i class="fa-regular fa-magnifying-glass"></i>
+        <div>Search</div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="homepage_wrapper">
+  <div
+    class="product_filters_backdrop"
+    [ngClass]="{ active: filterOpen }"
+  ></div>
+  <app-product-filters
+    [(filterOpen)]="filterOpen"
+    class="product_filters_wrapper"
+    [ngClass]="{ active: filterOpen }"
+  ></app-product-filters>
+  <app-product-list
+    [(filterOpen)]="filterOpen"
+    class="product_list_wrapper"
+  ></app-product-list>
+</div>

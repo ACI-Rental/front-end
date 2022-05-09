@@ -1,0 +1,95 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    left: 0;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    height: 60px;
+    padding-left: 64px;
+    padding-right: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.navbar_left {
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1002;
+}
+
+.app_title {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: hsl(var(--primary-color-hs), 35%);
+}
+
+.app_name {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.navbar_right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar_profile_btn {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.225s ease;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+}
+
+.navbar_profile_btn:hover {
+    outline: none;
+    background-color: hsl(var(--primary-color-hs), 80%);
+}
+
+.navbar_profile_picture {
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #7bed9f;
+    object-fit: cover;
+    display: none;
+}
+
+.navbar_profile_name {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.navbar_profile_icon {
+    margin-left: 10px;
+    font-size: 1.1em;
+}
+
+@media (max-width: 969px) {
+    .navbar {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

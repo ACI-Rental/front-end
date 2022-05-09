@@ -1,39 +1,88 @@
-@import '~@angular/material/theming';
-@include mat-core();
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+@import "~animate.css/animate.min";
 
-$aci-app-primary: mat-palette($mat-purple);
-$aci-app-accent: mat-palette($mat-green, A200);
-
-$aci-app-warn: mat-palette($mat-red);
-
-$aci-app-theme: mat-dark-theme((color: (primary: $aci-app-primary,
-            accent: $aci-app-accent,
-            warn: $aci-app-warn,
-        )));
-
-@include angular-material-theme($aci-app-theme);
-
-html,
-body {
-    height: 100%;
+:root {
+    --background-color-hs: 0, 0%;
+    --primary-color-hs: 332, 55%;
+    --text-color-hs: 0, 0%;
+    --error-color-hs: 358, 83%;
 }
 
-body {
+* {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
 }
 
-.success,
-.green {
-    color: #4caf50
+li,
+ul {
+    list-style: none;
 }
 
-.error-snack {
-    background-color: #dc3545;
-    color: white;
+button {
+    font: inherit;
+    cursor: pointer;
 }
 
-.success-snack {
-    background-color: #4caf50;
-    color: white;
+.page_content {
+    width: 100%;
+    padding-top: 60px;
+    padding-left: 64px;
+    padding-right: 64px;
+}
+
+.page_title {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.dropdown_action_wrapper {
+    margin-bottom: 8px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.dropdown_action {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9em;
+    padding: 8px 16px;
+    text-align: left;
+    background-color: transparent;
+    border-style: none;
+    font-weight: 500;
+    transition: background 0.225s ease;
+    text-decoration: none;
+    color: var(--text1);
+
+    &_icon {
+        margin-right: 12px;
+    }
+
+    &:hover,
+    &:focus-within {
+        outline: none;
+        background-color: hsl(var(--primary-color-hs), 80%);
+    }
+}
+
+@media (max-width: 969px) {
+    .page_content {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .page_content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 }
