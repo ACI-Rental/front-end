@@ -6,7 +6,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of data">
-      <td *ngFor="let header of headers">{{ item[header.toLowerCase()] }}</td>
+      <td
+        [ngStyle]="{ '--name': header.toLowerCase }"
+        *ngFor="let header of headers"
+      >
+        {{ item[header.toLowerCase()] }}
+      </td>
     </tr>
   </tbody>
 </table>

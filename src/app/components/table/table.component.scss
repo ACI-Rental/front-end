@@ -79,27 +79,12 @@ table {
           margin-bottom: 0;
         }
         &:before {
+          content: var(--name);
           position: absolute;
           font-weight: 700;
           width: 40%;
           left: 10px;
           top: 0;
-        }
-
-        &:nth-child(1):before {
-          content: "Code";
-        }
-        &:nth-child(2):before {
-          content: "Stock";
-        }
-        &:nth-child(3):before {
-          content: "Cap";
-        }
-        &:nth-child(4):before {
-          content: "Inch";
-        }
-        &:nth-child(5):before {
-          content: "Box Type";
         }
       }
     }

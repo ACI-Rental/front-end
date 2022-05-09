@@ -16,6 +16,7 @@ import { SharedService } from './services/shared/shared.service';
 import { initializeKeycloak } from './init/keycloak.init.factory';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ModalComponent } from './components/modal/modal.component';
+import { ProductInventoryPageComponent } from './pages/product-inventory-page/product-inventory-page.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ModalComponent } from './components/modal/modal.component';
     TableComponent,
     DateRangeComponent,
     ModalComponent,
+    ProductInventoryPageComponent,
   ],
   imports: [
     BrowserModule,
