@@ -18,6 +18,7 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProductInventoryPageComponent } from './pages/product-inventory-page/product-inventory-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     ModalComponent,
     ProductInventoryPageComponent,
     DashboardPageComponent,
+    ProductInventoryComponent,
   ],
   imports: [
     BrowserModule,
