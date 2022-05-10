@@ -19,6 +19,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ProductInventoryPageComponent } from './pages/product-inventory-page/product-inventory-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProductInventoryComponent } from './components/product-inventory/produc
     ProductInventoryPageComponent,
     DashboardPageComponent,
     ProductInventoryComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,

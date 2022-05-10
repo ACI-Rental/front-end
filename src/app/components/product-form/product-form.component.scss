@@ -1,0 +1,338 @@
+.product_form {
+    margin: auto;
+    display: grid;
+    grid-template-columns: 125px 125px 125px 125px;
+    column-gap: 2rem;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "name name picture picture"
+        "description description picture picture"
+        "category category approval approval";
+}
+
+#name {
+    grid-area: name;
+}
+
+#description {
+    grid-area: description;
+}
+
+#picture {
+    grid-area: picture;
+}
+
+#category {
+    grid-area: category;
+}
+
+#approval {
+    grid-area: approval;
+}
+
+.form_field_wrapper {
+    position: relative;
+    margin-top: 1rem;
+    margin-right: 8px;
+    width: calc(50% - 8px);
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-left: 8px;
+    }
+
+    &.full_width {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    &.success .form_field_label,
+    &.success .form_field_hint {
+        color: rgba(39, 174, 96, 1);
+    }
+
+    &.success .form_field {
+        border: 2px solid rgba(39, 174, 96, 0.3);
+        background-color: rgba(39, 174, 96, 0.05);
+    }
+
+    &.error .form_field_label,
+    &.error .form_field_hint {
+        color: rgba(231, 76, 60, 1);
+    }
+
+    &.error .form_field {
+        border: 2px solid rgba(231, 76, 60, 0.3);
+        background-color: rgba(231, 76, 60, 0.05);
+    }
+}
+
+.form_field_hint {
+    font-weight: 400;
+    font-size: 0.6875rem;
+    color: #a6a6a6;
+    display: block;
+    margin-top: 4px;
+    margin-left: 4px;
+    transition: color 0.225s ease;
+}
+
+.form_password_field_hints_wrapper {
+    min-width: 260px;
+    position: absolute;
+    z-index: 101;
+    bottom: 58px;
+    right: 0;
+    background-color: #2f3542;
+    padding: 24px 16px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9em;
+    animation-duration: 0.5s !important;
+
+    &.hidden {
+        pointer-events: none;
+    }
+
+    &::before {
+        content: "";
+        transform: rotate(45deg);
+        position: absolute;
+        background-color: #2f3542;
+        bottom: -7.5px;
+        right: 32px;
+        height: 15px;
+        width: 15px;
+    }
+}
+
+.form_password_field_hints_list {
+    padding-left: 16px;
+}
+
+.form_password_field_hint {
+    position: relative;
+    margin-bottom: 8px;
+    color: #fff;
+
+    &:before {
+        content: "\e122";
+        position: absolute;
+        font: var(--fa-font-solid);
+        font-size: 0.8em;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -16px;
+    }
+
+    &.success {
+        color: rgba(39, 174, 96, 1);
+
+        &::before {
+            content: "\f00c";
+        }
+    }
+
+    &.error {
+        color: rgba(231, 76, 60, 1);
+
+        &::before {
+            content: "\f00d";
+        }
+    }
+}
+
+.form_field_label {
+    display: inline-block;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    font-weight: 500;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+    transition: color 0.225s ease;
+}
+
+.form_field {
+    position: relative;
+    border: 2px solid hsl(var(--primary-color-hs), 65%);
+    background-color: hsl(var(--primary-color-hs), 95%);
+    padding: 8px;
+    display: block;
+    border-radius: 8px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    width: 100%;
+    box-shadow: none;
+    transition: background 0.225s ease, border 0.225s ease;
+
+    &:focus-within {
+        outline: none;
+    }
+
+    &:disabled,
+    &[disabled] {
+        cursor: default;
+        opacity: 0.7;
+    }
+}
+
+.select {
+    position: relative;
+    display: inline-block;
+    padding: 8px 40px 8px 15px;
+    border-radius: 8px;
+    width: 100%;
+    border: 2px solid hsl(var(--primary-color-hs), 65%);
+    background-color: hsl(var(--primary-color-hs), 95%);
+    text-align: left;
+    color: #444;
+    font-size: 0.95em;
+    cursor: pointer;
+    user-select: none;
+
+    &::before {
+        content: "\f107";
+        font: var(--fa-font-solid);
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+    }
+
+    &.active {
+        & .select_options_list {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &::before {
+            content: "\f106";
+        }
+    }
+}
+
+.select_options_list {
+    position: absolute;
+    z-index: 100;
+    top: 140%;
+    padding: 8px 0;
+    right: 0;
+    left: 0;
+    border-radius: 8px;
+    transition: 0.225s ease;
+    opacity: 0;
+    visibility: hidden;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.select_option {
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: 0.225s ease;
+    user-select: none;
+
+    &:hover {
+        background: hsl(var(--primary-color-hs), 95%);
+    }
+
+    &:last-of-type {
+        border-bottom: none;
+    }
+}
+
+.form_checkbox {
+    display: flex;
+    padding: 4px 0;
+    margin-bottom: 4px;
+    align-items: flex-end;
+}
+
+.form_checkbox_label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.76);
+    position: relative;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.checkbox {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.form_checkbox_label:hover > span {
+    border-color: hsl(var(--primary-color-hs), 45%);
+}
+
+.form_checkbox_label > span {
+    width: 21px;
+    height: 21px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid rgba(0, 0, 0, 0.56);
+    margin-right: 8px;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.form_checkbox:checked + .form_checkbox_label > span {
+    border: 10.5px solid hsl(var(--primary-color-hs), 45%);
+    animation: bounce 250ms;
+}
+
+.form_checkbox:checked + .form_checkbox_label > span::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 4px;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    transform: rotate(45deg);
+    transform-origin: 0% 100%;
+    animation: checked-box 125ms 250ms forwards;
+}
+
+@keyframes checked-box {
+    0% {
+        width: 0;
+        height: 0;
+        border-color: #fff;
+        transform: translate(0, 0) rotate(45deg);
+    }
+    33% {
+        width: 4px;
+        height: 0;
+        border-color: #fff;
+        transform: translate(0, 0) rotate(45deg);
+    }
+    100% {
+        width: 4px;
+        height: 8px;
+        border-color: #fff;
+        transform: translate(0, -8px) rotate(45deg);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    33% {
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
