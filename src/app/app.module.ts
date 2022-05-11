@@ -18,6 +18,7 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProductInventoryPageComponent } from './pages/product-inventory-page/product-inventory-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     AppRoutingModule,
     HttpClientModule,
     KeycloakAngularModule,
+    [SweetAlert2Module.forRoot()],
+
   ],
   providers: [
     SharedService,
