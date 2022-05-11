@@ -18,13 +18,12 @@ export class ProductInventoryComponent implements OnInit {
         name: product.name,
         description: product.description,
         barcode: "328472359",
-        category: product.categoryId,
+        category: product.categoryName,
         status: "Available",
         archived: product.isDeleted,
         requiresApproval: product.requiresApproval,
         actions: "",
       }));
-      console.log(response)
     });
   }
 
