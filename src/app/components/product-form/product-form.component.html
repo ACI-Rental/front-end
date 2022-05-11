@@ -1,36 +1,47 @@
-<div class="product_form">
-  <div class="form_field_wrapper form_input full_width" id="name">
-    <label class="form_field_label" [attr.for]="'field-input'"> Label </label>
+<form
+  class="product_form"
+  [formGroup]="productForm"
+  (ngSubmit)="onSubmit(productForm)"
+>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-name">Name</label>
     <div [style.position]="'relative'">
       <input
-        [id]="'field-input'"
+        formControlName="name"
+        id="field-input-name"
         class="form_field"
-        [attr.placeholder]="'test'"
+        placeholder="Your product name"
         type="text"
-        [attr.required]="false"
-        value=""
-        name="field-input"
+        name="field-input-name"
       />
     </div>
-    <small class="form_field_hint">some random hint</small>
+    <small
+      *ngIf="
+        productForm.get('name')?.invalid &&
+        (productForm.get('name')?.dirty || productForm.get('name')?.touched)
+      "
+      class="form_field_hint"
+    >
+      Please provide a name
+    </small>
   </div>
-  <div class="form_field_wrapper form_input full_width" id="description">
-    <label class="form_field_label" [attr.for]="'field-input'"> Label </label>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-description">
+      Description
+    </label>
     <div [style.position]="'relative'">
       <input
-        [id]="'field-input'"
+        formControlName="description"
+        id="field-input-description"
         class="form_field"
-        [attr.placeholder]="'test'"
+        placeholder="Your product description"
         type="text"
-        [attr.required]="false"
-        value=""
-        name="field-input"
+        name="field-input-description"
       />
     </div>
-    <small class="form_field_hint">some random hint</small>
   </div>
-  <div class="form_field_wrapper form_input full_width" id="category">
-    <label class="form_field_label" [attr.for]="'field-input'"> Label </label>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-category">Category</label>
     <div
       class="select"
       [ngClass]="{ active: selectOpen }"
@@ -50,25 +61,31 @@
       </ul>
     </div>
   </div>
-  <div class="form_field_wrapper form_input full_width" id="picture">
-    <label class="form_field_label" [attr.for]="'field-input'"> Label </label>
+  <!-- 
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-picture">Picture</label>
     <div [style.position]="'relative'">
       <input
-        [id]="'field-input'"
+        id="field-input-picture"
         class="form_field"
-        [attr.placeholder]="'test'"
         type="text"
-        [attr.required]="false"
         value=""
-        name="field-input"
+        name="field-input-picture"
       />
     </div>
-    <small class="form_field_hint">some random hint</small>
   </div>
-  <div class="form_checkbox" id="approval">
-    <input class="checkbox" type="checkbox" id="product-approval" />
+  -->
+  <div class="form_checkbox">
+    <input
+      class="checkbox"
+      type="checkbox"
+      id="product-approval"
+      formControlName="approval"
+      [attr.checked]="productForm.get('approval')?.value ? '' : null"
+    />
     <label class="form_checkbox_label" for="product-approval">
-      <span></span> Requires approval
+      <span></span>Requires approval
     </label>
   </div>
-</div>
+  <button type="submit" [disabled]="productForm.invalid">Add product</button>
+</form>
