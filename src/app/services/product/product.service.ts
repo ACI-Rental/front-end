@@ -16,4 +16,16 @@ export class ProductService {
       }));
 
   }
+
+  createProduct(data: any) {
+
+  }
+
+  editProduct(data: any) {
+
+  }
+
+  archiveProduct() {
+
+  }
 }
