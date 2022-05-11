@@ -10,7 +10,7 @@
         [attr.data-name]="header"
         *ngFor="let header of headers"
       >
-        {{ item[header.toLowerCase()] }}
+        {{ item[TurnStringToCamelCase(header)] }}
       </td>
     </tr>
   </tbody>

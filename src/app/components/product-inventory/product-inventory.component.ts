@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/services/product/product.service';
   styleUrls: ['./product-inventory.component.scss']
 })
 export class ProductInventoryComponent implements OnInit {
-  headers: Array<string> = ['Name', 'Description','Barcode', 'Category', 'Status', 'Archived', 'Actions'];
+  headers: Array<string> = ['Name', 'Description','Barcode', 'Category', 'Status', 'Archived', 'Requires approval', 'Actions'];
   data: Array<any> = [];
 
   constructor(private productService: ProductService) {}
@@ -21,8 +21,12 @@ export class ProductInventoryComponent implements OnInit {
         category: product.categoryId,
         status: "Available",
         archived: product.isDeleted,
+        requiresApproval: product.requiresApproval,
         actions: "",
       }));
+      console.log(response)
     });
   }
+
+  
 }
