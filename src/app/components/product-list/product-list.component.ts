@@ -113,12 +113,11 @@ export class ProductListComponent implements OnInit, AfterViewInit {
             position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
-            title: 'Product reserverd!',
+            title: 'Product reserved!',
             icon: 'success',
           });
           this.modalOpen = false;
         }
-        console.log(response);
       },
       (err) => {
         Swal.fire({

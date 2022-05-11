@@ -1,11 +1,10 @@
 <div
-  #modalRef
+  id="{{ 'modal-' + name }}"
   [ngStyle]="{ visibility: openedBefore ? 'visible' : 'hidden' }"
   class="modal_overlay animate__animated"
   [ngClass]="{ hidden: !open, animate__fadeOut: !open, animate__fadeIn: open }"
 >
   <div
-    id="{{ 'modal-' + name }}"
     class="modal"
     [ngClass]="{
       animate__zoomOut: !open,

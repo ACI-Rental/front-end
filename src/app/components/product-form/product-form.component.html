@@ -5,7 +5,7 @@
 >
   <div class="product_form_title">{{ type }} product</div>
   <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-name">Name</label>
+    <label class="form_field_label" for="field-input-name">Name *</label>
     <div [style.position]="'relative'">
       <input
         formControlName="name"
@@ -31,18 +31,20 @@
       Description
     </label>
     <div [style.position]="'relative'">
-      <input
+      <textarea
         formControlName="description"
         id="field-input-description"
-        class="form_field"
+        class="form_textarea"
         placeholder="Your product description"
         type="text"
         name="field-input-description"
-      />
+        (input)="autoScaleTextarea($event)"
+      >
+      </textarea>
     </div>
   </div>
   <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-category">Category</label>
+    <label class="form_field_label" for="field-input-category">Category *</label>
     <div
       class="select"
       [ngClass]="{ active: selectOpen }"
@@ -55,7 +57,7 @@
         <li
           *ngFor="let option of options"
           class="select_option"
-          (click)="changeOption(option.abbr)"
+          (click)="changeOption(option.key)"
         >
           {{ option?.name }}
         </li>
@@ -81,14 +83,18 @@
       class="checkbox"
       type="checkbox"
       id="product-approval"
-      formControlName="approval"
-      [attr.checked]="productForm.get('approval')?.value ? '' : null"
+      formControlName="requiresApproval"
+      [attr.checked]="productForm.get('requiresApproval')?.value ? '' : null"
     />
     <label class="form_checkbox_label" for="product-approval">
       <span></span>Requires approval
     </label>
   </div>
-  <button class="product_form_submit" type="submit" [disabled]="productForm.invalid">
+  <button
+    class="product_form_submit"
+    type="submit"
+    [disabled]="productForm.invalid"
+  >
     {{ type }} product
   </button>
 </form>

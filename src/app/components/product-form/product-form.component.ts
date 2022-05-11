@@ -6,7 +6,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { ProductService } from 'src/app/services/product/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-form',
@@ -15,37 +18,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ProductFormComponent implements OnInit {
   @Input() type: string = 'Create';
+  @Input() productId: any = null;
 
   selectOpen: boolean = false;
-  currentOption: string = 'Angular';
-  options: Array<any> = [
-    {
-      name: 'Angular',
-      abbr: 'angular',
-      active: true,
-    },
-    {
-      name: 'Is',
-      abbr: 'is',
-      active: true,
-    },
-    {
-      name: 'Kak',
-      abbr: 'kak',
-      active: true,
-    },
-  ];
+  currentOption: string = 'Select a category...';
+  options: Array<any> = [];
 
   productForm: FormGroup;
-
-  onSubmit(form: FormGroup) {
-    console.log('Valid?', form.valid); // true or false
-    console.log('Name', form.value.name);
-    console.log('Description', form.value.description);
-    console.log('Category', form.value.category);
-    console.log('Picture', form.value.picture);
-    console.log('Approval', form.value.approval);
-  }
 
   private justOpened = false;
 
@@ -57,7 +36,7 @@ export class ProductFormComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onClick(ev: any) {
     ev.stopPropagation();
-    
+
     if (
       this.selectOpen &&
       ev.target !== this.optionsRef?.current &&
@@ -68,15 +47,22 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.categoryService.getAllCategories().subscribe((response) => {
+      this.options = response.map((category: any) => ({
+        name: category?.name,
+        key: category?.id,
+        active: false
+      }))
+    })
+
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: '',
-      category: ['angular', [Validators.required]],
-      picture: '',
-      approval: false
+      categoryId: [-1, [Validators.required]],
+      requiresApproval: false
     });
   }
 
@@ -86,18 +72,97 @@ export class ProductFormComponent implements OnInit {
     setTimeout(() => (this.justOpened = false), 200);
   }
 
-  changeOption(abbr: any) {
+  autoScaleTextarea(e: any) {
+    e.target.style.height = "0px";
+    e.target.style.height = e.target.scrollHeight + "px";
+  }
+
+  changeOption(key: any) {
     const updatedOptions = this.options.map((child) => {
-      if (abbr === child.abbr) {
+      if (key === child.key) {
         return { ...child, active: true };
       } else {
         return { ...child, active: false };
       }
     });
 
-    this.productForm.get('category')?.patchValue(abbr, { onlySelf: true })
+    this.productForm.get('categoryId')?.patchValue(key, { onlySelf: true })
 
     this.options = updatedOptions;
     this.currentOption = updatedOptions?.find((option) => option.active)?.name;
+  }
+
+  onSubmit(form: FormGroup): void {
+    if (!form.valid) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        title: 'Please fill in all required fields.',
+        icon: 'error',
+      });
+
+      return;
+    }
+
+    if (this.type?.toLowerCase() === 'create') {
+      const data: any = {
+        description: "",
+        ...this.productForm.value,
+        isDeleted: false,
+      }
+
+      this.productService.createProduct(data).subscribe((response: any) => {
+        if (!response.error) {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            title: 'Product created!',
+            icon: 'success',
+          });
+        }
+      },
+        (err) => {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            title: err.error.message,
+            icon: 'error',
+          });
+        })
+    } else {
+      const data: any = {
+        ...this.productForm.value,
+        id: this.productId,
+      }
+
+      this.productService.editProduct(data).subscribe((response: any) => {
+        if (!response.error) {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            title: 'Product updated!',
+            icon: 'success',
+          });
+        }
+      },
+        (err) => {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            title: err.error.message,
+            icon: 'error',
+          });
+        })
+    }
   }
 }

@@ -20,8 +20,7 @@ export class ModalComponent implements OnInit, OnChanges {
     const modalRef: any = document.getElementById(`modal-${this.name}`);
 
     if (
-      ev.target !== modalRef &&
-      !modalRef?.contains(ev.target) &&
+      ev.target === modalRef &&
       !this.justOpened
     ) {
       this.open = false;

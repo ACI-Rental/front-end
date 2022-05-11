@@ -7,25 +7,36 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ProductService {
+
+  BASE_URL = `${environment.BASE_URL}/products`
+
   constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    return this.http.get(`${environment.BASE_URL}/products`)
+    return this.http.get(this.BASE_URL)
       .pipe(map((response: any) => {
         return response;
       }));
-
   }
 
   createProduct(data: any) {
-
+    return this.http.post(this.BASE_URL, data)
+    .pipe(map((response: any) => {
+      return response;
+    }));
   }
 
   editProduct(data: any) {
-
+    return this.http.put(`${this.BASE_URL}/edit`, data)
+    .pipe(map((response: any) => {
+      return response;
+    }));
   }
 
-  archiveProduct() {
-
+  archiveProduct(data: any) {
+    return this.http.put(`${this.BASE_URL}/archive`, data)
+    .pipe(map((response: any) => {
+      return response;
+    }));
   }
 }
