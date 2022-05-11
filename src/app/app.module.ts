@@ -20,6 +20,7 @@ import { ProductInventoryPageComponent } from './pages/product-inventory-page/pr
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     AppRoutingModule,
     HttpClientModule,
     KeycloakAngularModule,
+    ReactiveFormsModule
   ],
   providers: [
     SharedService,

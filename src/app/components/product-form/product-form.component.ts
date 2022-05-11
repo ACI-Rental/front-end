@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-form',
@@ -32,6 +33,17 @@ export class ProductFormComponent implements OnInit {
     },
   ];
 
+  productForm: FormGroup;
+
+  onSubmit(form: FormGroup) {
+    console.log('Valid?', form.valid); // true or false
+    console.log('Name', form.value.name);
+    console.log('Description', form.value.description);
+    console.log('Category', form.value.category);
+    console.log('Picture', form.value.picture);
+    console.log('Approval', form.value.approval);
+  }
+
   private justOpened = false;
 
   private optionsRef: any;
@@ -51,9 +63,17 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  constructor() {}
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      description: '',
+      category: ['angular', [Validators.required]],
+      picture: '',
+      approval: false
+    });
+  }
 
   openSelect() {
     this.selectOpen = !this.selectOpen;
@@ -69,6 +89,8 @@ export class ProductFormComponent implements OnInit {
         return { ...child, active: false };
       }
     });
+
+    this.productForm.get('category')?.patchValue(abbr, { onlySelf: true })
 
     this.options = updatedOptions;
     this.currentOption = updatedOptions?.find((option) => option.active)?.name;
