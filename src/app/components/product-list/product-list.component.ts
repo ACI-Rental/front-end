@@ -1,23 +1,30 @@
-import { Component, OnInit, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+  Input,
+} from '@angular/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/services/product/product.service';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit, AfterViewInit {
-
   @Input() filterOpen: boolean = false;
   @Output() filterOpenChange = new EventEmitter<boolean>();
 
   modalOpen: boolean = false;
 
-  moment: any = moment
+  moment: any = moment;
 
   products: Array<any> = [];
 
@@ -29,35 +36,47 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   startDateSub: Subscription = Subscription.EMPTY;
   endDateSub: Subscription = Subscription.EMPTY;
 
-  constructor(private sharedService: SharedService, private productService: ProductService, private reservationService: ReservationService) { }
+  constructor(
+    private sharedService: SharedService,
+    private productService: ProductService,
+    private reservationService: ReservationService
+  ) {}
 
   ngOnInit(): void {
-    this.startDateSub = this.sharedService.startDate.subscribe(startDate => this.startDate = startDate)
-    this.endDateSub = this.sharedService.endDate.subscribe(endDate => this.endDate = endDate)
+    this.startDateSub = this.sharedService.startDate.subscribe(
+      (startDate) => (this.startDate = startDate)
+    );
+    this.endDateSub = this.sharedService.endDate.subscribe(
+      (endDate) => (this.endDate = endDate)
+    );
 
     this.productService.getAllProducts().subscribe((response) => {
       this.products = response;
-    })
+    });
   }
 
   ngAfterViewInit() {
-    const productDescriptions = document.getElementsByClassName('product_description');
+    const productDescriptions = document.getElementsByClassName(
+      'product_description'
+    );
 
     for (let i = 0; i < productDescriptions.length; i++) {
       const productDescriptionEl: any = productDescriptions[i];
 
-      if (productDescriptionEl.offsetHeight < productDescriptionEl.scrollHeight ||
-        productDescriptionEl.offsetWidth < productDescriptionEl.scrollWidth) {
-        productDescriptionEl.nextSibling.classList.add('show')
+      if (
+        productDescriptionEl.offsetHeight < productDescriptionEl.scrollHeight ||
+        productDescriptionEl.offsetWidth < productDescriptionEl.scrollWidth
+      ) {
+        productDescriptionEl.nextSibling.classList.add('show');
       } else {
-        productDescriptionEl.nextSibling.classList.remove('show')
+        productDescriptionEl.nextSibling.classList.remove('show');
       }
     }
   }
 
   openFilters() {
     this.filterOpen = true;
-    this.filterOpenChange.emit(true)
+    this.filterOpenChange.emit(true);
   }
 
   openModal(product: any) {
@@ -68,6 +87,14 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   reserveProduct() {
     if (this.endDate == null || this.startDate == null) {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        title: 'No valid date selected!',
+        icon: 'error',
+      });
       return;
     }
 
@@ -75,11 +102,34 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       productId: this.product.id,
       renterId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
       startDate: this.startDate?.toDate(),
-      endDate: this.endDate?.toDate()
-    }
+      endDate: this.endDate?.toDate(),
+    };
 
-    this.reservationService.ReserveProduct(data).subscribe((response) => {
-      console.log(response)
-    })
+    this.reservationService.ReserveProduct(data).subscribe(
+      (response) => {
+        if (!response.error) {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            title: 'Product reserverd!',
+            icon: 'success',
+          });
+          this.modalOpen = false;
+        }
+        console.log(response);
+      },
+      (err) => {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          title: err.error.message,
+          icon: 'error',
+        });
+      }
+    );
   }
 }
