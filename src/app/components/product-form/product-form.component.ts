@@ -1,24 +1,28 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
+  OnChanges,
   OnInit,
+  Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ProductService } from 'src/app/services/product/product.service';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss'],
 })
-export class ProductFormComponent implements OnInit {
-  @Input() type: string = 'Create';
+export class ProductFormComponent implements OnInit, OnChanges {
   @Input() productId: any = null;
+  @Output() productIdChange = new EventEmitter<any>();
 
   selectOpen: boolean = false;
   currentOption: string = 'Select a category...';
@@ -27,6 +31,7 @@ export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
 
   private justOpened = false;
+  private loading = false;
 
   private optionsRef: any;
   @ViewChild('optionsBx', { static: false }) set optionsBx(elRef: ElementRef) {
@@ -50,6 +55,7 @@ export class ProductFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+
     this.categoryService.getAllCategories().subscribe((response) => {
       this.options = response.map((category: any) => ({
         name: category?.name,
@@ -58,12 +64,28 @@ export class ProductFormComponent implements OnInit {
       }))
     })
 
+
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      description: '',
+      description: [''],
       categoryId: [-1, [Validators.required]],
-      requiresApproval: false
+      requiresApproval: [false]
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes?.['productId']?.currentValue !== null) {
+      this.productService.getProduct(this.productId).subscribe((product) => {
+        this.productForm.setValue({
+          name: product?.name,
+          description: product?.description,
+          categoryId: product?.categoryId,
+          requiresApproval: product?.requiresApproval
+        })
+
+        this.changeOption(product?.categoryId)
+      })
+    }
   }
 
   openSelect() {
@@ -86,7 +108,7 @@ export class ProductFormComponent implements OnInit {
       }
     });
 
-    this.productForm.get('categoryId')?.patchValue(key, { onlySelf: true })
+    this.productForm.patchValue({ categoryId: key });
 
     this.options = updatedOptions;
     this.currentOption = updatedOptions?.find((option) => option.active)?.name;
@@ -94,46 +116,27 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     if (!form.valid) {
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        title: 'Please fill in all required fields.',
-        icon: 'error',
-      });
+      this.Notify('error', 'Please fill in all required fields.')
 
       return;
     }
 
-    if (this.type?.toLowerCase() === 'create') {
+    if (this.productId === null) {
       const data: any = {
-        description: "",
         ...this.productForm.value,
+        description: this.productForm.value?.description || "",
         isDeleted: false,
       }
 
       this.productService.createProduct(data).subscribe((response: any) => {
         if (!response.error) {
-          Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            title: 'Product created!',
-            icon: 'success',
-          });
+          this.Notify('success', 'Product created!')
+
+          this.productIdChange.emit(null);
         }
       },
         (err) => {
-          Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            title: err.error.message,
-            icon: 'error',
-          });
+          this.Notify('error', err.error.message || 'Something went wrong.')
         })
     } else {
       const data: any = {
@@ -143,26 +146,25 @@ export class ProductFormComponent implements OnInit {
 
       this.productService.editProduct(data).subscribe((response: any) => {
         if (!response.error) {
-          Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            title: 'Product updated!',
-            icon: 'success',
-          });
+          this.Notify('success', 'Product updated!')
+
+          this.productIdChange.emit(null);
         }
       },
         (err) => {
-          Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            title: err.error.message,
-            icon: 'error',
-          });
+          this.Notify('error', err.error.message || 'Something went wrong.')
         })
     }
+  }
+
+  Notify(status: SweetAlertIcon, message: string) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      title: message,
+      icon: status,
+    });
   }
 }

@@ -1,2 +1,9 @@
 <div class="page_title">Product inventory</div>
 <app-table [headers]="headers" [data]="data"></app-table>
+
+<app-modal [(open)]="modalOpen" [name]="'product'" [padding]="45">
+  <app-product-form
+    [productId]="productId"
+    (productIdChange)="productIdChange($event)"
+  ></app-product-form>
+</app-modal>

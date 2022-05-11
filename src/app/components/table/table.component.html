@@ -2,15 +2,22 @@
   <thead>
     <tr>
       <th *ngFor="let header of headers">{{ header }}</th>
+      <th *ngIf="containsActions()">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of data">
-      <td
-        [attr.data-name]="header"
-        *ngFor="let header of headers"
-      >
-        {{ item[TurnStringToCamelCase(header)] }}
+      <td [attr.data-name]="header" *ngFor="let header of headers">
+        {{ item[turnStringToCamelCase(header)] }}
+      </td>
+      <td *ngIf="Array.isArray(item?.actions)">
+        <button
+          class="table_actions"
+          *ngFor="let action of item?.actions"
+          (click)="action?.function()"
+        >
+          <i [class]="'fa-regular fa-' + action?.icon"></i>
+        </button>
       </td>
     </tr>
   </tbody>

@@ -3,7 +3,9 @@
   [formGroup]="productForm"
   (ngSubmit)="onSubmit(productForm)"
 >
-  <div class="product_form_title">{{ type }} product</div>
+  <div class="product_form_title">
+    {{ productId === null ? "Create" : "Edit" }} product
+  </div>
   <div class="form_field_wrapper form_input full_width">
     <label class="form_field_label" for="field-input-name">Name *</label>
     <div [style.position]="'relative'">
@@ -44,7 +46,9 @@
     </div>
   </div>
   <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-category">Category *</label>
+    <label class="form_field_label" for="field-input-category"
+      >Category *</label
+    >
     <div
       class="select"
       [ngClass]="{ active: selectOpen }"
@@ -82,11 +86,13 @@
     <input
       class="checkbox"
       type="checkbox"
-      id="product-approval"
+      [id]="'product-approval-' + (productId === null ? 'add' : 'update')"
       formControlName="requiresApproval"
-      [attr.checked]="productForm.get('requiresApproval')?.value ? '' : null"
     />
-    <label class="form_checkbox_label" for="product-approval">
+    <label
+      class="form_checkbox_label"
+      [for]="'product-approval-' + (productId === null ? 'add' : 'update')"
+    >
       <span></span>Requires approval
     </label>
   </div>
@@ -95,6 +101,6 @@
     type="submit"
     [disabled]="productForm.invalid"
   >
-    {{ type }} product
+    {{ productId === null ? "Add" : "Update" }} product
   </button>
 </form>

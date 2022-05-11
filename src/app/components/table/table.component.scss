@@ -90,3 +90,25 @@ table {
     }
   }
 }
+
+.table_actions {
+  float: left;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-style: none;
+  background-color: transparent;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background 0.225s ease;
+
+  &:hover,
+  &:focus-within {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

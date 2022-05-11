@@ -10,7 +10,7 @@ export class ProductService {
 
   BASE_URL = `${environment.BASE_URL}/products`
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllProducts() {
     return this.http.get(this.BASE_URL)
@@ -19,24 +19,31 @@ export class ProductService {
       }));
   }
 
+  getProduct(id: any) {
+    return this.http.get(`${this.BASE_URL}/${id}`)
+      .pipe(map((response: any) => {
+        return response;
+      }));
+  }
+
   createProduct(data: any) {
     return this.http.post(this.BASE_URL, data)
-    .pipe(map((response: any) => {
-      return response;
-    }));
+      .pipe(map((response: any) => {
+        return response;
+      }));
   }
 
   editProduct(data: any) {
     return this.http.put(`${this.BASE_URL}/edit`, data)
-    .pipe(map((response: any) => {
-      return response;
-    }));
+      .pipe(map((response: any) => {
+        return response;
+      }));
   }
 
   archiveProduct(data: any) {
     return this.http.put(`${this.BASE_URL}/archive`, data)
-    .pipe(map((response: any) => {
-      return response;
-    }));
+      .pipe(map((response: any) => {
+        return response;
+      }));
   }
 }
