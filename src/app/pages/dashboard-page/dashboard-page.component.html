@@ -1,3 +1,8 @@
 <p>dashboard-page works!</p>
 <app-product-inventory></app-product-inventory>
-<app-product-form></app-product-form>
+
+    <button (click)="openModal()">Open</button>
+
+<app-modal [(open)]="modalOpen" [name]="'product'" [padding]="45">
+  <app-product-form></app-product-form>
+</app-modal>

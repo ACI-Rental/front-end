@@ -29,6 +29,7 @@ export class DropdownComponent implements OnInit, OnChanges {
 
   @HostListener('document:click', ['$event'])
   onClick(ev: any) {
+    ev.stopPropagation();
     if (
       this.open &&
       ev.target !== this.dropdownRef?.nativeElement?.current &&

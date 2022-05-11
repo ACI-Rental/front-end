@@ -3,6 +3,7 @@
   [formGroup]="productForm"
   (ngSubmit)="onSubmit(productForm)"
 >
+  <div class="product_form_title">{{ type }} product</div>
   <div class="form_field_wrapper form_input full_width">
     <label class="form_field_label" for="field-input-name">Name</label>
     <div [style.position]="'relative'">
@@ -87,5 +88,7 @@
       <span></span>Requires approval
     </label>
   </div>
-  <button type="submit" [disabled]="productForm.invalid">Add product</button>
+  <button class="product_form_submit" type="submit" [disabled]="productForm.invalid">
+    {{ type }} product
+  </button>
 </form>

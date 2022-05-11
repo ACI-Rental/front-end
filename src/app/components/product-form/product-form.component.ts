@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -13,6 +14,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent implements OnInit {
+  @Input() type: string = 'Create';
+
   selectOpen: boolean = false;
   currentOption: string = 'Angular';
   options: Array<any> = [
@@ -53,6 +56,8 @@ export class ProductFormComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onClick(ev: any) {
+    ev.stopPropagation();
+    
     if (
       this.selectOpen &&
       ev.target !== this.optionsRef?.current &&

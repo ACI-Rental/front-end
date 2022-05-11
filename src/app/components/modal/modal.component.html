@@ -11,6 +11,7 @@
       animate__zoomOut: !open,
       animate__zoomIn: open
     }"
+    [ngStyle]="{ padding: (padding || 12) + 'px' }"
   >
     <ng-content></ng-content>
   </div>
