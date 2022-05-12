@@ -48,6 +48,10 @@ export class TableComponent implements OnInit {
     return words.join("");
   }
 
+  isBool(data: any) {
+    return typeof data === 'boolean';
+  }
+
   containsActions() {
     return this.data?.some(item => Array.isArray(item?.actions))
   }

@@ -69,7 +69,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
       name: ['', Validators.required],
       description: [''],
       categoryId: [-1, [Validators.required]],
-      requiresApproval: [false]
+      requiresApproval: [false, [Validators.required]]
     });
   }
 

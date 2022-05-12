@@ -7,17 +7,49 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of data">
-      <td [attr.data-name]="header" *ngFor="let header of headers">
-        {{ item[turnStringToCamelCase(header)] }}
+      <td
+        [attr.data-name]="header"
+        [style.text-align]="item?.align"
+        *ngFor="let header of headers"
+      >
+        <div
+          *ngIf="!isBool(item[turnStringToCamelCase(header)])"
+          [ngClass]="{
+            tag: item[turnStringToCamelCase(header)]?.tag,
+            available: item[turnStringToCamelCase(header)]?.tagAvailable
+          }"
+        >
+          {{
+            item[turnStringToCamelCase(header)]?.value ||
+              item[turnStringToCamelCase(header)]
+          }}
+        </div>
+        <div *ngIf="isBool(item[turnStringToCamelCase(header)])">
+          <i
+            *ngIf="item[turnStringToCamelCase(header)]"
+            [style.color]="'#6ab04c'"
+            class="fa-solid fa-check icon"
+          ></i>
+          <i
+            *ngIf="!item[turnStringToCamelCase(header)]"
+            [style.color]="'#eb4d4b'"
+            class="fa-solid fa-xmark icon"
+          ></i>
+        </div>
       </td>
       <td *ngIf="Array.isArray(item?.actions)">
-        <button
-          class="table_actions"
-          *ngFor="let action of item?.actions"
-          (click)="action?.function()"
-        >
-          <i [class]="'fa-regular fa-' + action?.icon"></i>
-        </button>
+        <div class="table_actions">
+          <button
+            class="table_action"
+            *ngFor="let action of item?.actions"
+            (click)="action?.function()"
+          >
+            <i
+              [style.color]="action?.color"
+              [class]="'fa-duotone fa-' + action?.icon"
+            ></i>
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

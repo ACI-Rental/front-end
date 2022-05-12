@@ -28,16 +28,19 @@ export class ProductInventoryComponent implements OnInit {
         description: product.description,
         barcode: "328472359",
         category: product.categoryName,
-        status: "Available",
+        status: { value: "Available", tag: true, tagAvailable: true },
         archived: product.isDeleted,
         requiresApproval: product.requiresApproval,
+        align: 'center',
         actions: [{
           icon: 'pencil',
           function: () => this.editProduct(product?.id),
+          color: '#f0932b'
         },
         {
           icon: 'box-archive',
-          function: () => this.archiveProduct(product?.id, !product?.isDeleted)
+          function: () => this.archiveProduct(product?.id, !product?.isDeleted),
+          color: '#eb4d4b'
         }],
       }));
     });

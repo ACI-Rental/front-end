@@ -9,13 +9,14 @@ $gl-lg: "screen and (max-width: 80em)"; // max 1280px
 // table style
 
 table {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-spacing: 1;
   border-collapse: collapse;
   background: white;
-  border-radius: 6px;
   overflow: hidden;
   width: 100%;
   margin: 0 auto;
+  border-radius: 4px;
   position: relative;
 
   * {
@@ -27,31 +28,27 @@ table {
     padding-left: 8px;
   }
 
+  th {
+    font-size: 1em;
+    text-align: center;
+    font-weight: 600;
+  }
+
   thead tr {
     height: 60px;
-    background-color: hsl(var(--primary-color-hs), 45%);
-    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 2px solid hsl(0, 0, 89%);
   }
 
   tbody tr {
     height: 48px;
-    border-bottom: 1px solid #e3f1d5;
+
+    &:nth-of-type(even) {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
     &:last-child {
       border: 0;
-    }
-  }
-
-  td,
-  th {
-    text-align: left;
-    &.l {
-      text-align: right;
-    }
-    &.c {
-      text-align: center;
-    }
-    &.r {
-      text-align: center;
     }
   }
 }
@@ -91,8 +88,39 @@ table {
   }
 }
 
+.icon {
+  font-size: 1.2em;
+}
+
+.tag {
+  margin-right: 4px;
+  font-size: 0.7em;
+  padding: 4px 8px;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.16);
+  font-weight: 500;
+
+  &.unavailable {
+    background-color: hsl(358, 83%, 82%);
+    color: hsl(358, 83%, 52%);
+  }
+
+  &.available {
+    background-color: hsl(140, 100%, 79%);
+    color: hsl(140, 100%, 29%);
+  }
+}
+
 .table_actions {
-  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+  vertical-align: center;
+}
+
+.table_action {
   position: relative;
   display: flex;
   justify-content: center;
