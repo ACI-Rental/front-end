@@ -31,7 +31,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
   productForm: FormGroup;
 
   private justOpened = false;
-  private loading = false;
 
   private optionsRef: any;
   @ViewChild('optionsBx', { static: false }) set optionsBx(elRef: ElementRef) {
