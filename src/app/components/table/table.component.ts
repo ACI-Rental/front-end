@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
-import { CategoryService } from 'src/app/services/category/category.service';
 
 @Component({
   selector: 'app-table',
@@ -14,67 +13,15 @@ export class TableComponent implements OnInit {
 
   oldData: Array<any> = [];
 
-  selectOpen: boolean = false;
-  currentOption: string = 'Select a category...';
-  options: Array<any> = [];
-
   currentlySorting: any = {};
 
   Array = Array;
 
-  private optionsRef: any;
-  @ViewChild('optionsBx', { static: false }) set optionsBx(elRef: ElementRef) {
-    this.optionsRef = elRef;
-  }
 
-  @HostListener('document:click', ['$event'])
-  onClick(ev: any) {
-    ev.stopPropagation();
-
-    if (
-      this.selectOpen &&
-      ev.target !== this.optionsRef?.current &&
-      !this.optionsRef?.current?.contains(ev.target) &&
-      !this.justOpened
-    ) {
-      this.selectOpen = false;
-    }
-  }
-
-  private justOpened = false;
-
-  constructor(private categoryService: CategoryService) { }
+  constructor() { }
 
 
   ngOnInit(): void {
-
-    this.categoryService.getAllCategories().subscribe((response) => {
-      this.options = response.map((category: any) => ({
-        name: category?.name,
-        key: category?.id,
-        active: false
-      }))
-    });
-  }
-
-  openSelect() {
-    this.selectOpen = !this.selectOpen;
-    this.justOpened = true;
-    setTimeout(() => (this.justOpened = false), 200);
-  }
-
-  changeOption(key: any) {
-    const updatedOptions = this.options.map((child) => {
-      if (key === child.key) {
-        return { ...child, active: true };
-      } else {
-        return { ...child, active: false };
-      }
-    });
-
-
-    this.options = updatedOptions;
-    this.currentOption = updatedOptions?.find((option) => option.active)?.name;
   }
 
   sortTable(header: any) {

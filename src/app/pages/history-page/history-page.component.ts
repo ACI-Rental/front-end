@@ -20,6 +20,7 @@ export class HistoryPageComponent implements OnInit {
         to: moment(reservation.endDate).format('LL'),
         product: reservation.productId,
         status: this.getStatus(reservation.startDate, reservation.endDate),
+        align: 'center',
       }));
     });
   }

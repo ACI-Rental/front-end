@@ -5,33 +5,13 @@
       <div class="field_right_icon"></div>
     </div>
   </div>
-  <div class="form_field_wrapper form_input full_width">
-    <div
-      class="select"
-      [ngClass]="{ active: selectOpen }"
-      (click)="openSelect()"
-    >
-      <span class="select_selection">
-        {{ currentOption }}
-      </span>
-      <ul #optionsBx class="select_options_list">
-        <li
-          *ngFor="let option of options"
-          class="select_option"
-          (click)="changeOption(option.key)"
-        >
-          {{ option?.name }}
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>-->
 <table>
   <thead>
     <tr>
       <th *ngFor="let header of headers" (click)="sortTable(header)">
-        {{ header
-        }}<i
+        {{ header }}
+        <i
           class="fa-solid header_sort"
           [style.color]="
             currentlySorting?.name === turnStringToCamelCase(header)
@@ -84,7 +64,7 @@
           ></i>
         </div>
       </td>
-      <td *ngIf="Array.isArray(item?.actions)">
+      <td [attr.data-name]="'Actions'" *ngIf="Array.isArray(item?.actions)">
         <div class="table_actions">
           <button
             class="table_action"
