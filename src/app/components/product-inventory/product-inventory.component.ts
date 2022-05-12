@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product/product.service';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-product-inventory',
@@ -62,7 +63,24 @@ export class ProductInventoryComponent implements OnInit {
 
   archiveProduct(id: any, isDeleted: boolean) {
     this.productService.archiveProduct({ id, isDeleted }).subscribe(response => {
-      console.log(response)
-    })
+      if (!response.error) {
+        this.getData();
+        this.Notify('success', 'Product archived!')
+      }
+    },
+      (err) => {
+        this.Notify('error', err.error.message || 'Something went wrong.')
+      })
+  }
+
+  Notify(status: SweetAlertIcon, message: string) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      title: message,
+      icon: status,
+    });
   }
 }
