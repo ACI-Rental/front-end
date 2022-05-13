@@ -28,6 +28,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   visibleRowAmount: number = 0;
 
+  search: string = "";
+
   private justOpened = false;
 
   private optionsRef: any;
@@ -59,7 +61,21 @@ export class TableComponent implements OnInit, OnChanges {
       this.maxPages = Math.ceil(changes["data"]?.currentValue?.length / this.rowsVisible);
 
       this.visibleRowAmount = this.filterData()?.length;
+
+      let updatedData = _.cloneDeep(changes["data"]?.currentValue);
+      this.oldData = changes["data"]?.currentValue;
+
+      const containsObject = updatedData.some((row: any) => typeof row[this.currentlySorting?.name] === 'object')
+      updatedData = _.orderBy(updatedData, [containsObject ? `${this.currentlySorting?.name}.value` : this.currentlySorting?.name], [this.currentlySorting?.order])
+
+      this.data = updatedData
     }
+  }
+
+  searchTable(e: any) {
+    this.search = e.target.value;
+
+    this.visibleRowAmount = this.filterData()?.length;
   }
 
   sortTable(header: any) {
@@ -179,7 +195,23 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   filterData() {
-    return this.data?.filter((row, index) => (index < (this.rowsVisible * this.pageNumber)) && (index >= (this.rowsVisible * (this.pageNumber - 1))))
+    return this.data?.
+      filter((row) => {
+        let showRow = false;
+
+        _.forOwn(row, (value, key) => {
+          if (typeof value === 'string' && value?.toLowerCase().includes(this.search.toLowerCase())) {
+            showRow = true;
+          }
+
+          if (typeof value === 'object' && typeof value?.value === 'string' && value?.value?.toLowerCase().includes(this.search.toLowerCase())) {
+            showRow = true;
+          }
+        })
+
+        return showRow;
+      })?.
+      filter((row, index) => (index < (this.rowsVisible * this.pageNumber)) && (index >= (this.rowsVisible * (this.pageNumber - 1))))
   }
 
   containsActions() {

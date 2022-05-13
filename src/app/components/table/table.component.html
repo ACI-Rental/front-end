@@ -29,8 +29,10 @@
         <div [style.position]="'relative'">
           <input
             class="search_field"
-            placeholder="Search name..."
+            placeholder="Search any item..."
             type="text"
+            [value]="search"
+            (input)="searchTable($event)"
           />
           <div class="field_right_icon"></div>
         </div>

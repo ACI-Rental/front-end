@@ -228,6 +228,7 @@ table {
   font-size: 0.95em;
   line-height: 1.5;
   box-shadow: none;
+  padding-right: 30px;
   transition: background 0.225s ease, border 0.225s ease;
 
   &:focus-within {
@@ -316,12 +317,6 @@ table {
     outline: none;
     background-color: rgba(0, 0, 0, 0.1);
   }
-}
-
-.table_pagination {
-}
-
-.pagination {
 }
 
 .pagination_button {
