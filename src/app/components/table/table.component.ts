@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
 import * as _ from 'lodash';
 
 @Component({
@@ -11,15 +11,40 @@ export class TableComponent implements OnInit {
   @Input() headers: Array<string> = [];
   @Input() data: Array<any> = [];
 
+  @Input() title: string = "";
+
+  selectOpen: boolean = false;
+  currentOption: number = 5;
+  options: Array<any> = [5, 10, 15, 20, 50];
+
   oldData: Array<any> = [];
 
   currentlySorting: any = {};
 
   Array = Array;
 
+  private justOpened = false;
+
+  private optionsRef: any;
+  @ViewChild('optionsBx', { static: false }) set optionsBx(elRef: ElementRef) {
+    this.optionsRef = elRef;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(ev: any) {
+    ev.stopPropagation();
+
+    if (
+      this.selectOpen &&
+      ev.target !== this.optionsRef?.current &&
+      !this.optionsRef?.current?.contains(ev.target) &&
+      !this.justOpened
+    ) {
+      this.selectOpen = false;
+    }
+  }
 
   constructor() { }
-
 
   ngOnInit(): void {
   }
@@ -87,7 +112,46 @@ export class TableComponent implements OnInit {
   }
 
   isBool(data: any) {
+    if (typeof data === 'object') {
+      return typeof data?.value === 'boolean'
+    }
+
     return typeof data === 'boolean';
+  }
+
+  isTrue(data: any) {
+    if (typeof data === 'object') {
+      return data?.value;
+    }
+
+    return data;
+  }
+
+  checkAlignment(header: string) {
+    let alignment = null;
+
+    this.data?.forEach((row) => {
+      const colValue = row[this.turnStringToCamelCase(header)];
+
+      if (typeof colValue === 'object') {
+        alignment = colValue?.align;
+      }
+    })
+
+    return alignment;
+  }
+
+
+  openSelect() {
+    this.selectOpen = !this.selectOpen;
+    this.justOpened = true;
+    setTimeout(() => (this.justOpened = false), 200);
+  }
+
+
+  changeOption(key: any) {
+    this.options = key;
+    this.currentOption = key;
   }
 
   containsActions() {
