@@ -122,7 +122,7 @@
       Showing {{ visibleRowAmount }} rows out of {{ data?.length }} results
       found
     </div>
-    <div class="table_pagination">
+    <div *ngIf="maxPages > 1" class="table_pagination">
       <ul class="pagination">
         <li class="pagination_button" (click)="changePage(pageNumber - 1)">
           <i class="fa-solid fa-angle-left"></i>

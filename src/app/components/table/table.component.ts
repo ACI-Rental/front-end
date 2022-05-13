@@ -155,17 +155,17 @@ export class TableComponent implements OnInit, OnChanges {
     return alignment;
   }
 
-
   openSelect() {
     this.selectOpen = !this.selectOpen;
     this.justOpened = true;
     setTimeout(() => (this.justOpened = false), 200);
   }
 
-
   changeOption(key: any) {
-    this.options = key;
     this.rowsVisible = key;
+    this.maxPages = Math.ceil(this.data?.length / this.rowsVisible);
+
+    this.visibleRowAmount = this.filterData()?.length;
   }
 
   changePage(pageNumber: number) {
