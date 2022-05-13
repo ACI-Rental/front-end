@@ -87,7 +87,8 @@ export class TableComponent implements OnInit, OnChanges {
         this.oldData = updatedData;
       }
 
-      updatedData = _.orderBy(updatedData, [updatedHeader], [order])
+      const containsObject = updatedData.some((row) => typeof row[updatedHeader] === 'object')
+      updatedData = _.orderBy(updatedData, [containsObject ? `${updatedHeader}.value` : updatedHeader], [order])
 
       this.currentlySorting = { name: updatedHeader, order }
     }

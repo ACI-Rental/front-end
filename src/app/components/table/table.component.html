@@ -131,6 +131,7 @@
           *ngFor="let page of Array.from(Array(maxPages).keys())"
           class="pagination_button"
           [ngClass]="{ selected: pageNumber === page + 1 }"
+          (click)="changePage(page + 1)"
         >
           {{ page + 1 }}
         </li>
