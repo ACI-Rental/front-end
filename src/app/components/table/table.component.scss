@@ -322,9 +322,6 @@ table {
 }
 
 .pagination {
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid hsl(0, 0, 79%);
 }
 
 .pagination_button {
@@ -332,10 +329,12 @@ table {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 27px;
   border: 1px solid hsl(0, 0, 79%);
   transition: all 0.225s ease;
+  border-radius: 4px;
+  margin: 1px;
 
   &:hover {
     border-color: hsl(var(--primary-color-hs), 85%);
@@ -346,9 +345,5 @@ table {
     color: #fff;
     border-color: hsl(var(--primary-color-hs), 45%);
     background-color: hsl(var(--primary-color-hs), 45%);
-  }
-
-  &:last-of-type {
-    border: 0;
   }
 }

@@ -10,7 +10,7 @@
             (click)="openSelect()"
           >
             <span class="select_selection">
-              {{ currentOption }}
+              {{ rowsVisible }}
             </span>
             <ul #optionsBx class="select_options_list">
               <li
@@ -69,7 +69,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of data">
+      <tr *ngFor="let row of filterData()">
         <td
           [style.text-align]="row[turnStringToCamelCase(header)]?.align"
           [attr.data-name]="header"
@@ -119,26 +119,23 @@
   </table>
   <footer class="table_footer">
     <div class="table_found_result">
-      Showing 10 rows out of 250 results found
+      Showing {{ visibleRowAmount }} rows out of {{ data?.length }} results
+      found
     </div>
     <div class="table_pagination">
       <ul class="pagination">
-        <li class="pagination_button">
-          <span>
-            <i class="fa-solid fa-angle-left"></i>
-            <span class="sr-only">(current)</span>
-          </span>
+        <li class="pagination_button" (click)="changePage(pageNumber - 1)">
+          <i class="fa-solid fa-angle-left"></i>
         </li>
-        <li class="pagination_button selected">1</li>
-        <li class="pagination_button">2</li>
-        <li class="pagination_button">3</li>
-        <li class="pagination_button">4</li>
-        <li class="pagination_button">5</li>
-        <li class="pagination_button">
-          <span>
-            <i class="fa-solid fa-angle-right"></i>
-            <span class="sr-only">(current)</span>
-          </span>
+        <li
+          *ngFor="let page of Array.from(Array(maxPages).keys())"
+          class="pagination_button"
+          [ngClass]="{ selected: pageNumber === page + 1 }"
+        >
+          {{ page + 1 }}
+        </li>
+        <li class="pagination_button" (click)="changePage(pageNumber + 1)">
+          <i class="fa-solid fa-angle-right"></i>
         </li>
       </ul>
     </div>

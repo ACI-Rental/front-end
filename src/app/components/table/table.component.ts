@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, SimpleChanges, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 
 @Component({
@@ -6,7 +6,7 @@ import * as _ from 'lodash';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input() headers: Array<string> = [];
   @Input() data: Array<any> = [];
@@ -14,7 +14,7 @@ export class TableComponent implements OnInit {
   @Input() title: string = "";
 
   selectOpen: boolean = false;
-  currentOption: number = 5;
+  rowsVisible: number = 5;
   options: Array<any> = [5, 10, 15, 20, 50];
 
   oldData: Array<any> = [];
@@ -22,6 +22,11 @@ export class TableComponent implements OnInit {
   currentlySorting: any = {};
 
   Array = Array;
+
+  pageNumber: number = 1;
+  maxPages: number = 1;
+
+  visibleRowAmount: number = 0;
 
   private justOpened = false;
 
@@ -49,6 +54,14 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!_.isEmpty(changes["data"]?.currentValue)) {
+      this.maxPages = Math.ceil(changes["data"]?.currentValue?.length / this.rowsVisible);
+
+      this.visibleRowAmount = this.filterData()?.length;
+    }
+  }
+
   sortTable(header: any) {
     let updatedData = _.cloneDeep(this.data);
     const updatedHeader = this.turnStringToCamelCase(header);
@@ -66,6 +79,7 @@ export class TableComponent implements OnInit {
 
     if (order === 'none') {
       updatedData = this.oldData;
+      this.oldData = [];
       this.currentlySorting = {};
     }
     else {
@@ -151,7 +165,20 @@ export class TableComponent implements OnInit {
 
   changeOption(key: any) {
     this.options = key;
-    this.currentOption = key;
+    this.rowsVisible = key;
+  }
+
+  changePage(pageNumber: number) {
+    if (pageNumber < 1 || pageNumber > this.maxPages) {
+      return;
+    }
+
+    this.pageNumber = pageNumber;
+    this.visibleRowAmount = this.filterData()?.length;
+  }
+
+  filterData() {
+    return this.data?.filter((row, index) => (index < (this.rowsVisible * this.pageNumber)) && (index >= (this.rowsVisible * (this.pageNumber - 1))))
   }
 
   containsActions() {
