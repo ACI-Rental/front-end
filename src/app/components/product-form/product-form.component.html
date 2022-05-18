@@ -1,0 +1,106 @@
+<form
+  class="product_form"
+  [formGroup]="productForm"
+  (ngSubmit)="onSubmit(productForm)"
+>
+  <div class="product_form_title">
+    {{ productId === null ? "Create" : "Edit" }} product
+  </div>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-name">Name *</label>
+    <div [style.position]="'relative'">
+      <input
+        formControlName="name"
+        id="field-input-name"
+        class="form_field"
+        placeholder="Your product name"
+        type="text"
+        name="field-input-name"
+      />
+    </div>
+    <small
+      *ngIf="
+        productForm.get('name')?.invalid &&
+        (productForm.get('name')?.dirty || productForm.get('name')?.touched)
+      "
+      class="form_field_hint"
+    >
+      Please provide a name
+    </small>
+  </div>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-description">
+      Description
+    </label>
+    <div [style.position]="'relative'">
+      <textarea
+        formControlName="description"
+        id="field-input-description"
+        class="form_textarea"
+        placeholder="Your product description"
+        type="text"
+        name="field-input-description"
+        (input)="autoScaleTextarea($event)"
+      >
+      </textarea>
+    </div>
+  </div>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-category"
+      >Category *</label
+    >
+    <div
+      class="select"
+      [ngClass]="{ active: selectOpen }"
+      (click)="openSelect()"
+    >
+      <span class="select_selection">
+        {{ currentOption }}
+      </span>
+      <ul #optionsBx class="select_options_list">
+        <li
+          *ngFor="let option of options"
+          class="select_option"
+          (click)="changeOption(option.key)"
+        >
+          {{ option?.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- 
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-picture">Picture</label>
+    <div [style.position]="'relative'">
+      <input
+        id="field-input-picture"
+        class="form_field"
+        type="text"
+        value=""
+        name="field-input-picture"
+      />
+    </div>
+  </div>
+  -->
+  <div class="form_checkbox">
+    <input
+      class="checkbox"
+      type="checkbox"
+      [id]="'product-approval-' + (productId === null ? 'add' : 'update')"
+      formControlName="requiresApproval"
+    />
+    <label
+      class="form_checkbox_label"
+      [for]="'product-approval-' + (productId === null ? 'add' : 'update')"
+    >
+      <span></span>Requires approval
+    </label>
+  </div>
+  <button
+    class="product_form_submit"
+    type="submit"
+    [disabled]="productForm.invalid"
+  >
+    {{ productId === null ? "Add" : "Update" }} product
+  </button>
+</form>

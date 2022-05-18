@@ -12,13 +12,15 @@ export class ModalComponent implements OnInit, OnChanges {
   @Input() open: boolean = false;
   @Output() openChange = new EventEmitter<boolean>();
 
+  @Input() padding: number = 0;
+
   @HostListener('document:click', ['$event'])
   onClick(ev: any) {
+    ev.stopPropagation();
     const modalRef: any = document.getElementById(`modal-${this.name}`);
 
     if (
-      ev.target !== modalRef &&
-      !modalRef?.contains(ev.target) &&
+      ev.target === modalRef &&
       !this.justOpened
     ) {
       this.open = false;

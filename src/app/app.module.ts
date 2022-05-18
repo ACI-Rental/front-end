@@ -19,6 +19,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ProductInventoryPageComponent } from './pages/product-inventory-page/product-inventory-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ModalComponent,
     ProductInventoryPageComponent,
     DashboardPageComponent,
+    ProductInventoryComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     HttpClientModule,
     KeycloakAngularModule,
     [SweetAlert2Module.forRoot()],
-
+    ReactiveFormsModule
   ],
   providers: [
     SharedService,

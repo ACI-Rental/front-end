@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/services/product/product.service';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
+import { SweetAlertIcon } from 'sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
@@ -40,7 +41,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     private sharedService: SharedService,
     private productService: ProductService,
     private reservationService: ReservationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.startDateSub = this.sharedService.startDate.subscribe(
@@ -87,14 +88,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   reserveProduct() {
     if (this.endDate == null || this.startDate == null) {
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        title: 'No valid date selected!',
-        icon: 'error',
-      });
+      this.Notify('error', 'No valid date selected!');
       return;
     }
 
@@ -108,28 +102,24 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     this.reservationService.ReserveProduct(data).subscribe(
       (response) => {
         if (!response.error) {
-          Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            title: 'Product reserverd!',
-            icon: 'success',
-          });
+          this.Notify('success', 'Product reserved!');
           this.modalOpen = false;
         }
-        console.log(response);
       },
       (err) => {
-        Swal.fire({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          title: err.error.message,
-          icon: 'error',
-        });
+        this.Notify('error', err.error.message);
       }
     );
+  }
+
+  Notify(status: SweetAlertIcon, message: string) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      title: message,
+      icon: status,
+    });
   }
 }

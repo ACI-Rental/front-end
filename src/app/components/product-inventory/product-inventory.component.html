@@ -1,0 +1,13 @@
+<app-table
+  [title]="'Product inventory'"
+  [headers]="headers"
+  [data]="data"
+></app-table>
+
+<app-modal [(open)]="modalOpen" [name]="'product'" [padding]="45">
+  <app-product-form
+    [productId]="productId"
+    (productIdChange)="productIdChange($event)"
+  >
+  </app-product-form>
+</app-modal>
