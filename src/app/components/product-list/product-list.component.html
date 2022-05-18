@@ -13,8 +13,9 @@
   <div *ngFor="let product of products" class="product">
     <img
       class="product_image"
-      src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
+      [src]="'http://127.0.0.1:10000/devstoreaccount1/productimages/' +  product.id + '.png'"
       alt=""
+      onerror="this.src='https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png'"
     />
     <div class="product_info">
       <div class="product_name">

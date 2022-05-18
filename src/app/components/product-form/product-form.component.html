@@ -82,6 +82,21 @@
     </div>
   </div>
   -->
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-image"
+      >Image</label
+    >
+    <input
+    formControlName="image"
+    id="field-input-image"
+    class="form_field"
+    placeholder="Upload your image"
+    type="file"
+    name="field-input-image"
+    (change)="onImageChange($event)"
+  />
+  <img [src]="productForm.controls['image'].value">
+  </div>
   <div class="form_checkbox">
     <input
       class="checkbox"
