@@ -10,7 +10,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
@@ -23,6 +23,8 @@ import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 export class ProductFormComponent implements OnInit, OnChanges {
   @Input() productId: any = null;
   @Output() productIdChange = new EventEmitter<any>();
+
+  @Input() maxPos: number = 0;
 
   selectOpen: boolean = false;
   currentOption: string = 'Select a category...';
@@ -54,7 +56,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
   constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-
     this.categoryService.getAllCategories().subscribe((response) => {
       this.options = response.map((category: any) => ({
         name: category?.name,
@@ -67,23 +68,31 @@ export class ProductFormComponent implements OnInit, OnChanges {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
-      categoryId: [-1, [Validators.required]],
+      location: [''],
+      categoryId: [-1, [Validators.required, Validators.min(1)]],
+      catalogPosition: [1 , [Validators.required, Validators.min(1)]],
       requiresApproval: [false, [Validators.required]]
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes?.['productId']?.currentValue !== null) {
-      this.productService.getProduct(this.productId).subscribe((product) => {
+    if (changes?.['productId']?.currentValue !== null && typeof changes?.['productId']?.currentValue !== 'undefined') {
+      this.productService.getProduct(changes?.['productId']?.currentValue).subscribe((product) => {
         this.productForm.setValue({
           name: product?.name,
           description: product?.description,
+          location: product?.location,
           categoryId: product?.categoryId,
+          catalogPosition: product?.catalogPosition + 1,
           requiresApproval: product?.requiresApproval
         })
-
+        
         this.changeOption(product?.categoryId)
       })
+    }
+
+    if(typeof changes?.['maxPos']?.currentValue === 'number'){
+      this.productForm?.controls['catalogPosition']?.setValidators([Validators.required, Validators.min(1), Validators.max(changes?.['maxPos']?.currentValue)])
     }
   }
 
@@ -120,11 +129,13 @@ export class ProductFormComponent implements OnInit, OnChanges {
       return;
     }
 
-    if (this.productId === null) {
+    if (this.productId === null || typeof this.productId === 'undefined') {
       const data: any = {
-        ...this.productForm.value,
+        name: this.productForm.value?.name,
         description: this.productForm.value?.description || "",
-        isDeleted: false,
+        location: this.productForm.value?.location,
+        requiresApproval: this.productForm.value?.requiresApproval,
+        categoryId: this.productForm.value?.categoryId,
       }
 
       this.productService.createProduct(data).subscribe((response: any) => {
@@ -140,6 +151,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     } else {
       const data: any = {
         ...this.productForm.value,
+        catalogPosition: this.productForm.value?.catalogPosition - 1,
         id: this.productId,
       }
 

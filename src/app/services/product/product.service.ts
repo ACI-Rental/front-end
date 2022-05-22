@@ -19,6 +19,13 @@ export class ProductService {
       }));
   }
 
+  getInventory() {
+    return this.http.get(`${this.BASE_URL}/inventory`)
+      .pipe(map((response: any) => {
+        return response;
+      }));
+  }
+
   getProduct(id: any) {
     return this.http.get(`${this.BASE_URL}/${id}`)
       .pipe(map((response: any) => {

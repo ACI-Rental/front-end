@@ -121,7 +121,7 @@
   </table>
   <footer class="table_footer">
     <div class="table_found_result">
-      Showing {{ visibleRowAmount }} rows out of {{ data?.length }} results
+      Showing {{ visibleRowAmount }} rows out of {{ totalCount != 0 ? totalCount : data?.length  }} results
       found
     </div>
     <div *ngIf="maxPages > 1" class="table_pagination">

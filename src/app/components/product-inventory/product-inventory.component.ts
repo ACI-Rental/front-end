@@ -8,9 +8,10 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
   styleUrls: ['./product-inventory.component.scss']
 })
 export class ProductInventoryComponent implements OnInit {
-  headers: Array<string> = ['Name', 'Description', 'Barcode', 'Category', 'Status', 'Archived', 'Requires approval'];
+  headers: Array<string> = ['Catalog Position', 'Name', 'Description', 'Location', 'Barcode', 'Category', 'Status', 'Archived', 'Requires approval'];
   data: Array<any> = [];
 
+  totalCount: number = 0;
 
   modalOpen: boolean = false;
   productId: any = null;
@@ -22,16 +23,18 @@ export class ProductInventoryComponent implements OnInit {
   }
 
   getData() {
-    this.productService.getAllProducts().subscribe((response) => {
+    this.productService.getInventory().subscribe((response) => {
       this.data = response.map((product: any) => ({
         id: product?.id,
         name: product.name,
         description: product.description,
+        location: product?.location,
         barcode: { value: "328472359", align: 'center' },
         category: { value: product?.categoryName, align: 'center' },
         status: { value: "Available", align: 'center', tag: true, tagAvailable: true },
-        archived: { value: product?.isDeleted, align: 'center' },
+        archived: { value: product?.archived, align: 'center' },
         requiresApproval: { value: product?.requiresApproval, align: 'center' },
+        catalogPosition: { value: product?.catalogPosition + 1, align: 'center' },
         actions: [{
           icon: 'pencil',
           function: () => this.editProduct(product?.id),
@@ -39,10 +42,12 @@ export class ProductInventoryComponent implements OnInit {
         },
         {
           icon: 'box-archive',
-          function: () => this.archiveProduct(product?.id, !product?.isDeleted),
+          function: () => this.archiveProduct(product?.id, !product?.archived),
           color: '#eb4d4b'
         }],
       }));
+
+      this.totalCount = response?.length;
     });
   }
 
@@ -60,8 +65,8 @@ export class ProductInventoryComponent implements OnInit {
     this.modalOpen = true;
   }
 
-  archiveProduct(id: any, isDeleted: boolean) {
-    this.productService.archiveProduct({ id, isDeleted }).subscribe(response => {
+  archiveProduct(id: any, archived: boolean) {
+    this.productService.archiveProduct({ id, archived }).subscribe(response => {
       if (!response.error) {
         this.getData();
         this.Notify('success', 'Product archived!')

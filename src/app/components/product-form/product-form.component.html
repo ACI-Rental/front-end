@@ -23,7 +23,7 @@
         productForm.get('name')?.invalid &&
         (productForm.get('name')?.dirty || productForm.get('name')?.touched)
       "
-      class="form_field_hint"
+      class="form_field_hint error"
     >
       Please provide a name
     </small>
@@ -43,6 +43,19 @@
         (input)="autoScaleTextarea($event)"
       >
       </textarea>
+    </div>
+  </div>
+  <div class="form_field_wrapper form_input full_width">
+    <label class="form_field_label" for="field-input-location">Location</label>
+    <div [style.position]="'relative'">
+      <input
+        formControlName="location"
+        id="field-input-location"
+        class="form_field"
+        placeholder="Your product location"
+        type="text"
+        name="field-input-location"
+      />
     </div>
   </div>
   <div class="form_field_wrapper form_input full_width">
@@ -68,20 +81,39 @@
       </ul>
     </div>
   </div>
-  <!-- 
-  <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-picture">Picture</label>
+  <div
+    class="form_field_wrapper form_input full_width"
+    *ngIf="productId != null"
+  >
+    <label class="form_field_label" for="field-input-pos"
+      >Catalog Position *</label
+    >
     <div [style.position]="'relative'">
+      <small class="form_field_hint">
+        This decides the order in which the product will appear in the product
+        list
+      </small>
       <input
-        id="field-input-picture"
+        formControlName="catalogPosition"
+        id="field-input-pos"
         class="form_field"
-        type="text"
-        value=""
-        name="field-input-picture"
+        placeholder=""
+        type="number"
+        name="field-input-pos"
+        min="1"
       />
+      <small
+        *ngIf="
+          productForm.get('catalogPosition')?.invalid &&
+          (productForm.get('catalogPosition')?.dirty ||
+            productForm.get('catalogPosition')?.touched)
+        "
+        class="form_field_hint error"
+      >
+        Catalog Position has to be between 1 and {{ maxPos }}
+      </small>
     </div>
   </div>
-  -->
   <div class="form_checkbox">
     <input
       class="checkbox"

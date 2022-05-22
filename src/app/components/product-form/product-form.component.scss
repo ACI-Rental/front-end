@@ -37,10 +37,13 @@
     font-size: 0.6875rem;
     color: #a6a6a6;
     display: block;
-    margin-top: 4px;
-    margin-left: 4px;
+    margin-bottom: 6px;
     transition: color 0.225s ease;
-    color: rgba(231, 76, 60, 1);
+
+    &.error {
+        margin-top: 6px;
+        color: rgba(231, 76, 60, 1);
+    }
 }
 
 .form_field_label {

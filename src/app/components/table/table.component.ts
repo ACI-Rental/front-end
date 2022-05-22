@@ -12,6 +12,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() data: Array<any> = [];
 
   @Input() title: string = "";
+  @Input() totalCount: number = 0;
 
   selectOpen: boolean = false;
   rowsVisible: number = 5;
