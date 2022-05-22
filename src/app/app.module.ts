@@ -22,6 +22,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardPageComponent,
     ProductInventoryComponent,
     ProductFormComponent,
+    ProductFormPageComponent,
   ],
   imports: [
     BrowserModule,

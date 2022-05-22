@@ -56,7 +56,7 @@ table {
   border-spacing: 1;
   border-collapse: collapse;
   background: white;
-  overflow: hidden;
+  overflow-x: auto;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -112,6 +112,7 @@ table {
     tr,
     td,
     th {
+      min-width: 100px;
       display: block;
     }
 
@@ -124,6 +125,7 @@ table {
       td {
         padding-left: 45%;
         margin-bottom: 12px;
+        text-align: center;
         &:last-child {
           margin-bottom: 0;
         }

@@ -6,133 +6,158 @@
   <div class="product_form_title">
     {{ productId === null ? "Create" : "Edit" }} product
   </div>
-  <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-name">Name *</label>
-    <div [style.position]="'relative'">
-      <input
-        formControlName="name"
-        id="field-input-name"
-        class="form_field"
-        placeholder="Your product name"
-        type="text"
-        name="field-input-name"
-      />
-    </div>
-    <small
-      *ngIf="
-        productForm.get('name')?.invalid &&
-        (productForm.get('name')?.dirty || productForm.get('name')?.touched)
-      "
-      class="form_field_hint error"
-    >
-      Please provide a name
-    </small>
-  </div>
-  <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-description">
-      Description
-    </label>
-    <div [style.position]="'relative'">
-      <textarea
-        formControlName="description"
-        id="field-input-description"
-        class="form_textarea"
-        placeholder="Your product description"
-        type="text"
-        name="field-input-description"
-        (input)="autoScaleTextarea($event)"
-      >
-      </textarea>
-    </div>
-  </div>
-  <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-location">Location</label>
-    <div [style.position]="'relative'">
-      <input
-        formControlName="location"
-        id="field-input-location"
-        class="form_field"
-        placeholder="Your product location"
-        type="text"
-        name="field-input-location"
-      />
-    </div>
-  </div>
-  <div class="form_field_wrapper form_input full_width">
-    <label class="form_field_label" for="field-input-category"
-      >Category *</label
-    >
-    <div
-      class="select"
-      [ngClass]="{ active: selectOpen }"
-      (click)="openSelect()"
-    >
-      <span class="select_selection">
-        {{ currentOption }}
-      </span>
-      <ul #optionsBx class="select_options_list">
-        <li
-          *ngFor="let option of options"
-          class="select_option"
-          (click)="changeOption(option.key)"
+  <div class="row">
+    <!-- Left column-->
+    <div class="column">
+      <div class="form_field_wrapper form_input">
+        <label class="form_field_label" for="field-input-name">Name *</label>
+        <div [style.position]="'relative'">
+          <input
+            formControlName="name"
+            id="field-input-name"
+            class="form_field"
+            placeholder="Your product name"
+            type="text"
+            name="field-input-name"
+          />
+        </div>
+        <small
+          *ngIf="
+            productForm.get('name')?.invalid &&
+            (productForm.get('name')?.dirty || productForm.get('name')?.touched)
+          "
+          class="form_field_hint error"
         >
-          {{ option?.name }}
-        </li>
-      </ul>
+          Please provide a name
+        </small>
+      </div>
+      <div class="form_field_wrapper form_input">
+        <label class="form_field_label" for="field-input-location">
+          Location
+        </label>
+        <div [style.position]="'relative'">
+          <input
+            formControlName="location"
+            id="field-input-location"
+            class="form_field"
+            placeholder="Your product location"
+            type="text"
+            name="field-input-location"
+          />
+        </div>
+      </div>
+      <div class="form_field_wrapper form_input">
+        <label class="form_field_label" for="field-input-category">
+          Category *
+        </label>
+        <div
+          class="select"
+          [ngClass]="{ active: selectOpen }"
+          (click)="openSelect()"
+        >
+          <span class="select_selection">
+            {{ currentOption }}
+          </span>
+          <ul #optionsBx class="select_options_list">
+            <li
+              *ngFor="let option of options"
+              class="select_option"
+              (click)="changeOption(option.key)"
+            >
+              {{ option?.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="form_field_wrapper form_input" *ngIf="productId != null">
+        <label class="form_field_label" for="field-input-pos"
+          >Catalog Position *</label
+        >
+        <div [style.position]="'relative'">
+          <small class="form_field_hint">
+            This represents the order in which the product will appear on the
+            product list
+          </small>
+          <input
+            formControlName="catalogPosition"
+            id="field-input-pos"
+            class="form_field"
+            placeholder=""
+            type="number"
+            name="field-input-pos"
+            min="1"
+          />
+          <small
+            *ngIf="
+              productForm.get('catalogPosition')?.invalid &&
+              (productForm.get('catalogPosition')?.dirty ||
+                productForm.get('catalogPosition')?.touched)
+            "
+            class="form_field_hint error"
+          >
+            Catalog Position has to be between 1 and {{ maxPos }}
+          </small>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="form_field_wrapper form_input full_width"
-    *ngIf="productId != null"
-  >
-    <label class="form_field_label" for="field-input-pos"
-      >Catalog Position *</label
-    >
-    <div [style.position]="'relative'">
-      <small class="form_field_hint">
-        This decides the order in which the product will appear in the product
-        list
-      </small>
-      <input
-        formControlName="catalogPosition"
-        id="field-input-pos"
-        class="form_field"
-        placeholder=""
-        type="number"
-        name="field-input-pos"
-        min="1"
-      />
-      <small
-        *ngIf="
-          productForm.get('catalogPosition')?.invalid &&
-          (productForm.get('catalogPosition')?.dirty ||
-            productForm.get('catalogPosition')?.touched)
-        "
-        class="form_field_hint error"
+    <!-- Middle column-->
+    <div class="column">
+      <div class="form_field_wrapper form_input">
+        <label class="form_field_label" for="field-input-description">
+          Description
+        </label>
+        <div class="form_field_inner_wrapper">
+          <textarea
+            formControlName="description"
+            id="field-input-description"
+            class="form_textarea"
+            placeholder="Your product description"
+            type="text"
+            name="field-input-description"
+            (input)="autoScaleTextarea($event)"
+          >
+          </textarea>
+        </div>
+      </div>
+      <div class="form_checkbox">
+        <input
+          class="checkbox"
+          type="checkbox"
+          [id]="'product-approval-' + (productId === null ? 'add' : 'update')"
+          formControlName="requiresApproval"
+        />
+        <label
+          class="form_checkbox_label"
+          [for]="'product-approval-' + (productId === null ? 'add' : 'update')"
+        >
+          <span></span>Requires approval
+        </label>
+      </div>
+    </div>
+    <!-- Right column-->
+    <div class="column space_between">
+      <div class="form_image">
+        <label class="form_field_label" for="field-input-description">
+          Image
+        </label>
+        <div class="image_preview">
+          <img
+            class="product_image"
+            src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
+            alt=""
+          />
+          <div class="image_edit_btn">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+        </div>
+      </div>
+      <button
+        class="product_form_submit"
+        type="submit"
+        [disabled]="productForm.invalid"
       >
-        Catalog Position has to be between 1 and {{ maxPos }}
-      </small>
+        {{ productId === null ? "Add" : "Update" }} product
+      </button>
     </div>
   </div>
-  <div class="form_checkbox">
-    <input
-      class="checkbox"
-      type="checkbox"
-      [id]="'product-approval-' + (productId === null ? 'add' : 'update')"
-      formControlName="requiresApproval"
-    />
-    <label
-      class="form_checkbox_label"
-      [for]="'product-approval-' + (productId === null ? 'add' : 'update')"
-    >
-      <span></span>Requires approval
-    </label>
-  </div>
-  <button
-    class="product_form_submit"
-    type="submit"
-    [disabled]="productForm.invalid"
-  >
-    {{ productId === null ? "Add" : "Update" }} product
-  </button>
 </form>
