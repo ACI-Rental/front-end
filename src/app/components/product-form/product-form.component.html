@@ -9,7 +9,14 @@
   <div class="row">
     <!-- Left column-->
     <div class="column">
-      <div class="form_field_wrapper form_input">
+      <div
+        class="form_field_wrapper form_input"
+        [ngClass]="{
+          error:
+            productForm.get('name')?.invalid &&
+            (productForm.get('name')?.dirty || productForm.get('name')?.touched)
+        }"
+      >
         <label class="form_field_label" for="field-input-name">Name *</label>
         <div [style.position]="'relative'">
           <input
@@ -69,7 +76,16 @@
           </ul>
         </div>
       </div>
-      <div class="form_field_wrapper form_input" *ngIf="productId != null">
+      <div
+        class="form_field_wrapper form_input"
+        [ngClass]="{
+          error:
+            productForm.get('catalogPosition')?.invalid &&
+            (productForm.get('catalogPosition')?.dirty ||
+              productForm.get('catalogPosition')?.touched)
+        }"
+        *ngIf="productId != null"
+      >
         <label class="form_field_label" for="field-input-pos"
           >Catalog Position *</label
         >
@@ -137,10 +153,12 @@
     <!-- Right column-->
     <div class="column space_between">
       <div class="form_image">
-        <label class="form_field_label" for="field-input-description">
-          Image
-        </label>
-        <div class="image_preview">
+        <div class="form_field_label">Image</div>
+        <label
+          [style.display]="'block'"
+          class="image_preview"
+          for="form-input-image"
+        >
           <img
             class="product_image"
             src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
@@ -149,7 +167,13 @@
           <div class="image_edit_btn">
             <i class="fa-solid fa-plus"></i>
           </div>
-        </div>
+        </label>
+        <input
+          type="file"
+          class="form_field_file"
+          id="form-input-image"
+          name="form-input-image"
+        />
       </div>
       <button
         class="product_form_submit"

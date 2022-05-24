@@ -1,5 +1,4 @@
 // sets
-
 $gl-ms: "screen and (max-width: 23.5em)"; // up to 360px
 $gl-xs: "screen and (max-width: 35.5em)"; // up to 568px
 $gl-sm: "screen and (max-width: 48em)"; // max 768px
@@ -52,14 +51,18 @@ $gl-lg: "screen and (max-width: 80em)"; // max 1280px
   font-weight: 500;
 }
 
+.table_inner_wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
 table {
   border-spacing: 1;
   border-collapse: collapse;
   background: white;
-  overflow-x: auto;
-  width: 100%;
   margin: 0 auto;
   position: relative;
+  width: 100%;
 
   * {
     position: relative;
@@ -150,8 +153,8 @@ table {
   padding: 4px 45px 4px 7px;
   border-radius: 8px;
   width: 50px;
-  border: 2px solid hsl(var(--primary-color-hs), 65%);
-  background-color: hsl(var(--primary-color-hs), 95%);
+  border: 2px solid hsl(0, 0, 80%);
+  background-color: hsl(0, 0, 95%);
   text-align: left;
   color: #444;
   font-size: 0.95em;
@@ -202,7 +205,7 @@ table {
   user-select: none;
 
   &:hover {
-    background: hsl(var(--primary-color-hs), 95%);
+    background-color: hsl(0, 0, 95%);
   }
 
   &:last-of-type {
@@ -222,8 +225,8 @@ table {
 .search_field {
   width: 100%;
   position: relative;
-  border: 2px solid hsl(var(--primary-color-hs), 65%);
-  background-color: hsl(var(--primary-color-hs), 95%);
+  border: 2px solid hsl(0, 0, 80%);
+  background-color: hsl(0, 0, 95%);
   padding: 8px;
   display: block;
   border-radius: 8px;
@@ -321,21 +324,26 @@ table {
   }
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .pagination_button {
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 27px;
   height: 27px;
-  border: 1px solid hsl(0, 0, 79%);
+  border: 1px solid hsl(0, 0, 80%);
   transition: all 0.225s ease;
   border-radius: 4px;
   margin: 1px;
 
   &:hover {
-    border-color: hsl(var(--primary-color-hs), 85%);
-    background-color: hsl(var(--primary-color-hs), 85%);
+    background-color: hsl(0, 0, 95%);
   }
 
   &.selected {

@@ -43,6 +43,26 @@
     &:first-child {
         margin-top: 0;
     }
+
+    &.success .form_field_label,
+    &.success .form_field_hint {
+      color: rgba(39, 174, 96, 1);
+    }
+  
+    &.success .form_field {
+      border: 2px solid rgba(39, 174, 96, 0.3);
+      background-color: rgba(39, 174, 96, 0.05);
+    }
+  
+    &.error .form_field_label,
+    &.error .form_field_hint {
+      color: rgba(231, 76, 60, 1);
+    }
+  
+    &.error .form_field {
+      border: 2px solid rgba(231, 76, 60, 0.3);
+      background-color: rgba(231, 76, 60, 0.05);
+    }
 }
 
 .form_field_inner_wrapper {
@@ -189,7 +209,7 @@
     user-select: none;
 
     &:hover {
-        background: hsl(var(--primary-color-hs), 95%);
+        background-color: hsl(0, 0, 95%);
     }
 
     &:last-of-type {
@@ -224,6 +244,12 @@
     right: -12px;
     cursor: pointer;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.form_field_file {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .form_checkbox {

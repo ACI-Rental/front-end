@@ -39,90 +39,92 @@
       </div>
     </div>
   </header>
-  <table>
-    <thead>
-      <tr>
-        <th
-          *ngFor="let header of headers"
-          (click)="sortTable(header)"
-          [style.text-align]="checkAlignment(header)"
-        >
-          {{ header }}
-          <i
-            class="fa-solid header_sort"
-            [style.color]="
-              currentlySorting?.name === turnStringToCamelCase(header)
-                ? '#000'
-                : null
-            "
-            [ngClass]="{
-              'fa-sort':
-                currentlySorting?.name !== turnStringToCamelCase(header),
-              'fa-sort-up':
-                currentlySorting?.name === turnStringToCamelCase(header) &&
-                currentlySorting?.order === 'asc',
-              'fa-sort-down':
-                currentlySorting?.name === turnStringToCamelCase(header) &&
-                currentlySorting?.order === 'desc'
-            }"
-          ></i>
-        </th>
-        <th class="table_action_header" *ngIf="containsActions()">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of filterData()">
-        <td
-          [style.text-align]="row[turnStringToCamelCase(header)]?.align"
-          [attr.data-name]="header"
-          *ngFor="let header of headers"
-        >
-          <div
-            *ngIf="!isBool(row[turnStringToCamelCase(header)])"
-            [ngClass]="{
-              tag: row[turnStringToCamelCase(header)]?.tag,
-              available: row[turnStringToCamelCase(header)]?.tagAvailable
-            }"
+  <div class="table_inner_wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th
+            *ngFor="let header of headers"
+            (click)="sortTable(header)"
+            [style.text-align]="checkAlignment(header)"
           >
-            {{
-              row[turnStringToCamelCase(header)]?.value ||
-                row[turnStringToCamelCase(header)]
-            }}
-          </div>
-          <div *ngIf="isBool(row[turnStringToCamelCase(header)])">
+            {{ header }}
             <i
-              *ngIf="isTrue(row[turnStringToCamelCase(header)])"
-              [style.color]="'#6ab04c'"
-              class="fa-solid fa-check icon"
+              class="fa-solid header_sort"
+              [style.color]="
+                currentlySorting?.name === turnStringToCamelCase(header)
+                  ? '#000'
+                  : null
+              "
+              [ngClass]="{
+                'fa-sort':
+                  currentlySorting?.name !== turnStringToCamelCase(header),
+                'fa-sort-up':
+                  currentlySorting?.name === turnStringToCamelCase(header) &&
+                  currentlySorting?.order === 'asc',
+                'fa-sort-down':
+                  currentlySorting?.name === turnStringToCamelCase(header) &&
+                  currentlySorting?.order === 'desc'
+              }"
             ></i>
-            <i
-              *ngIf="!isTrue(row[turnStringToCamelCase(header)])"
-              [style.color]="'#eb4d4b'"
-              class="fa-solid fa-xmark icon"
-            ></i>
-          </div>
-        </td>
-        <td [attr.data-name]="'Actions'" *ngIf="Array.isArray(row?.actions)">
-          <div class="table_actions">
-            <button
-              class="table_action"
-              *ngFor="let action of row?.actions"
-              (click)="action?.function()"
+          </th>
+          <th class="table_action_header" *ngIf="containsActions()">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filterData()">
+          <td
+            [style.text-align]="row[turnStringToCamelCase(header)]?.align"
+            [attr.data-name]="header"
+            *ngFor="let header of headers"
+          >
+            <div
+              *ngIf="!isBool(row[turnStringToCamelCase(header)])"
+              [ngClass]="{
+                tag: row[turnStringToCamelCase(header)]?.tag,
+                available: row[turnStringToCamelCase(header)]?.tagAvailable
+              }"
             >
+              {{
+                row[turnStringToCamelCase(header)]?.value ||
+                  row[turnStringToCamelCase(header)]
+              }}
+            </div>
+            <div *ngIf="isBool(row[turnStringToCamelCase(header)])">
               <i
-                [style.color]="action?.color"
-                [class]="'fa-duotone fa-' + action?.icon"
+                *ngIf="isTrue(row[turnStringToCamelCase(header)])"
+                [style.color]="'#6ab04c'"
+                class="fa-solid fa-check icon"
               ></i>
-            </button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+              <i
+                *ngIf="!isTrue(row[turnStringToCamelCase(header)])"
+                [style.color]="'#eb4d4b'"
+                class="fa-solid fa-xmark icon"
+              ></i>
+            </div>
+          </td>
+          <td [attr.data-name]="'Actions'" *ngIf="Array.isArray(row?.actions)">
+            <div class="table_actions">
+              <button
+                class="table_action"
+                *ngFor="let action of row?.actions"
+                (click)="action?.function()"
+              >
+                <i
+                  [style.color]="action?.color"
+                  [class]="'fa-duotone fa-' + action?.icon"
+                ></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <footer class="table_footer">
     <div class="table_found_result">
-      Showing {{ visibleRowAmount }} rows out of {{ totalCount != 0 ? totalCount : data?.length  }} results
-      found
+      Showing {{ visibleRowAmount }} rows out of
+      {{ totalCount != 0 ? totalCount : data?.length }} results found
     </div>
     <div *ngIf="maxPages > 1" class="table_pagination">
       <ul class="pagination">

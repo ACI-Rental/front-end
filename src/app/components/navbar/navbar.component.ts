@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
       const userProfile = await this.keycloak.getKeycloakInstance().loadUserInfo();
 
       this.userProfile = userProfile;
+      console.log(userProfile)
     }
   }
 
