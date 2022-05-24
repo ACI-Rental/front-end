@@ -23,4 +23,11 @@ export class ReservationService {
         return response;
       }));
   }
+
+  CancelReservation(data: any){
+    return this.http.post(`${environment.BASE_URL}/reservations/action`, data)
+    .pipe(map((response: any) => {
+      return response;
+    }));
+  }
 }
