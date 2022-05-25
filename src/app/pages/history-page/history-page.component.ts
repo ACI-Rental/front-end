@@ -11,16 +11,15 @@ export class HistoryPageComponent implements OnInit {
   headers: Array<string> = ['From', 'To', 'Product', 'Status'];
   data: Array<any> = [];
 
-  constructor(private reservationService: ReservationService) {}
+  constructor(private reservationService: ReservationService) { }
 
   ngOnInit(): void {
-    this.reservationService.GetAllReservations().subscribe((response) => {
+    this.reservationService.GetPersonalReservations().subscribe((response) => {
       this.data = response.map((reservation: any) => ({
         from: moment(reservation.startDate).format('LL'),
         to: moment(reservation.endDate).format('LL'),
-        product: reservation.productId,
-        status: this.getStatus(reservation.startDate, reservation.endDate),
-        align: 'center',
+        product: reservation.product.name,
+        status: { value: this.getStatus(reservation.startDate, reservation.endDate), align: 'center', tag: true, tagAvailable: true },
       }));
     });
   }
