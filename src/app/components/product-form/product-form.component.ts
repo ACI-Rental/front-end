@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category/category.service';
+import { ImageService } from 'src/app/services/image/image.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import Swal, { SweetAlertIcon, SweetAlertResult } from 'sweetalert2';
 
@@ -27,6 +28,8 @@ export class ProductFormComponent implements OnInit, OnChanges {
   selectOpen: boolean = false;
   currentOption: string = 'Select a category...';
   options: Array<any> = [];
+
+  imgFile: any;
 
   productForm: FormGroup;
 
@@ -51,7 +54,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService) { }
+  constructor(private fb: FormBuilder, private productService: ProductService, private categoryService: CategoryService, private imageService: ImageService) { }
 
   ngOnInit(): void {
 
@@ -68,7 +71,8 @@ export class ProductFormComponent implements OnInit, OnChanges {
       name: ['', Validators.required],
       description: [''],
       categoryId: [-1, [Validators.required]],
-      requiresApproval: [false, [Validators.required]]
+      requiresApproval: [false, [Validators.required]],
+      image: ['']
     });
   }
 
@@ -79,7 +83,8 @@ export class ProductFormComponent implements OnInit, OnChanges {
           name: product?.name,
           description: product?.description,
           categoryId: product?.categoryId,
-          requiresApproval: product?.requiresApproval
+          requiresApproval: product?.requiresApproval,
+          image: `http://127.0.0.1:10000/devstoreaccount1/productimages/${this.productId}.png`
         })
 
         this.changeOption(product?.categoryId)
@@ -113,6 +118,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     this.currentOption = updatedOptions?.find((option) => option.active)?.name;
   }
 
+
   onSubmit(form: FormGroup): void {
     if (!form.valid) {
       this.Notify('error', 'Please fill in all required fields.')
@@ -143,6 +149,30 @@ export class ProductFormComponent implements OnInit, OnChanges {
         id: this.productId,
       }
 
+      console.log(data.image)
+      if (data.image !== null) {
+
+
+        const formData = new FormData();
+        console.log(this.imgFile)
+        formData.append('image', this.imgFile, this.imgFile.name);
+        formData.append('productId', data.id);
+
+        // const imageData: any = {
+        //   productId: this.productId,
+        //   image: data.image
+        // }
+        this.imageService.postImage(formData).subscribe((response: any) => {
+          if (!response.error) {
+            console.log("yessss")
+          }
+
+        },
+          (err) => {
+            console.log(err)
+          })
+      }
+
       this.productService.editProduct(data).subscribe((response: any) => {
         if (!response.error) {
           this.Notify('success', 'Product updated!')
@@ -154,6 +184,11 @@ export class ProductFormComponent implements OnInit, OnChanges {
           this.Notify('error', err.error.message || 'Something went wrong.')
         })
     }
+  }
+
+  onImageChange(e: any) {
+
+    this.imgFile = e.target.files[0];
   }
 
   Notify(status: SweetAlertIcon, message: string) {
