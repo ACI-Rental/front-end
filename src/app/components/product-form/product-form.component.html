@@ -161,7 +161,7 @@
         >
           <img
             class="product_image"
-            src="https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png"
+            [src]="productForm.controls['image'].value"
             alt=""
           />
           <div class="image_edit_btn">
@@ -169,10 +169,13 @@
           </div>
         </label>
         <input
+          formControlName="image"
+          id="field-input-image"
+          class="form_field"
+          placeholder="Upload your image"
           type="file"
-          class="form_field_file"
-          id="form-input-image"
-          name="form-input-image"
+          name="field-input-image"
+          (change)="onImageChange($event)"
         />
       </div>
       <button
