@@ -84,6 +84,8 @@
                 tag: row[turnStringToCamelCase(header)]?.tag,
                 available: row[turnStringToCamelCase(header)]?.tagAvailable
               }"
+              [style.--hue]="row[turnStringToCamelCase(header)]?.color?.[0]"
+              [style.--saturation]="row[turnStringToCamelCase(header)]?.color?.[1]"
             >
               {{
                 row[turnStringToCamelCase(header)]?.value ||

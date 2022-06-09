@@ -23,6 +23,7 @@ import { ProductInventoryComponent } from './components/product-inventory/produc
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
+import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ProductFormPageComponent } from './pages/product-form-page/product-form
     ProductInventoryComponent,
     ProductFormComponent,
     ProductFormPageComponent,
+    UserReservationsComponent,
   ],
   imports: [
     BrowserModule,

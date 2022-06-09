@@ -21,7 +21,9 @@ export class HistoryPageComponent implements OnInit {
         product: reservation.product.name,
         status: { value: this.getStatus(reservation.startDate, reservation.endDate), align: 'center', tag: true, tagAvailable: true },
       }));
+      console.log(this.data)
     });
+
   }
 
   getStatus(startDate: any, endDate: any) {
