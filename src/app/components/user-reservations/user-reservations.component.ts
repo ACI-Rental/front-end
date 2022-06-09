@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import moment from 'moment';
+import { ReservationAction } from 'src/app/models/reservation-action';
 import { ReservationStatus } from 'src/app/models/reservation-status';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-user-reservations',
@@ -27,7 +29,14 @@ export class UserReservationsComponent implements OnInit {
         to: moment(reservation.endDate).format('LL'),
         product: reservation?.product?.name,
         location: reservation?.product?.location,
-        status: { value: ReservationStatus[reservation.status].charAt(0).toUpperCase() + ReservationStatus[reservation.status].slice(1).toLowerCase(), align: 'center', tag: true, color: this.getReservationStatusColor(reservation?.status), tagAvailable: true },
+        status: { value: this.FormatEnumValue(ReservationStatus[reservation.status]), align: 'center', tag: true, color: this.getReservationStatusColor(reservation?.status), tagAvailable: true },
+        actions: [
+          {
+            icon: 'pencil',
+            function: () => this.editReservation(),
+            color: '#f0932b'
+          },
+        ]
       }));
     });
   }
@@ -48,15 +57,34 @@ export class UserReservationsComponent implements OnInit {
     }
   }
 
-  // cancelReservation(id: any, archived: boolean) {
-  //   this.reservationServcie.({ id, archived }).subscribe(response => {
-  //     if (!response.error) {
-  //       this.getData();
-  //       this.Notify('success', 'Reservation canceld!')
-  //     }
-  //   },
-  //     (err) => {
-  //       this.Notify('error', err.error.message || 'Something went wrong.')
-  //     })
-  // }
+  editReservation() {
+
+  }
+
+  editReservationStatus(reservationId: any, reservationAction: ReservationAction) {
+    this.reservationServcie.EditReservationStatus({ reservationId, reservationAction }).subscribe(response => {
+      if (!response.error) {
+        this.getData();
+        this.Notify('success', 'Reservation updated!')
+      }
+    },
+      (err) => {
+        this.Notify('error', err.error.message || 'Something went wrong.')
+      })
+  }
+
+  Notify(status: SweetAlertIcon, message: string) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      title: message,
+      icon: status,
+    });
+  }
+
+  FormatEnumValue(value: any) {
+    return value.toString().charAt(0).toUpperCase() + value.toString().slice(1).toLowerCase()
+  }
 }

@@ -38,7 +38,7 @@ export class ReservationService {
       }));
   }
 
-  CancelReservation(data: any){
+  EditReservationStatus(data: any){
     return this.http.post(`${environment.BASE_URL}/reservations/action`, data)
     .pipe(map((response: any) => {
       return response;

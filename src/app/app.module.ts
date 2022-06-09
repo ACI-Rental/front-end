@@ -24,6 +24,8 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
 import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
+import { ReservationRequestsComponent } from './components/reservation-requests/reservation-requests.component';
+import { PackingSlipComponent } from './components/packing-slip/packing-slip.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { UserReservationsComponent } from './components/user-reservations/user-r
     ProductFormComponent,
     ProductFormPageComponent,
     UserReservationsComponent,
+    ReservationRequestsComponent,
+    PackingSlipComponent,
   ],
   imports: [
     BrowserModule,

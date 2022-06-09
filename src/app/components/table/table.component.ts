@@ -218,4 +218,8 @@ export class TableComponent implements OnInit, OnChanges {
   containsActions() {
     return this.data?.some(item => Array.isArray(item?.actions))
   }
+
+  select(e: any){
+    console.log(e)
+  }
 }
