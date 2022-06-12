@@ -23,13 +23,6 @@ export class ReservationService {
         return response;
       }));
   }
-  
-  GetPersonalReservations() {
-    return this.http.get(`${environment.BASE_URL}/reservations/history`)
-      .pipe(map((response: any) => {
-        return response;
-      }));
-  }
 
   GetUserReservations(userId: string) {
     return this.http.get(`${environment.BASE_URL}/reservations/history/${userId}`)

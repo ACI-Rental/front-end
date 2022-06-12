@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import moment from 'moment';
-import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-history-page',
@@ -8,37 +7,14 @@ import { ReservationService } from 'src/app/services/reservation/reservation.ser
   styleUrls: ['./history-page.component.scss'],
 })
 export class HistoryPageComponent implements OnInit {
-  headers: Array<string> = ['From', 'To', 'Product', 'Status'];
-  data: Array<any> = [];
 
-  constructor(private reservationService: ReservationService) { }
+  userId: string = "";
 
-  ngOnInit(): void {
-    this.reservationService.GetPersonalReservations().subscribe((response) => {
-      this.data = response.map((reservation: any) => ({
-        from: moment(reservation.startDate).format('LL'),
-        to: moment(reservation.endDate).format('LL'),
-        product: reservation.product.name,
-        status: { value: this.getStatus(reservation.startDate, reservation.endDate), align: 'center', tag: true, tagAvailable: true },
-      }));
-      console.log(this.data)
-    });
+  constructor(private readonly keycloak: KeycloakService) { }
 
-  }
+  async ngOnInit() {
+    const userProfile: any = await this.keycloak.getKeycloakInstance().loadUserInfo();
 
-  getStatus(startDate: any, endDate: any) {
-    if (moment().isBetween(startDate, endDate, 'day')) {
-      return 'Renting';
-    }
-
-    if (moment().isBefore(startDate, 'day')) {
-      return 'Reserved';
-    }
-
-    if (moment().isBefore(endDate, 'day')) {
-      return 'Returned';
-    }
-
-    return "";
+    this.userId = userProfile.sub;
   }
 }

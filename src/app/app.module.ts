@@ -23,7 +23,7 @@ import { ProductInventoryComponent } from './components/product-inventory/produc
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
-import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 import { ReservationRequestsComponent } from './components/reservation-requests/reservation-requests.component';
 import { PackingSlipComponent } from './components/packing-slip/packing-slip.component';
 
@@ -44,7 +44,7 @@ import { PackingSlipComponent } from './components/packing-slip/packing-slip.com
     ProductInventoryComponent,
     ProductFormComponent,
     ProductFormPageComponent,
-    UserReservationsComponent,
+    ReservationsComponent,
     ReservationRequestsComponent,
     PackingSlipComponent,
   ],

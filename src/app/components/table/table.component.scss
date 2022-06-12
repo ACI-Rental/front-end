@@ -8,11 +8,13 @@ $gl-lg: "screen and (max-width: 80em)"; // max 1280px
 .table_wrapper {
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin-top: 10px;
+
+  &.no_shadow {
+    box-shadow: none;
+  }
 }
 
 .table_header {
-  padding-top: 16px;
   border-bottom: 1px solid hsl(0, 0%, 89%);
 }
 

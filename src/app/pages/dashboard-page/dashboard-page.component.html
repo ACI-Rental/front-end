@@ -1,2 +1,121 @@
-<app-product-inventory></app-product-inventory>
-<app-user-reservations></app-user-reservations>
+<!-- 
+
+    <app-product-inventory></app-product-inventory>
+-->
+<main class="main">
+  <!--  HEADER  -->
+  <div class="main-header">
+    <div class="main-header__intro-wrapper">
+      <div class="main-header__welcome">
+        <div class="main-header__welcome-title text-light">
+          Welcome, <strong>{{ userProfile?.given_name }}</strong>
+        </div>
+        <div class="main-header__welcome-subtitle text-light">
+          How are you today?
+        </div>
+      </div>
+      <div class="quickview">
+        <div class="quickview__item">
+          <div class="quickview__item-total">41</div>
+          <div class="quickview__item-description">
+            <span class="text-light"
+              >Products to<br />
+              be picked up</span
+            >
+          </div>
+        </div>
+        <div class="quickview__item">
+          <div class="quickview__item-total">64</div>
+          <div class="quickview__item-description">
+            <span class="text-light"
+              >Products to<br />
+              be returned</span
+            >
+          </div>
+        </div>
+        <div class="quickview__item">
+          <button class="quickview__item-btn">Open packing slip</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  MAIN BODY  -->
+  <div class="main-overview">
+    <!--  SMALL CARDS  -->
+    <div class="overviewCard">
+      <div class="overviewCard-icon overviewCard-icon--document">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="overviewCard-description">
+        <div class="overviewCard-title text-light">Add new Product</div>
+      </div>
+    </div>
+    <div class="overviewCard">
+      <div class="overviewCard-icon overviewCard-icon--calendar">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="overviewCard-description">
+        <div class="overviewCard-title text-light">Add new Category</div>
+      </div>
+    </div>
+  </div>
+
+  <!--  LARGE CARDS  -->
+  <div class="main__cards">
+    <div class="card wrapper">
+      <div class="card__header">
+        <div class="card__header-title text-light">
+          <strong>Reservations</strong>
+          <a href="#" class="card__header-link text-bold">View All</a>
+        </div>
+      </div>
+      <div class="card__main">
+        <app-reservations [actions]="true" [preview]="true"></app-reservations>
+      </div>
+    </div>
+
+    <div class="card wrapper">
+      <div class="card__header">
+        <div class="card__header-title text-light">
+          Recent <strong>Documents</strong>
+          <a href="#" class="card__header-link text-bold">View All</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="documents">
+          <div class="document">
+            <div class="document__img"></div>
+            <div class="document__title">tesla-patents</div>
+            <div class="document__date">07/16/2018</div>
+          </div>
+          <div class="document">
+            <div class="document__img"></div>
+            <div class="document__title">yearly-budget</div>
+            <div class="document__date">09/04/2018</div>
+          </div>
+          <div class="document">
+            <div class="document__img"></div>
+            <div class="document__title">top-movies</div>
+            <div class="document__date">10/10/2018</div>
+          </div>
+          <div class="document">
+            <div class="document__img"></div>
+            <div class="document__title">trip-itinerary</div>
+            <div class="document__date">11/01/2018</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card--finance">
+      <div class="card__header">
+        <div class="card__header-title text-light">
+          Monthly <strong>Spending</strong>
+          <a href="#" class="card__header-link text-bold">View All</a>
+        </div>
+      </div>
+      <div id="chartdiv"></div>
+    </div>
+  </div>
+  <!-- /.main-cards -->
+</main>

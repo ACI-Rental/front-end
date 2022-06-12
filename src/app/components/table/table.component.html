@@ -1,7 +1,7 @@
-<div class="table_wrapper">
+<div [ngClass]="{ no_shadow: !filters && title === '' }" class="table_wrapper">
   <header class="table_header">
-    <div class="table_title">{{ title }}</div>
-    <div class="table_filters">
+    <div *ngIf="title !== ''" class="table_title">{{ title }}</div>
+    <div *ngIf="filters" class="table_filters">
       <div class="table_pagination_selector">
         <div class="form_field_wrapper">
           <div
@@ -50,6 +50,7 @@
           >
             {{ header }}
             <i
+              *ngIf="filters"
               class="fa-solid header_sort"
               [style.color]="
                 currentlySorting?.name === turnStringToCamelCase(header)
@@ -81,8 +82,7 @@
             <div
               *ngIf="!isBool(row[turnStringToCamelCase(header)])"
               [ngClass]="{
-                tag: row[turnStringToCamelCase(header)]?.tag,
-                available: row[turnStringToCamelCase(header)]?.tagAvailable
+                tag: row[turnStringToCamelCase(header)]?.tag
               }"
               [style.--hue]="row[turnStringToCamelCase(header)]?.color?.[0]"
               [style.--saturation]="row[turnStringToCamelCase(header)]?.color?.[1]"
@@ -123,7 +123,7 @@
       </tbody>
     </table>
   </div>
-  <footer class="table_footer">
+  <footer *ngIf="filters" class="table_footer">
     <div class="table_found_result">
       Showing {{ visibleRowAmount }} rows out of
       {{ totalCount != 0 ? totalCount : data?.length }} results found
