@@ -1,8 +1,9 @@
 <app-table
-  [title]="'Product inventory'"
+  [title]="preview ? '' : 'Product inventory'"
   [headers]="headers"
   [data]="data"
   [totalCount]="totalCount"
+  [filters]="!preview"
 ></app-table>
 
 <app-modal [(open)]="modalOpen" [name]="'product'" [padding]="45">

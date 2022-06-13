@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import moment from 'moment';
 import { getReservationStatusColor } from 'src/app/helpers/reservation.helpers';
 import { ReservationAction } from 'src/app/models/reservation-action';
@@ -11,12 +11,12 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
   templateUrl: './reservations.component.html',
   styleUrls: ['./reservations.component.scss']
 })
-export class ReservationsComponent implements OnInit {
+export class ReservationsComponent implements OnInit, OnChanges {
   @Input() userId: string = '';
   @Input() actions: boolean = false;
   @Input() preview: boolean = false;
 
-  headers: Array<string> = ['From', 'To', 'Product', 'Status'];
+  headers: Array<string> = ['Renter Email', 'From', 'To', 'Product', 'Location', 'Status'];;
   data: Array<any> = [];
 
   constructor(private reservationServcie: ReservationService) { }
