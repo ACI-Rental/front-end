@@ -178,7 +178,26 @@ $width-sidenav: 240px;
 
     &__main {
         position: relative;
-        background-color: #fff;
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    &__gutter {
+        position: relative;
+        padding: 8px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        z-index: 101;
+        margin: auto;
+        font-size: 16px;
+        gap: 8px;
     }
 
     &__secondary {

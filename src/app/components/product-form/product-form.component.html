@@ -160,22 +160,30 @@
           for="form-input-image"
         >
           <img
+            id="product_image"
             class="product_image"
-            [src]="productForm.controls['image'].value"
+            [src]="
+              productId !== null
+                ? 'http://127.0.0.1:10000/devstoreaccount1/productimages/' +
+                  productId +
+                  '.png'
+                : ''
+            "
             alt=""
+            onerror="this.src='https://user-images.githubusercontent.com/2351721/31314483-7611c488-ac0e-11e7-97d1-3cfc1c79610e.png'"
           />
           <div class="image_edit_btn">
             <i class="fa-solid fa-plus"></i>
           </div>
         </label>
         <input
-          formControlName="image"
-          id="field-input-image"
-          class="form_field"
+          id="form-input-image"
+          class="form_field_file"
           placeholder="Upload your image"
           type="file"
-          name="field-input-image"
+          name="form-input-image"
           (change)="onImageChange($event)"
+          accept="image/png"
         />
       </div>
       <button

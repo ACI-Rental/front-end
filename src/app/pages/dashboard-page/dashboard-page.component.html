@@ -68,11 +68,14 @@
         <div class="card__header">
           <div class="card__header-title text-light">
             <strong>Reservations</strong>
-            <a href="#" class="card__header-link text-bold">View All</a>
+            <a href="/reservations" class="card__header-link text-bold"
+              >View All</a
+            >
           </div>
         </div>
         <div class="card__main">
           <app-reservations [preview]="true"></app-reservations>
+          <div class="card__gutter"></div>
         </div>
       </div>
     </div>
@@ -82,14 +85,14 @@
         <div class="card__header">
           <div class="card__header-title text-light">
             <strong>Products</strong>
-            <a href="#" class="card__header-link text-bold">View All</a>
+            <a href="/products" class="card__header-link text-bold">View All</a>
           </div>
         </div>
         <div class="card__main">
           <app-product-inventory [preview]="true"></app-product-inventory>
+          <div class="card__gutter"></div>
         </div>
       </div>
     </div>
   </div>
-  <!-- /.main-cards -->
 </main>

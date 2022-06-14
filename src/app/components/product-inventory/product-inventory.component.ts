@@ -61,7 +61,7 @@ export class ProductInventoryComponent implements OnInit, OnChanges {
   }
 
   getData() {
-    if (!this.preview) {
+    if (this.preview) {
       this.headers = ['Name', 'Location', 'Category', 'Status'];
     }
 

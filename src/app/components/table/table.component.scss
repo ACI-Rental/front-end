@@ -8,9 +8,15 @@ $gl-lg: "screen and (max-width: 80em)"; // max 1280px
 .table_wrapper {
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 15px;
 
   &.no_shadow {
     box-shadow: none;
+    margin-top: 0;
+
+    & .table_title {
+      padding: 0px;
+    }
   }
 }
 
@@ -38,6 +44,7 @@ $gl-lg: "screen and (max-width: 80em)"; // max 1280px
   font-weight: 600;
   font-size: 1.2em;
   margin-left: 24px;
+  padding-top: 16px;
 }
 
 .table_footer {
