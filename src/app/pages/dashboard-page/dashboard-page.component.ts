@@ -8,7 +8,8 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class DashboardPageComponent implements OnInit {
 
-
+  productModalOpen: boolean = false;
+  categoryModalOpen: boolean = false; 
   public userProfile: any | null = null;
 
   constructor(private readonly keycloak: KeycloakService) { }
@@ -17,6 +18,14 @@ export class DashboardPageComponent implements OnInit {
     const userProfile = await this.keycloak.getKeycloakInstance().loadUserInfo();
 
     this.userProfile = userProfile;
+  }
+
+  openProductModal() {
+    this.productModalOpen = true;
+  }
+
+  openCategoryModal() {
+    this.categoryModalOpen = true;
   }
 }
 

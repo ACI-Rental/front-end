@@ -1,0 +1,128 @@
+.category_form {
+    margin: auto;
+    width: 100%;
+    max-width: 900px;
+    min-width: 350px;
+}
+
+.category_form_title {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
+.form_field_wrapper {
+    position: relative;
+    margin-top: 1rem;
+    margin-right: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &.success .form_field_label,
+    &.success .form_field_hint {
+        color: rgba(39, 174, 96, 1);
+    }
+
+    &.success .form_field {
+        border: 2px solid rgba(39, 174, 96, 0.3);
+        background-color: rgba(39, 174, 96, 0.05);
+    }
+
+    &.error .form_field_label,
+    &.error .form_field_hint {
+        color: rgba(231, 76, 60, 1);
+    }
+
+    &.error .form_field {
+        border: 2px solid rgba(231, 76, 60, 0.3);
+        background-color: rgba(231, 76, 60, 0.05);
+    }
+}
+
+.form_field_inner_wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.form_field_hint {
+    font-weight: 400;
+    font-size: 0.6875rem;
+    color: #a6a6a6;
+    display: block;
+    margin-bottom: 6px;
+    transition: color 0.225s ease;
+
+    &.error {
+        margin-top: 6px;
+        color: rgba(231, 76, 60, 1);
+    }
+}
+
+.form_field_label {
+    display: inline-block;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    font-weight: 500;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+    transition: color 0.225s ease;
+}
+
+.form_field {
+    position: relative;
+    border: 2px solid hsl(0, 0, 80%);
+    background-color: hsl(0, 0, 95%);
+    padding: 8px;
+    display: block;
+    border-radius: 8px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    width: 100%;
+    box-shadow: none;
+    transition: background 0.225s ease, border 0.225s ease;
+
+    &:focus-within {
+        outline: none;
+    }
+
+    &:disabled,
+    &[disabled] {
+        cursor: default;
+        opacity: 0.7;
+    }
+}
+
+.form_field_file {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.category_form_submit {
+    margin: 20px 0 0 auto;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-style: none;
+    background-color: hsl(var(--primary-color-hs), 45%);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.225s ease;
+
+    &:disabled,
+    &[disabled] {
+        cursor: default;
+        background: hsl(var(--primary-color-hs), 85%);
+    }
+}

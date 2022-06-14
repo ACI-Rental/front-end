@@ -1,0 +1,45 @@
+<form
+  class="category_form"
+  [formGroup]="categoryForm"
+  (ngSubmit)="onSubmit(categoryForm)"
+>
+  <div class="category_form_title">
+    {{ categoryId === null ? "Create" : "Edit" }} category
+  </div>
+  <div
+    class="form_field_wrapper form_input"
+    [ngClass]="{
+      error:
+        categoryForm.get('name')?.invalid &&
+        (categoryForm.get('name')?.dirty || categoryForm.get('name')?.touched)
+    }"
+  >
+    <label class="form_field_label" for="field-input-name">Name *</label>
+    <div [style.position]="'relative'">
+      <input
+        formControlName="name"
+        id="field-input-name"
+        class="form_field"
+        placeholder="Your product name"
+        type="text"
+        name="field-input-name"
+      />
+    </div>
+    <small
+      *ngIf="
+        categoryForm.get('name')?.invalid &&
+        (categoryForm.get('name')?.dirty || categoryForm.get('name')?.touched)
+      "
+      class="form_field_hint error"
+    >
+      Please provide a name
+    </small>
+  </div>
+  <button
+    class="category_form_submit"
+    type="submit"
+    [disabled]="categoryForm.invalid"
+  >
+    {{ categoryId === null ? "Add" : "Update" }} product
+  </button>
+</form>

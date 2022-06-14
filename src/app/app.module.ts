@@ -28,6 +28,7 @@ import { ReservationRequestsComponent } from './components/reservation-requests/
 import { PackingSlipComponent } from './components/packing-slip/packing-slip.component';
 import { ReservationsPageComponent } from './pages/reservations-page/reservations-page.component';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ProductsPageComponent } from './pages/products-page/products-page.compo
     PackingSlipComponent,
     ReservationsPageComponent,
     ProductsPageComponent,
+    CategoryFormComponent,
   ],
   imports: [
     BrowserModule,
