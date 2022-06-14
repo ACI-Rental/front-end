@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="quickview__item">
-          <button class="quickview__item-btn">Open packing slip</button>
+          <button class="quickview__item-btn" (click)="openPackageSlipModal()">Open packing slip</button>
         </div>
       </div>
     </div>
@@ -103,4 +103,9 @@
 
 <app-modal [(open)]="categoryModalOpen" [name]="'category-create'" [padding]="45">
   <app-category-form> </app-category-form>
+</app-modal>
+
+<app-modal [(open)]="packageSlipModalOpen" [name]="'packaging-slip'" [padding]="45">
+  <app-packing-slip>
+  </app-packing-slip>
 </app-modal>

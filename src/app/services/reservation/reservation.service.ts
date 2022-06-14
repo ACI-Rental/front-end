@@ -37,4 +37,11 @@ export class ReservationService {
       return response;
     }));
   }
+
+  GetPackingSlip(date: any) {
+    return this.http.get(`${environment.BASE_URL}/reservations/getPackagingSlip?Date=${date}`)
+    .pipe(map((response: any) => {
+      return response;
+    }));
+  }
 }

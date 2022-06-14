@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-packing-slip',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PackingSlipComponent implements OnInit {
 
-  constructor() { }
+  reservations: any = []
+  getPackingSlip() {
+    console.log("s")
+  }
+
+  constructor(private reservationService: ReservationService) { }
 
   ngOnInit(): void {
+    console.log("s" )
+    this.getData();
+  }
+  getData() {
+    console.log("getting")
+    this.reservationService.GetPackingSlip(moment().add(1, 'days').format('L')).subscribe((response) => {
+        this.reservations = response;
+    });;
   }
 
 }

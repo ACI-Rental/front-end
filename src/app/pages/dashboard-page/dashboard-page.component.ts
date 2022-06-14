@@ -11,6 +11,7 @@ export class DashboardPageComponent implements OnInit {
   productModalOpen: boolean = false;
   categoryModalOpen: boolean = false; 
   public userProfile: any | null = null;
+  packageSlipModalOpen: boolean = false;
 
   constructor(private readonly keycloak: KeycloakService) { }
 
@@ -26,6 +27,10 @@ export class DashboardPageComponent implements OnInit {
 
   openCategoryModal() {
     this.categoryModalOpen = true;
+  }
+
+  openPackageSlipModal() {
+    this.packageSlipModalOpen = true
   }
 }
 
