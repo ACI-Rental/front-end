@@ -22,6 +22,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductFormPageComponent } from './pages/product-form-page/product-form-page.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ReservationRequestsComponent } from './components/reservation-requests/reservation-requests.component';
+import { PackingSlipComponent } from './components/packing-slip/packing-slip.component';
+import { ReservationsPageComponent } from './pages/reservations-page/reservations-page.component';
+import { ProductsPageComponent } from './pages/products-page/products-page.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +46,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardPageComponent,
     ProductInventoryComponent,
     ProductFormComponent,
+    ProductFormPageComponent,
+    ReservationsComponent,
+    ReservationRequestsComponent,
+    PackingSlipComponent,
+    ReservationsPageComponent,
+    ProductsPageComponent,
+    CategoryFormComponent,
   ],
   imports: [
     BrowserModule,

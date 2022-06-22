@@ -14,6 +14,12 @@ export class CategoryService {
       .pipe(map((response: any) => {
         return response;
       }));
+  }
 
+  createCategory(data: any) {
+    return this.http.post(`${environment.BASE_URL}/category`, data)
+      .pipe(map((response: any) => {
+        return response;
+      }));
   }
 }

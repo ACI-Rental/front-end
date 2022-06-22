@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, SimpleChanges, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
+import { turnStringToCamelCase } from 'src/app/helpers/common.helpers';
 
 @Component({
   selector: 'app-table',
@@ -12,6 +13,11 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() data: Array<any> = [];
 
   @Input() title: string = "";
+  @Input() filters: boolean = true;
+  @Input() totalCount: number = 0;
+
+
+  turnStringToCamelCase: any = turnStringToCamelCase;
 
   selectOpen: boolean = false;
   rowsVisible: number = 5;
@@ -80,7 +86,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   sortTable(header: any) {
     let updatedData = _.cloneDeep(this.data);
-    const updatedHeader = this.turnStringToCamelCase(header);
+    const updatedHeader = turnStringToCamelCase(header);
     let order: any = 'desc';
 
     if (this.currentlySorting?.name === updatedHeader) {
@@ -112,36 +118,6 @@ export class TableComponent implements OnInit, OnChanges {
     this.data = updatedData;
   }
 
-  turnStringToCamelCase(string: string) {
-    const words = string.split(" ").map((word, index) => {
-      let newWord = word;
-
-      if (/[/]+/.test(word)) {
-        newWord = word
-          .split("/")
-          .map((w) => (w = w[0].toUpperCase() + w.substr(1)))
-          .join("Or");
-      }
-
-      if (/[-]+/.test(word)) {
-        newWord = word
-          .split("-")
-          .map((w) => (w = w[0].toUpperCase() + w.substr(1)))
-          .join("");
-      }
-
-      if (index === 0) {
-        newWord = newWord = newWord[0].toLowerCase() + newWord.substr(1);
-      } else {
-        newWord = newWord = newWord[0].toUpperCase() + newWord.substr(1);
-      }
-
-      return newWord;
-    });
-
-    return words.join("");
-  }
-
   isBool(data: any) {
     if (typeof data === 'object') {
       return typeof data?.value === 'boolean'
@@ -162,7 +138,7 @@ export class TableComponent implements OnInit, OnChanges {
     let alignment = null;
 
     this.data?.forEach((row) => {
-      const colValue = row[this.turnStringToCamelCase(header)];
+      const colValue = row[turnStringToCamelCase(header)];
 
       if (typeof colValue === 'object') {
         alignment = colValue?.align;
@@ -216,5 +192,9 @@ export class TableComponent implements OnInit, OnChanges {
 
   containsActions() {
     return this.data?.some(item => Array.isArray(item?.actions))
+  }
+
+  select(e: any) {
+    console.log(e)
   }
 }

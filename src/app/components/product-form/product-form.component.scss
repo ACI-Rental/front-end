@@ -1,7 +1,7 @@
 .product_form {
     margin: auto;
     width: 100%;
-    max-width: 700px;
+    max-width: 900px;
     min-width: 350px;
 }
 
@@ -11,25 +11,65 @@
     margin-bottom: 32px;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 12px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    min-width: 292px;
+
+    &.space_between {
+        justify-content: space-between;
+    }
+}
+
 .form_field_wrapper {
     position: relative;
     margin-top: 1rem;
     margin-right: 8px;
-    width: calc(50% - 8px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
     &:first-child {
         margin-top: 0;
     }
 
-    &:last-child {
-        margin-left: 8px;
+    &.success .form_field_label,
+    &.success .form_field_hint {
+      color: rgba(39, 174, 96, 1);
     }
+  
+    &.success .form_field {
+      border: 2px solid rgba(39, 174, 96, 0.3);
+      background-color: rgba(39, 174, 96, 0.05);
+    }
+  
+    &.error .form_field_label,
+    &.error .form_field_hint {
+      color: rgba(231, 76, 60, 1);
+    }
+  
+    &.error .form_field {
+      border: 2px solid rgba(231, 76, 60, 0.3);
+      background-color: rgba(231, 76, 60, 0.05);
+    }
+}
 
-    &.full_width {
-        width: 100%;
-        margin-right: 0;
-        margin-left: 0;
-    }
+.form_field_inner_wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .form_field_hint {
@@ -37,10 +77,13 @@
     font-size: 0.6875rem;
     color: #a6a6a6;
     display: block;
-    margin-top: 4px;
-    margin-left: 4px;
+    margin-bottom: 6px;
     transition: color 0.225s ease;
-    color: rgba(231, 76, 60, 1);
+
+    &.error {
+        margin-top: 6px;
+        color: rgba(231, 76, 60, 1);
+    }
 }
 
 .form_field_label {
@@ -58,8 +101,8 @@
 
 .form_field {
     position: relative;
-    border: 2px solid hsl(var(--primary-color-hs), 65%);
-    background-color: hsl(var(--primary-color-hs), 95%);
+    border: 2px solid hsl(0, 0, 80%);
+    background-color: hsl(0, 0, 95%);
     padding: 8px;
     display: block;
     border-radius: 8px;
@@ -82,8 +125,8 @@
 
 .form_textarea {
     position: relative;
-    border: 2px solid hsl(var(--primary-color-hs), 65%);
-    background-color: hsl(var(--primary-color-hs), 95%);
+    border: 2px solid hsl(0, 0, 80%);
+    background-color: hsl(0, 0, 95%);
     padding: 8px;
     display: block;
     border-radius: 8px;
@@ -95,6 +138,7 @@
     resize: none;
     overflow: hidden;
     min-height: 69px;
+    flex-grow: 1;
 
     &:focus-within {
         outline: none;
@@ -113,8 +157,8 @@
     padding: 8px 40px 8px 15px;
     border-radius: 8px;
     width: 100%;
-    border: 2px solid hsl(var(--primary-color-hs), 65%);
-    background-color: hsl(var(--primary-color-hs), 95%);
+    border: 2px solid hsl(0, 0, 80%);
+    background-color: hsl(0, 0, 95%);
     text-align: left;
     color: #444;
     font-size: 0.95em;
@@ -165,7 +209,7 @@
     user-select: none;
 
     &:hover {
-        background: hsl(var(--primary-color-hs), 95%);
+        background-color: hsl(0, 0, 95%);
     }
 
     &:last-of-type {
@@ -173,10 +217,47 @@
     }
 }
 
+.image_preview {
+    position: relative;
+    width: fit-content;
+    
+}
+
+.product_image {
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.image_edit_btn {
+    font-size: 1em;
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    background-color: hsl(var(--primary-color-hs), 45%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    top: -12px;
+    right: -12px;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.form_field_file {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
 .form_checkbox {
     display: flex;
     padding: 4px 0;
     margin-top: 16px;
+    margin-left: 4px;
     margin-bottom: 4px;
     align-items: flex-end;
 }
@@ -263,15 +344,14 @@
 }
 
 .product_form_submit {
-    margin: 20px auto auto;
-    width: 100%;
-    padding: 12px 24px;
+    margin: 20px 0 0 auto;
+    padding: 8px 12px;
     border-radius: 8px;
     border-style: none;
     background-color: hsl(var(--primary-color-hs), 45%);
     color: white;
     cursor: pointer;
-    font-size: 1em;
+    font-size: .9em;
     transition: background 0.225s ease;
 
     &:disabled,

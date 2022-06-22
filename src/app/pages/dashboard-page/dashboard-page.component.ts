@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,8 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit {
 
-  constructor() { }
+  productModalOpen: boolean = false;
+  categoryModalOpen: boolean = false; 
+  public userProfile: any | null = null;
+  packageSlipModalOpen: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private readonly keycloak: KeycloakService) { }
+
+  public async ngOnInit() {
+    const userProfile = await this.keycloak.getKeycloakInstance().loadUserInfo();
+
+    this.userProfile = userProfile;
+  }
+
+  openProductModal() {
+    this.productModalOpen = true;
+  }
+
+  openCategoryModal() {
+    this.categoryModalOpen = true;
+  }
+
+  openPackageSlipModal() {
+    this.packageSlipModalOpen = true
   }
 }
+

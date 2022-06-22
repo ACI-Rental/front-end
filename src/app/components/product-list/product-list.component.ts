@@ -94,7 +94,6 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
     const data = {
       productId: this.product.id,
-      renterId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
       startDate: this.startDate?.toDate(),
       endDate: this.endDate?.toDate(),
     };

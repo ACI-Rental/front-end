@@ -23,4 +23,25 @@ export class ReservationService {
         return response;
       }));
   }
+
+  GetUserReservations(userId: string) {
+    return this.http.get(`${environment.BASE_URL}/reservations/history/${userId}`)
+      .pipe(map((response: any) => {
+        return response;
+      }));
+  }
+
+  EditReservationStatus(data: any){
+    return this.http.post(`${environment.BASE_URL}/reservations/action`, data)
+    .pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  GetPackingSlip(date: any) {
+    return this.http.get(`${environment.BASE_URL}/reservations/getPackagingSlip?Date=${date}`)
+    .pipe(map((response: any) => {
+      return response;
+    }));
+  }
 }

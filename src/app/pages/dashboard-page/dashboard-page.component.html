@@ -1,1 +1,111 @@
-<app-product-inventory></app-product-inventory>
+<!-- 
+
+    <app-product-inventory></app-product-inventory>
+-->
+<main class="main">
+  <!--  HEADER  -->
+  <div class="main-header">
+    <div class="main-header__intro-wrapper">
+      <div class="main-header__welcome">
+        <div class="main-header__welcome-title text-light">
+          Welcome, <strong>{{ userProfile?.given_name }}</strong>
+        </div>
+        <div class="main-header__welcome-subtitle text-light">
+          How are you today?
+        </div>
+      </div>
+      <div class="quickview">
+        <div class="quickview__item">
+          <div class="quickview__item-total">41</div>
+          <div class="quickview__item-description">
+            <span class="text-light"
+              >Products to<br />
+              be picked up</span
+            >
+          </div>
+        </div>
+        <div class="quickview__item">
+          <div class="quickview__item-total">64</div>
+          <div class="quickview__item-description">
+            <span class="text-light"
+              >Products to<br />
+              be returned</span
+            >
+          </div>
+        </div>
+        <div class="quickview__item">
+          <button class="quickview__item-btn" (click)="openPackageSlipModal()">Open packing slip</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  MAIN BODY  -->
+  <div class="main-overview">
+    <!--  SMALL CARDS  -->
+    <div class="overviewCard" (click)="openProductModal()">
+      <div class="overviewCard-icon overviewCard-icon--document">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="overviewCard-description">
+        <div class="overviewCard-title text-light">Add new Product</div>
+      </div>
+    </div>
+    <div class="overviewCard" (click)="openCategoryModal()">
+      <div class="overviewCard-icon overviewCard-icon--calendar">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+      <div class="overviewCard-description">
+        <div class="overviewCard-title text-light">Add new Category</div>
+      </div>
+    </div>
+  </div>
+
+  <!--  LARGE CARDS  -->
+  <div class="main__cards">
+    <div class="card">
+      <div class="card_wrapper">
+        <div class="card__header">
+          <div class="card__header-title text-light">
+            <strong>Reservations</strong>
+            <a href="/reservations" class="card__header-link text-bold"
+              >View All</a
+            >
+          </div>
+        </div>
+        <div class="card__main">
+          <app-reservations [preview]="true"></app-reservations>
+          <div class="card__gutter"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card_wrapper">
+        <div class="card__header">
+          <div class="card__header-title text-light">
+            <strong>Products</strong>
+            <a href="/products" class="card__header-link text-bold">View All</a>
+          </div>
+        </div>
+        <div class="card__main">
+          <app-product-inventory [preview]="true"></app-product-inventory>
+          <div class="card__gutter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<app-modal [(open)]="productModalOpen" [name]="'product-create'" [padding]="45">
+  <app-product-form> </app-product-form>
+</app-modal>
+
+<app-modal [(open)]="categoryModalOpen" [name]="'category-create'" [padding]="45">
+  <app-category-form> </app-category-form>
+</app-modal>
+
+<app-modal [(open)]="packageSlipModalOpen" [name]="'packaging-slip'" [padding]="45">
+  <app-packing-slip>
+  </app-packing-slip>
+</app-modal>
